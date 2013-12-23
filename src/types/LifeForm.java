@@ -1,8 +1,9 @@
+package types;
 public abstract class LifeForm {
-	String species;
-	int health, hunger;
-	int healthLeft, hungerLeft;
-	LifeForm[] eats, predators;
+	public String species;
+	public int health, hunger;
+	public int healthLeft, hungerLeft;
+	public LifeForm[] eats, predators;
 	
 	public LifeForm(String name, int life, int stomach, LifeForm[] eats, LifeForm[] predators){
 		species = name;
@@ -18,5 +19,5 @@ public abstract class LifeForm {
 	public abstract void Die();
 	public abstract void Breed();
 	public abstract void findNutrients();
-	public abstract void onEat();
+	public abstract void onEat(LifeForm eating);
 }
