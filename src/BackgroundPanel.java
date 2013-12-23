@@ -22,6 +22,6 @@ public class BackgroundPanel extends JPanel{
 			System.out.println("Unable to find Background Image.");
 			e.printStackTrace();
 		}
-		g.drawImage(background, 1000, 625, null);
+		g.drawImage(background, 0, 0, null);
 	}
 }
