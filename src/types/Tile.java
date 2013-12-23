@@ -1,7 +1,8 @@
 package types;
 
 public class Tile {
-	public int Nutrients, Weather;
+	public int Nutrients;
+	public Weather weather;
 	public boolean isOccupied;
 	public LifeForm Occupant;
 	public int x, y;
@@ -11,6 +12,14 @@ public class Tile {
 		this.y = y;
 		isOccupied = false;
 		Nutrients = 0;
-		Weather = 0;
+		weather = Weather.CLEAR;
+	}
+	
+	public Tile(int x, int y, Weather clouds){
+		this.x = x;
+		this.y = y;
+		isOccupied = false;
+		Nutrients = 0;
+		weather = clouds;
 	}
 }

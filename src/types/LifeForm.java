@@ -9,6 +9,7 @@ public abstract class LifeForm {
 	public int healthLeft, hungerLeft;
 	public LifeForm[] eats, predators;
 	public Color color;
+	public int LifeSpan;
 	
 	public LifeForm(String name, int life, int stomach, LifeForm[] eats, LifeForm[] predators, Color color){
 		species = name;
@@ -19,9 +20,11 @@ public abstract class LifeForm {
 		this.color = color;
 	}
 	
-	public abstract void Eat();
+	public abstract void Eat(LifeForm eaten);
 	public abstract void Move();
-	public abstract void Age();
+	public void Age(){
+		LifeSpan--;
+	}
 	public abstract void Die();
 	public abstract void Breed();
 	public abstract void findNutrients();

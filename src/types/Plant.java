@@ -8,7 +8,7 @@ public abstract class Plant extends LifeForm{
 	}
 
 	@Override
-	public void Eat(){
+	public void Eat(LifeForm eaten){
 		
 	}
 	
@@ -17,7 +17,6 @@ public abstract class Plant extends LifeForm{
 		
 	}
 	
-	public abstract void Age();
 	public abstract void Die();
 	public abstract void Breed();
 	

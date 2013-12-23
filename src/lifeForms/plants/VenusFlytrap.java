@@ -9,7 +9,7 @@ public class VenusFlytrap extends Plant{
 
 	public VenusFlytrap(LifeForm[] predators) {
 		super("Venus Flytrap", predators, Color.green);
-		// TODO Auto-generated constructor stub
+		LifeSpan = 20;
 	}
 
 	@Override
