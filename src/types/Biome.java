@@ -1,6 +1,12 @@
 package types;
+
+import java.awt.Dimension;
+
 public abstract class Biome {
-	String name;
-	Plant[] food;
-	
+	public String name;
+	public Plant[] foods;
+	public LifeForm[] support;
+	public Dimension bounds;
+	public int[][] Nutrients;
+
 }

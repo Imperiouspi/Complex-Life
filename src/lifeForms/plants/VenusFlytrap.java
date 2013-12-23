@@ -1,12 +1,14 @@
 package lifeForms.plants;
 
+import java.awt.Color;
+
 import types.LifeForm;
 import types.Plant;
 
 public class VenusFlytrap extends Plant{
 
 	public VenusFlytrap(LifeForm[] predators) {
-		super("Venus Flytrap", predators);
+		super("Venus Flytrap", predators, Color.green);
 		// TODO Auto-generated constructor stub
 	}
 
