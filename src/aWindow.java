@@ -1,13 +1,19 @@
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
+
+import types.World;
 
 public class aWindow extends JFrame {
 	BackgroundPanel back;
-	LabelButton play, options;
+	LabelButton play, options, quit;
 
 	public aWindow() {
 		super("Complex Life");
@@ -18,24 +24,168 @@ public class aWindow extends JFrame {
 		setResizable(false);
 		back.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
-		c.fill = GridBagConstraints.HORIZONTAL;
 
 		play = new LabelButton("src/resources/Play.png");
 		c.anchor = GridBagConstraints.LINE_END;
-		c.weightx = 0.5;
+		c.weighty = 0.0;
 		c.gridx = 0;
 		c.gridy = 0;
-		c.insets = new Insets(100, 800, 100, 100);		
+		c.insets = new Insets(100, 800, 100, 50);
+
+		play.addMouseListener(new playAction());
 		back.add(play, c);
-		
-		options = new LabelButton("src/resources/Play.png");
+
+		options = new LabelButton("src/resources/Options.png");
+		c.weightx = 0.5;
+		c.anchor = GridBagConstraints.LINE_END;
+		c.weighty = 0.0;
+		c.gridx = 0;
+		c.gridy = 1;
+		c.insets = new Insets(0, 800, 100, 50);
+
+		options.addMouseListener(new optionsAction());
+		back.add(options, c);
+
+		quit = new LabelButton("src/resources/Quit.png");
 		c.weightx = 0.5;
 		c.anchor = GridBagConstraints.LINE_END;
 		c.weighty = 0.5;
 		c.gridx = 0;
-		c.gridy = 1;
-		c.insets = new Insets(100, 800, 100, 100);
-		back.add(options, c);
+		c.gridy = 2;
+		c.insets = new Insets(100, 900, 0, 10);
+		quit.addMouseListener(new quitAction());
+		back.add(quit, c);
+
 		add(back);
+	}
+
+	class playAction implements MouseListener {
+
+		@Override
+		public void mouseClicked(MouseEvent arg0) {
+			// TODO Play
+			World world = new World(4);
+		}
+
+		@Override
+		public void mouseEntered(MouseEvent arg0) {
+			try {
+				play.image = ImageIO.read(new File("src/resources/PlayMoused.png"));
+				play.repaint();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
+		@Override
+		public void mouseExited(MouseEvent arg0) {
+			try {
+				play.image = ImageIO.read(new File("src/resources/Play.png"));
+				play.repaint();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
+		@Override
+		public void mousePressed(MouseEvent arg0) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent arg0) {
+			// TODO Auto-generated method stub
+
+		}
+
+	}
+
+	class optionsAction implements MouseListener {
+
+		@Override
+		public void mouseClicked(MouseEvent arg0) {
+			// TODO Options Tab- Dialogue?
+		}
+
+		@Override
+		public void mouseEntered(MouseEvent arg0) {
+			try {
+				options.image = ImageIO.read(new File("src/resources/optionsMoused.png"));
+				options.repaint();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
+		@Override
+		public void mouseExited(MouseEvent arg0) {
+			try {
+				options.image = ImageIO.read(new File("src/resources/options.png"));
+				options.repaint();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
+		@Override
+		public void mousePressed(MouseEvent arg0) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent arg0) {
+			// TODO Auto-generated method stub
+
+		}
+
+	}
+
+	class quitAction implements MouseListener{
+
+		@Override
+		public void mouseClicked(MouseEvent arg0) {
+			System.exit(0);
+		}
+
+		@Override
+		public void mouseEntered(MouseEvent arg0) {
+			try {
+				quit.image = ImageIO.read(new File("src/resources/QuitMoused.png"));
+				quit.repaint();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
+		@Override
+		public void mouseExited(MouseEvent arg0) {
+			try {
+				quit.image = ImageIO.read(new File("src/resources/Quit.png"));
+				quit.repaint();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
+		@Override
+		public void mousePressed(MouseEvent arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+		
 	}
 }
