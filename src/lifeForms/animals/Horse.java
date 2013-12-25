@@ -1,42 +1,46 @@
-package lifeForms.plants;
+package lifeForms.animals;
 
 import java.awt.Color;
 
-import lifeForms.animals.Lion;
 import types.LifeForm;
-import types.Plant;
 
-public class VenusFlytrap extends Plant{
-	public VenusFlytrap() {
+public class Horse extends LifeForm{
+
+	public Horse() {
 		super();
-		species = "Venus Flytrap";
+		species = "Horse";
 		MaxHealth = 30;
 		MaxHunger = 20;
 		healthLeft = MaxHealth;
 		hungerLeft = MaxHunger;
-		eats = new String[] {null, null};
+		eats = new String[] {"Grass"};
 		predators = new String[] {"Lion"};
-		color = Color.green;
-		LifeSpan = 20;
+		color = Color.lightGray;
+		LifeSpan = 30;
 	}
 	
-	public VenusFlytrap(int x, int y){
+	public Horse(int x, int y) {
 		super();
-		species = "Venus Flytrap";
+		species = "Horse";
 		MaxHealth = 30;
 		MaxHunger = 20;
 		healthLeft = MaxHealth;
 		hungerLeft = MaxHunger;
-		eats = new String[] {null, null};
+		eats = new String[] {"Grass"};
 		predators = new String[] {"Lion"};
-		color = Color.green;
-		LifeSpan = 20;
+		color = Color.lightGray;
+		LifeSpan = 30;
 		localx = x;
 		localy = y;
 	}
 
 	@Override
-	public void Age() {
+	public void Eat(LifeForm eaten) {
+		eaten.Die();
+	}
+
+	@Override
+	public void Move() {
 		// TODO Auto-generated method stub
 		
 	}
@@ -53,9 +57,15 @@ public class VenusFlytrap extends Plant{
 	}
 
 	@Override
+	public void findNutrients() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
 	public void onEat(LifeForm eating) {
-		eating.healthLeft--;
-		Die();
+		// TODO Auto-generated method stub
+		
 	}
 
 }

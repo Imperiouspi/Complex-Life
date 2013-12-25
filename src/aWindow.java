@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -8,12 +9,14 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 import types.World;
 
 public class aWindow extends JFrame {
 	BackgroundPanel back;
 	LabelButton play, options, quit;
+	static World world;
 
 	public aWindow() {
 		super("Complex Life");
@@ -59,18 +62,39 @@ public class aWindow extends JFrame {
 		add(back);
 	}
 
+	public void play() {
+		back.setVisible(false);
+		repaint();
+		world = new World(6);
+		add(new worldPanel(world));
+	}
+
+	public static Color TileColourer(int x, int y) {
+		for (int i = world.Lands.length-1; i >= 0; i--) {
+			if (x < i * 20) {
+				for (int j = world.Lands[i].length-1; j >= 0; j--) {
+					if (y < i * 20) {
+						return world.Lands[i-1][j-1].color;
+					}
+				}
+			}
+		}
+		return null;
+	}
+
 	class playAction implements MouseListener {
 
 		@Override
 		public void mouseClicked(MouseEvent arg0) {
 			// TODO Play
-			World world = new World(4);
+			play();
 		}
 
 		@Override
 		public void mouseEntered(MouseEvent arg0) {
 			try {
-				play.image = ImageIO.read(new File("src/resources/PlayMoused.png"));
+				play.image = ImageIO.read(new File(
+						"src/resources/PlayMoused.png"));
 				play.repaint();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -113,7 +137,8 @@ public class aWindow extends JFrame {
 		@Override
 		public void mouseEntered(MouseEvent arg0) {
 			try {
-				options.image = ImageIO.read(new File("src/resources/optionsMoused.png"));
+				options.image = ImageIO.read(new File(
+						"src/resources/optionsMoused.png"));
 				options.repaint();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -124,7 +149,8 @@ public class aWindow extends JFrame {
 		@Override
 		public void mouseExited(MouseEvent arg0) {
 			try {
-				options.image = ImageIO.read(new File("src/resources/options.png"));
+				options.image = ImageIO.read(new File(
+						"src/resources/options.png"));
 				options.repaint();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -146,7 +172,7 @@ public class aWindow extends JFrame {
 
 	}
 
-	class quitAction implements MouseListener{
+	class quitAction implements MouseListener {
 
 		@Override
 		public void mouseClicked(MouseEvent arg0) {
@@ -156,7 +182,8 @@ public class aWindow extends JFrame {
 		@Override
 		public void mouseEntered(MouseEvent arg0) {
 			try {
-				quit.image = ImageIO.read(new File("src/resources/QuitMoused.png"));
+				quit.image = ImageIO.read(new File(
+						"src/resources/QuitMoused.png"));
 				quit.repaint();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -178,14 +205,14 @@ public class aWindow extends JFrame {
 		@Override
 		public void mousePressed(MouseEvent arg0) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
 		public void mouseReleased(MouseEvent arg0) {
 			// TODO Auto-generated method stub
-			
+
 		}
-		
+
 	}
 }

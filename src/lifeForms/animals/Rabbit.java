@@ -2,42 +2,42 @@ package lifeForms.animals;
 
 import java.awt.Color;
 
-import lifeForms.plants.VenusFlytrap;
 import types.LifeForm;
 
-public class Lion extends LifeForm {
+public class Rabbit extends LifeForm{
 
-	public Lion() {
+	public Rabbit() {
 		super();
-		species = "Lion";
+		species = "Rabbit";
 		MaxHealth = 30;
 		MaxHunger = 20;
 		healthLeft = MaxHealth;
 		hungerLeft = MaxHunger;
-		eats = new String[] {"Horse"};
-		predators = new String[] {null};
-		color = Color.green;
-		LifeSpan = 10;
+		eats = new String[] {"Grass"};
+		predators = new String[] {"Lion"};
+		color = Color.GRAY;
+		LifeSpan = 12;
 	}
 	
-	public Lion(int x, int y) {
+	public Rabbit(int x, int y) {
 		super();
-		species = "Lion";
+		species = "Rabbit";
 		MaxHealth = 30;
 		MaxHunger = 20;
 		healthLeft = MaxHealth;
 		hungerLeft = MaxHunger;
-		eats = new String[] {"Horse"};
-		predators = new String[] {null};
-		color = Color.green;
-		LifeSpan = 10;
+		eats = new String[] {"Grass"};
+		predators = new String[] {"Lion"};
+		color = new Color(129, 89, 30);
+		LifeSpan = 12;
 		localx = x;
 		localy = y;
 	}
 
 	@Override
 	public void Eat(LifeForm eaten) {
-		eaten.Die();		
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
