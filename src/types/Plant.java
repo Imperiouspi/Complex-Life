@@ -1,10 +1,15 @@
 package types;
 
-import java.awt.Color;
 
 public abstract class Plant extends LifeForm{
-	public Plant(String name, LifeForm[] predators, Color color){
-		super(name, 1, 1, null, predators, color);
+	public Plant(){
+		super();
+	}
+	
+	public Plant(int x, int y){
+		super();
+		localx = x;
+		localy = y;
 	}
 
 	@Override
