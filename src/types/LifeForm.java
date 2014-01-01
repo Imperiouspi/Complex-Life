@@ -11,7 +11,7 @@ public abstract class LifeForm {
 	public static String[] eats, predators;
 	public static Color color;
 	public static int LifeSpan;
-	public int localx, localy;
+	public int localx, localy, viewDistance;
 
 	public LifeForm(int x, int y) {
 		localx = x;
@@ -24,7 +24,7 @@ public abstract class LifeForm {
 
 	public abstract void Eat(LifeForm eaten);
 
-	public abstract void Move();
+	public abstract Tile[][] Move(Tile[][]grid);
 
 	public void Age() {
 		LifeSpan--;
@@ -36,5 +36,5 @@ public abstract class LifeForm {
 
 	public abstract void findNutrients();
 
-	public abstract void onEat(LifeForm eating);
+	public abstract void onEaten(LifeForm eating);
 }

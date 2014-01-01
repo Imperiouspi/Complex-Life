@@ -9,8 +9,10 @@ public class Tile {
 	public LifeForm Occupant;
 	public int x, y;
 	public Color color;
+	public Biome location;
 	
-	public Tile(int x, int y, Color color){
+	public Tile(int x, int y, Color color, Biome location){
+		this.location = location;
 		this.color = color;
 		this.x = x;
 		this.y = y;
@@ -19,11 +21,22 @@ public class Tile {
 		weather = Weather.CLEAR;
 	}
 	
-	public Tile(int x, int y, Weather clouds){
+	public Tile(int x, int y, Color color, LifeForm Occupant){
+		this.Occupant = Occupant;
+		this.color = color;
 		this.x = x;
 		this.y = y;
 		isOccupied = false;
 		Nutrients = 0;
-		weather = clouds;
+		weather = Weather.CLEAR;
+	}
+	
+	public void colouring(){
+		if (isOccupied){
+			this.color = LifeForm.color;
+		}
+		else{
+			this.color = location.color;
+		}
 	}
 }

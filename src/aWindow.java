@@ -1,4 +1,3 @@
-import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -6,16 +5,18 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 import types.World;
 
 public class aWindow extends JFrame {
 	BackgroundPanel back;
-	LabelButton play, options, quit;
+	LabelButton play, options;
+	QuitButton quit;
 	static World world;
 
 	public aWindow() {
@@ -49,13 +50,13 @@ public class aWindow extends JFrame {
 		options.addMouseListener(new optionsAction());
 		back.add(options, c);
 
-		quit = new LabelButton("src/resources/Quit.png");
+		quit = new QuitButton("src/resources/Quit.png");
 		c.weightx = 0.5;
 		c.anchor = GridBagConstraints.LINE_END;
 		c.weighty = 0.5;
 		c.gridx = 0;
 		c.gridy = 2;
-		c.insets = new Insets(100, 900, 0, 10);
+		c.insets = new Insets(100, 900, 0, 40);
 		quit.addMouseListener(new quitAction());
 		back.add(quit, c);
 
@@ -65,21 +66,17 @@ public class aWindow extends JFrame {
 	public void play() {
 		back.setVisible(false);
 		repaint();
-		world = new World(6);
+		world = new World(6, 5);
 		add(new worldPanel(world));
-	}
+		Timer time = new Timer();
+		time.scheduleAtFixedRate(new TimerTask(){
 
-	public static Color TileColourer(int x, int y) {
-		for (int i = world.Lands.length-1; i >= 0; i--) {
-			if (x < i * 20) {
-				for (int j = world.Lands[i].length-1; j >= 0; j--) {
-					if (y < i * 20) {
-						return world.Lands[i-1][j-1].color;
-					}
-				}
+			@Override
+			public void run() {
+				world.advance();
 			}
-		}
-		return null;
+			
+		}, 100L, 1);
 	}
 
 	class playAction implements MouseListener {

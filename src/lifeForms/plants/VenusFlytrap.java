@@ -53,7 +53,7 @@ public class VenusFlytrap extends Plant{
 	}
 
 	@Override
-	public void onEat(LifeForm eating) {
+	public void onEaten(LifeForm eating) {
 		eating.healthLeft--;
 		Die();
 	}
