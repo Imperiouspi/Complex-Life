@@ -2,7 +2,6 @@ package lifeForms.animals;
 
 import java.awt.Color;
 
-import lifeForms.plants.VenusFlytrap;
 import types.LifeForm;
 
 public class Lion extends LifeForm {

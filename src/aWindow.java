@@ -9,10 +9,10 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 import types.World;
 
+@SuppressWarnings("serial")
 public class aWindow extends JFrame {
 	BackgroundPanel back;
 	LabelButton play, options, quit;
@@ -66,7 +66,7 @@ public class aWindow extends JFrame {
 		back.setVisible(false);
 		repaint();
 		world = new World(6);
-		add(new worldPanel(world));
+		add(new WorldPanel(world));
 	}
 
 	public static Color TileColourer(int x, int y) {
