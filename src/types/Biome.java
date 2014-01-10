@@ -2,20 +2,22 @@ package types;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Point;
 
 public abstract class Biome {
 	public String name;
-	public Plant[] foods;
-	public LifeForm[] support;
-	public Dimension bounds;
+	public String[] foods;
+	public String[] support;
 	public int[][] Nutrients;
 	public Color color;
+	public Point close, far;
 	
-	public Biome(String local, Plant[] foods, LifeForm[] support, Dimension bounds, Color color){
-		name = local;
+	public Biome(String name, String[] foods, String[] support, Point close, Point far, Color color){
+		this.name = name;
 		this.foods = foods;
 		this.support = support;
-		this.bounds = bounds;
 		this.color = color;
+		this.close = close;
+		this.far = far;
 	}
 }

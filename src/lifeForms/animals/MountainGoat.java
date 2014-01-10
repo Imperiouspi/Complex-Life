@@ -1,37 +1,35 @@
 package lifeForms.animals;
 
 import java.awt.Color;
-import java.awt.Graphics;
 
 import types.LifeForm;
 import types.Tile;
 
-public class Lion extends LifeForm {
+public class MountainGoat extends LifeForm{
 
-	public Lion() {
+	public MountainGoat() {
 		super();
-		species = "Lion";
+		species = "MountainGoat";
 		MaxHealth = 30;
 		MaxHunger = 20;
 		healthLeft = MaxHealth;
 		hungerLeft = MaxHunger;
-		eats = new String[] { "Horse" };
-		predators = new String[] { null };
-		color = Color.yellow;
+		eats = new String[] {"Grass"};
+		predators = new String[] {"MountainLion"};
+		color = Color.DARK_GRAY;
 		LifeSpan = 10;
-		viewDistance = 5;
 	}
-
-	public Lion(int x, int y) {
+	
+	public MountainGoat(int x, int y) {
 		super();
-		species = "Lion";
+		species = "MountainGoat";
 		MaxHealth = 30;
 		MaxHunger = 20;
 		healthLeft = MaxHealth;
 		hungerLeft = MaxHunger;
-		eats = new String[] { "Horse" };
-		predators = new String[] { null };
-		color = Color.yellow;
+		eats = new String[] {"Grass"};
+		predators = new String[] {"MountainLion"};
+		color = new Color(129, 89, 30);
 		LifeSpan = 10;
 		localx = x;
 		localy = y;
@@ -39,36 +37,38 @@ public class Lion extends LifeForm {
 
 	@Override
 	public void Eat(LifeForm eaten) {
-		eaten.Die();
-		this.healthLeft++;
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
-	public void Move(Tile[][] grid) {
-		//get Viewed spaces
-		Tile[][]seen = new Tile[2* viewDistance + 1][2 * viewDistance + 1];
-		//move away from predators and towards food
+	public void Move(Tile[][]grid) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
 	public void Die() {
+		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void Breed() {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void findNutrients() {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void onEaten(LifeForm eating) {
-
+		// TODO Auto-generated method stub
+		
 	}
+
 }
