@@ -7,7 +7,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
-@SuppressWarnings("serial")
+
 public class LabelButton extends JPanel{
 	BufferedImage image;
 	

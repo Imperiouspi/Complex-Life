@@ -2,6 +2,7 @@ package lifeForms.plants;
 
 import java.awt.Color;
 
+import lifeForms.animals.Lion;
 import types.LifeForm;
 import types.Plant;
 
@@ -52,7 +53,7 @@ public class VenusFlytrap extends Plant{
 	}
 
 	@Override
-	public void onEat(LifeForm eating) {
+	public void onEaten(LifeForm eating) {
 		eating.healthLeft--;
 		Die();
 	}

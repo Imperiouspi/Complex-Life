@@ -6,7 +6,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
-@SuppressWarnings("serial")
+
 public class BackgroundPanel extends JPanel{
 	public BackgroundPanel(){
 		super();
@@ -17,7 +17,7 @@ public class BackgroundPanel extends JPanel{
 		System.out.println("huh?");
 		BufferedImage background = null;
 		try {
-			background = ImageIO.read(new File("src/resources/background.png"));
+			background = ImageIO.read(new File("src/resources/BackgroundWithText.png"));
 		} catch (IOException e) {
 			System.out.println("Unable to find Background Image.");
 			e.printStackTrace();

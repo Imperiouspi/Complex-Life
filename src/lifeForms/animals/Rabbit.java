@@ -3,6 +3,7 @@ package lifeForms.animals;
 import java.awt.Color;
 
 import types.LifeForm;
+import types.Tile;
 
 public class Rabbit extends LifeForm{
 
@@ -36,12 +37,12 @@ public class Rabbit extends LifeForm{
 
 	@Override
 	public void Eat(LifeForm eaten) {
-		eaten.Die();
+		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void Move() {
+	public void Move(Tile[][]grid) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -65,7 +66,7 @@ public class Rabbit extends LifeForm{
 	}
 
 	@Override
-	public void onEat(LifeForm eating) {
+	public void onEaten(LifeForm eating) {
 		// TODO Auto-generated method stub
 		
 	}
