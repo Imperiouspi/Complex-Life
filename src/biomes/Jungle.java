@@ -1,5 +1,8 @@
 package biomes;
 
+import java.awt.Color;
+import java.awt.Point;
+
 import types.Biome;
 
 public class Jungle extends Biome {

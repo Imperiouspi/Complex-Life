@@ -1,7 +1,6 @@
 package lifeForms.animals;
 
 import java.awt.Color;
-import java.awt.Graphics;
 
 import types.LifeForm;
 import types.Tile;
@@ -46,7 +45,7 @@ public class Lion extends LifeForm {
 	@Override
 	public void Move(Tile[][] grid) {
 		//get Viewed spaces
-		Tile[][]seen = new Tile[2* viewDistance + 1][2 * viewDistance + 1];
+		Tile[][] seen = new Tile[2* viewDistance + 1][2 * viewDistance + 1];
 		//move away from predators and towards food
 	}
 

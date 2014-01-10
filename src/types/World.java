@@ -11,6 +11,7 @@ import lifeForms.plants.Grass;
 import lifeForms.plants.VenusFlytrap;
 import biomes.Jungle;
 import biomes.Mountains;
+import biomes.Ocean;
 import biomes.Plains;
 
 public class World {
