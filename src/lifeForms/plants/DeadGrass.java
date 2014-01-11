@@ -11,7 +11,7 @@ public class DeadGrass extends Grass {
 		healthLeft = MaxHealth;
 		hungerLeft = MaxHunger;
 		eats = new String[] {null, null};
-		predators = new String[] {"Lion", "Venus Flytrap"};
+		predators = new String[] {"Horse", "Deer", "Rabbit", "MountainGoat"};
 		color = new Color(129, 71, 64); // Brown
 		LifeSpan = 0;
 	}
@@ -27,7 +27,7 @@ public class DeadGrass extends Grass {
 		healthLeft = MaxHealth;
 		hungerLeft = MaxHunger;
 		eats = new String[] {null, null};
-		predators = new String[] {"Lion", "Venus Flytrap"};
+		predators = new String[] {"Horse", "Deer", "Rabbit", "MountainGoat"};
 		color = new Color(129, 71, 64); // Brown
 		LifeSpan = 0;
 	}
