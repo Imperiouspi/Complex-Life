@@ -1,4 +1,3 @@
-
 public class Birth {
 	public static aWindow window;
 	public static void main(String[] args) {

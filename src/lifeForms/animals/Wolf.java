@@ -5,45 +5,39 @@ import java.awt.Color;
 import types.LifeForm;
 import types.Tile;
 
-public class Rabbit extends LifeForm{
+public class Wolf extends LifeForm {
 
-	public Rabbit() {
+	public Wolf() {
 		super();
-		species = "Rabbit";
+		species = "Wolf";
 		MaxHealth = 30;
 		MaxHunger = 20;
 		healthLeft = MaxHealth;
 		hungerLeft = MaxHunger;
-		eats = new String[] {"Grass"};
-		predators = new String[] {"Lion"};
-		color = Color.GRAY;
-		LifeSpan = 12;
+		eats = new String[] {"Deer", "Moose", "Rabbit", "Squirrel", "Blueberry", "Nightshade", "Apple", "Pear"};
+		predators = new String[] {"Tiger"};
+		color = Color.LIGHT_GRAY;
+		LifeSpan = 40;
 	}
 	
-	public Rabbit(int x, int y) {
+	public Wolf(int x, int y) {
 		super();
-		species = "Rabbit";
+		species = "Wolf";
 		MaxHealth = 30;
 		MaxHunger = 20;
 		healthLeft = MaxHealth;
 		hungerLeft = MaxHunger;
-		eats = new String[] {"Grass"};
-		predators = new String[] {"Lion"};
-		color = new Color(129, 89, 30);
-		LifeSpan = 12;
+		eats = new String[] {"Deer", "Moose", "Rabbit", "Squirrel", "Blueberry", "Nightshade", "Apple", "Pear"};
+		predators = new String[] {"Tiger"};
+		color = Color.LIGHT_GRAY;
+		LifeSpan = 40;
 		localx = x;
 		localy = y;
 	}
 
 	@Override
 	public void Eat(LifeForm eaten) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void Move(Tile[][]grid) {
-		// TODO Auto-generated method stub
+		eaten.Die();
 		
 	}
 
@@ -61,6 +55,12 @@ public class Rabbit extends LifeForm{
 
 	@Override
 	public void findNutrients() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void Move(Tile[][] grid) {
 		// TODO Auto-generated method stub
 		
 	}

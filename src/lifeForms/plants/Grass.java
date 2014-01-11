@@ -17,7 +17,7 @@ public class Grass extends Plant { // :)
 		hungerLeft = MaxHunger;
 		eats = new String[] {null, null};
 		predators = new String[] {"Lion", "Venus Flytrap"};
-		color = Color.green;
+		color = new Color(0, 200, 0);
 		LifeSpan = 20;
 	}
 
@@ -33,7 +33,7 @@ public class Grass extends Plant { // :)
 		hungerLeft = MaxHunger;
 		eats = new String[] {null, null};
 		predators = new String[] {"Lion", "Venus Flytrap"};
-		color = Color.green;
+		color = new Color(10, 200, 10);
 		LifeSpan = 20;
 	}
 
@@ -50,7 +50,7 @@ public class Grass extends Plant { // :)
 	}
 
 	@Override
-	public void onEat(LifeForm eating) {
+	public void onEaten(LifeForm eating) {
 		healthLeft = Math.min(healthLeft ++, MaxHealth);
 		hungerLeft = Math.min(hungerLeft ++, MaxHunger);
 
