@@ -2,10 +2,12 @@ package types;
 
 import java.util.ArrayList;
 
+import lifeForms.animals.Deer;
 import lifeForms.animals.Horse;
 import lifeForms.animals.Lion;
 import lifeForms.animals.MountainGoat;
 import lifeForms.animals.Rabbit;
+import lifeForms.animals.Wolf;
 import lifeForms.plants.DeadGrass;
 import lifeForms.plants.Grass;
 import lifeForms.plants.VenusFlytrap;
@@ -117,7 +119,13 @@ public class World {
 		case "Rabbit":
 			living = new Rabbit();
 			break;
-
+		case "Wolf":
+			living = new Wolf();
+			break;
+		case "Deer":
+			living = new Deer();
+			break;
+		
 		case "DeadGrass":
 			living = new DeadGrass();
 			break;

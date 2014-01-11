@@ -17,7 +17,7 @@ public class Wolf extends LifeForm {
 		eats = new String[] {"Deer", "Moose", "Rabbit", "Squirrel", "Blueberry", "Nightshade", "Apple", "Pear"};
 		predators = new String[] {"Tiger"};
 		color = Color.LIGHT_GRAY;
-		LifeSpan = 40;
+		LifeSpan = 30;
 	}
 	
 	public Wolf(int x, int y) {
@@ -30,7 +30,7 @@ public class Wolf extends LifeForm {
 		eats = new String[] {"Deer", "Moose", "Rabbit", "Squirrel", "Blueberry", "Nightshade", "Apple", "Pear"};
 		predators = new String[] {"Tiger"};
 		color = Color.LIGHT_GRAY;
-		LifeSpan = 40;
+		LifeSpan = 30;
 		localx = x;
 		localy = y;
 	}
@@ -38,7 +38,7 @@ public class Wolf extends LifeForm {
 	@Override
 	public void Eat(LifeForm eaten) {
 		eaten.Die();
-		
+		this.healthLeft++;
 	}
 
 	@Override
