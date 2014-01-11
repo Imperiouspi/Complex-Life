@@ -30,13 +30,4 @@ public class Tile {
 		Nutrients = 0;
 		weather = Weather.CLEAR;
 	}
-	
-	public void colouring(){
-		if (isOccupied){
-			this.color = LifeForm.color;
-		}
-		else{
-			this.color = location.color;
-		}
-	}
 }

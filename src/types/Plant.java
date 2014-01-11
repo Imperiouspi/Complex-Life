@@ -18,9 +18,7 @@ public abstract class Plant extends LifeForm{
 	}
 	
 	@Override
-	public Tile[][] Move(Tile[][] grid){
-		return grid;
-		
+	public void Move(Tile[][] grid){		
 	}
 	
 	public abstract void Die();

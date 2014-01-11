@@ -1,6 +1,7 @@
 package lifeForms.animals;
 
 import java.awt.Color;
+import java.awt.Graphics;
 
 import types.LifeForm;
 import types.Tile;
@@ -41,8 +42,7 @@ public class Horse extends LifeForm{
 	}
 
 	@Override
-	public Tile[][] Move(Tile[][]grid) {
-		return grid;
+	public void Move(Tile[][]grid) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -66,6 +66,12 @@ public class Horse extends LifeForm{
 
 	@Override
 	public void onEaten(LifeForm eating) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void draw(Graphics g) {
 		// TODO Auto-generated method stub
 		
 	}

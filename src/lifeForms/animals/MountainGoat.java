@@ -42,8 +42,7 @@ public class MountainGoat extends LifeForm{
 	}
 
 	@Override
-	public Tile[][] Move(Tile[][]grid) {
-		return grid;
+	public void Move(Tile[][]grid) {
 		// TODO Auto-generated method stub
 		
 	}

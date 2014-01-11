@@ -1,6 +1,7 @@
 package lifeForms.animals;
 
 import java.awt.Color;
+import java.awt.Graphics;
 
 import types.LifeForm;
 import types.Tile;
@@ -43,89 +44,27 @@ public class Lion extends LifeForm {
 	}
 
 	@Override
-	public Tile[][] Move(Tile[][] grid) {
-		int moveToX = 0, moveToY = 0;
-		// look at hunger and health"
-		// Move away from predators, towards food.
-		Tile[][] seen = new Tile[(viewDistance * 2) - 1][(viewDistance * 2) - 1];
-		for (int i = 0; i < viewDistance; i++) {
-			for (int j = 0; j < viewDistance; j++) {
-				if (localx + i < grid.length && localx + i > 0
-						&& localy + j > 0 && localy + j < grid[i].length)
-					seen[i][j] = grid[localx + i][localy + j];
-			}
-		}
+	public void Move(Tile[][] grid) {
+		//get Viewed spaces
+		//don't need this array
+		Tile[][]seen = new Tile[2* viewDistance + 1][2 * viewDistance + 1];
+		int MoveToX = 0, MoveToY = 0;
 
-		for (int i = 0; i < viewDistance; i++) {
-			for (int j = 0; j < viewDistance; j++) {
-				if (localx - i < grid.length && localx - i > 0
-						&& localy - j > 0 && localy - j < grid[i].length)
-					seen[i][j] = grid[localx - i][localy - j];
-			}
-		}
+		seen = getSeenSquares(grid);
 
-		for (int i = 1; i < viewDistance; i++) {
-			for (int j = 1; j < viewDistance; j++) {
-				if (localx + i < grid.length && localx + i > 0
-						&& localy - j > 0 && localy - j < grid[i].length)
-					seen[i][j] = grid[localx + i][localy - j];
-			}
-		}
-
-		for (int i = 1; i < viewDistance; i++) {
-			for (int j = 1; j < viewDistance; j++) {
-				if (localx - i < grid.length && localx - i > 0
-						&& localy + j > 0 && localy + j < grid[i].length)
-					seen[i][j] = grid[localx - i][localy + j];
-			}
-		}
-
-		for (int i = 1; i < seen.length; i++) {
-			for (int j = 1; j < seen[i].length; j++) {
-				if (seen[i][j] != null && seen[i][j].isOccupied) {
-					for (int eatCount = 0; eatCount < eats.length; eatCount++) {
-						if (seen[i][j].Occupant.equals(eats[eatCount])) {
-							if (seen[i][j].Occupant.localx < this.localx) {
-								moveToX--;
-							}
-							if (seen[i][j].Occupant.localx > this.localx) {
-								moveToX--;
-							}
-							if (seen[i][j].Occupant.localy < this.localy) {
-								moveToY--;
-							}
-							if (seen[i][j].Occupant.localy > this.localy) {
-								moveToY--;
-							}
-						}
-					}
-
-					for (int PredatorCount = 0; PredatorCount < eats.length; PredatorCount++) {
-						if (seen[i][j].Occupant.equals(predators)) {
-							if (seen[i][j].Occupant.localx < this.localx) {
-								moveToX++;
-							}
-							if (seen[i][j].Occupant.localx > this.localx) {
-								moveToX++;
-							}
-							if (seen[i][j].Occupant.localy < this.localy) {
-								moveToY++;
-							}
-							if (seen[i][j].Occupant.localy > this.localy) {
-								moveToY++;
-							}
-						}
-					}
+		for(int i = 0; i < seen.length; i++){
+			for(int j = 0; j < seen[i].length; j++){
+				if(seen[i][j] != null && seen[i][j].isOccupied && isPredator(seen[i][j].Occupant)){
+					MoveToX = getSideX(seen[i][j].Occupant.localx, localx);
+				}
+				else if(seen[i][j] != null && seen[i][j].isOccupied && isFood(seen[i][j].Occupant)){
+					MoveToY = getSideY(seen[i][j].Occupant.localy, localy);
 				}
 			}
 		}
-		grid[localx][localy].isOccupied = false;
-		grid[localx + moveToX][localy + moveToY].isOccupied = true;
-		grid[localx + moveToX][localy + moveToY].Occupant = this;
-		grid[localx + moveToX][localy + moveToY].colouring();
-		localx += moveToX;
-		localy += moveToY;
-		return grid;
+		this.localx += MoveToX;
+		this.localy += MoveToY;
+		//move away from predators and towards food
 	}
 
 	@Override
@@ -147,8 +86,6 @@ public class Lion extends LifeForm {
 
 	@Override
 	public void onEaten(LifeForm eating) {
-		// TODO Auto-generated method stub
 
 	}
-
 }

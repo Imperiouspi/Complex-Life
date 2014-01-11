@@ -18,6 +18,7 @@ public class aWindow extends JFrame {
 	LabelButton play, options;
 	QuitButton quit;
 	static World world;
+	WorldPanel WorldlyPanel;
 
 	public aWindow() {
 		super("Complex Life");
@@ -67,16 +68,19 @@ public class aWindow extends JFrame {
 		back.setVisible(false);
 		repaint();
 		world = new World(6, 5);
-		add(new worldPanel(world));
+		WorldlyPanel = new WorldPanel(world);
+		add(WorldlyPanel);
 		Timer time = new Timer();
 		time.scheduleAtFixedRate(new TimerTask(){
 
 			@Override
 			public void run() {
 				world.advance();
+				WorldlyPanel.repaint();
+				System.out.print(true);
 			}
 			
-		}, 100L, 1);
+		}, 100L, 100L);
 	}
 
 	class playAction implements MouseListener {

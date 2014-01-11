@@ -1,5 +1,7 @@
 package types;
 
+import java.util.ArrayList;
+
 import lifeForms.animals.Horse;
 import lifeForms.animals.Lion;
 import lifeForms.animals.MountainGoat;
@@ -9,10 +11,11 @@ import lifeForms.plants.Grass;
 import lifeForms.plants.VenusFlytrap;
 import biomes.Jungle;
 import biomes.Mountains;
+import biomes.Ocean;
 import biomes.Plains;
 
 public class World {
-	public LifeForm[][] Life;
+	public ArrayList<LifeForm> Life;
 	public Biome[][] Lands;
 	public Tile[][] grid;
 
@@ -20,6 +23,8 @@ public class World {
 		// create biomes
 		grid = new Tile[landnumber * 20][landnumber * 20];
 		Lands = new Biome[landnumber][landnumber];
+		Life = new ArrayList<LifeForm>();
+		LifeForm occupy;
 		for (int i = 0; i < landnumber; i++) {
 			for (int j = 0; j < landnumber; j++) {
 				Lands[i][j] = worldBiomeGen(i, j);
@@ -41,27 +46,26 @@ public class World {
 					// spawn living things on tiles
 					int animalOrPlant = (int) (Math.random() * 2);
 					if (animalOrPlant == 0) {
-						grid[i][j].isOccupied = true;
-						grid[i][j].Occupant = populate(grid[i][j], "Plant");
-						grid[i][j].colouring();
-						grid[i][j].Occupant.localx = i;
-						grid[i][j].Occupant.localy = j;
+						occupy = populate(grid[i][j], "Plant");
+
 					} else {
+						occupy = populate(grid[i][j], "Animal");
+					}
+					if(occupy != null){
+						grid[i][j].Occupant = occupy;
 						grid[i][j].isOccupied = true;
-						grid[i][j].Occupant = populate(grid[i][j], "Animal");
-						grid[i][j].colouring();
 						grid[i][j].Occupant.localx = i;
 						grid[i][j].Occupant.localy = j;
+						Life.add(occupy);
 					}
 				}
 			}
 		}
-
 	}
 
 	private Biome worldBiomeGen(int i, int j) {
 		Biome biome = null;
-		int random = (int) (Math.random() * 3);
+		int random = (int) (Math.random() * 4);
 		if (random == 0) {
 			biome = new Jungle(i, j);
 		}
@@ -70,6 +74,9 @@ public class World {
 		}
 		if (random == 2) {
 			biome = new Mountains(i, j);
+		}
+		if(random == 3){
+			biome = new Ocean(i, j);
 		}
 
 		System.out.println(biome);
@@ -112,7 +119,6 @@ public class World {
 		case "Rabbit":
 			living = new Rabbit();
 			break;
-
 		case "DeadGrass":
 			living = new DeadGrass();
 			break;
@@ -128,24 +134,14 @@ public class World {
 	}
 
 	public void advance() {
-		for (int i = 0; i < grid.length; i++) {
-			for (int j = 0; j < grid[i].length; j++) {
-				if(grid[i][j].Occupant != null)
-					grid[i][j].Occupant.Move(grid);
-			}
-		}
-
-		for (int i = 0; i < grid.length; i++) {
-			for (int j = 0; j < grid[i].length; j++) {
-			}
+		for (int i = 0; i < Life.size(); i++) {
+			Life.get(i).Move(grid);
 		}
 	}
 
 	public void Apocalypse() {
-		for (int i = 0; i < Life.length; i++) {
-			for (int j = 0; j < Life[i].length; j++) {
-				Life[i][j].Die();
-			}
+		for (int i = 0; i < Life.size(); i++) {
+			Life.get(i).Die();
 		}
 	}
 }
