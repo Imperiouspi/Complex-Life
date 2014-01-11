@@ -1,6 +1,7 @@
 package lifeForms.animals;
 
 import java.awt.Color;
+import java.awt.Graphics;
 
 import types.LifeForm;
 import types.Tile;
@@ -45,13 +46,30 @@ public class Lion extends LifeForm {
 	@Override
 	public void Move(Tile[][] grid) {
 		//get Viewed spaces
-		Tile[][] seen = new Tile[2* viewDistance + 1][2 * viewDistance + 1];
+		//don't need this array
+		Tile[][]seen = new Tile[2* viewDistance + 1][2 * viewDistance + 1];
+		int MoveToX = 0, MoveToY = 0;
+
+		seen = getSeenSquares(grid);
+
+		for(int i = 0; i < seen.length; i++){
+			for(int j = 0; j < seen[i].length; j++){
+				if(seen[i][j] != null && seen[i][j].isOccupied && isPredator(seen[i][j].Occupant)){
+					MoveToX = getSideX(seen[i][j].Occupant.localx, localx);
+				}
+				else if(seen[i][j] != null && seen[i][j].isOccupied && isFood(seen[i][j].Occupant)){
+					MoveToY = getSideY(seen[i][j].Occupant.localy, localy);
+				}
+			}
+		}
+		this.localx += MoveToX;
+		this.localy += MoveToY;
 		//move away from predators and towards food
 	}
 
 	@Override
 	public void Die() {
-		
+
 	}
 
 	@Override

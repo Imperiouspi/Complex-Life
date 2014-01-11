@@ -51,11 +51,13 @@ public class World {
 					} else {
 						occupy = populate(grid[i][j], "Animal");
 					}
-					grid[i][j].Occupant = occupy;
-					grid[i][j].isOccupied = true;
-					grid[i][j].Occupant.localx = i;
-					grid[i][j].Occupant.localy = j;
-					Life.add(occupy);
+					if(occupy != null){
+						grid[i][j].Occupant = occupy;
+						grid[i][j].isOccupied = true;
+						grid[i][j].Occupant.localx = i;
+						grid[i][j].Occupant.localy = j;
+						Life.add(occupy);
+					}
 				}
 			}
 		}
@@ -117,7 +119,6 @@ public class World {
 		case "Rabbit":
 			living = new Rabbit();
 			break;
-
 		case "DeadGrass":
 			living = new DeadGrass();
 			break;
