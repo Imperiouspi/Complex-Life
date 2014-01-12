@@ -60,12 +60,6 @@ public class Wolf extends LifeForm {
 	}
 
 	@Override
-	public void Move(Tile[][] grid) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public void onEaten(LifeForm eating) {
 		// TODO Auto-generated method stub
 		

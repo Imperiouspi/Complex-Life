@@ -28,7 +28,6 @@ public class QuitButton extends JPanel{
 	
 	@Override
 	public void paintComponent(Graphics g){
-		System.out.println("wat " + image + " " + this);
 		g.drawImage(image, 0, 0, null);
 	}
 }

@@ -42,12 +42,6 @@ public class Horse extends LifeForm{
 	}
 
 	@Override
-	public void Move(Tile[][]grid) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public void Die() {
 		
 	}

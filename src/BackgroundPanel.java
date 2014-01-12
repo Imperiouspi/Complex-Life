@@ -14,7 +14,6 @@ public class BackgroundPanel extends JPanel{
 	
 	@Override
 	public void paintComponent(Graphics g) {
-		System.out.println("huh?");
 		BufferedImage background = null;
 		try {
 			background = ImageIO.read(new File("src/resources/BackgroundWithText.png"));
