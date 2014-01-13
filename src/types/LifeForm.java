@@ -6,7 +6,7 @@ import java.awt.Graphics;
 //Maybe add id for easy access?
 
 public abstract class LifeForm {
-	public static String species;
+	public String species;
 	public static int MaxHealth, MaxHunger;
 	public int healthLeft, hungerLeft;
 	public static String[] eats, predators;
@@ -34,16 +34,18 @@ public abstract class LifeForm {
 		for(int i = 0; i < seen.length; i++){
 			for(int j = 0; j < seen[i].length; j++){
 				if(seen[i][j] != null && seen[i][j].isOccupied && isPredator(seen[i][j].Occupant)){
-					MoveToX = getSideX(seen[i][j].Occupant.localx, this.localx);
+					MoveToX = -getSideX(seen[i][j].Occupant.localx, this.localx);
+					MoveToY = -getSideY(seen[i][j].Occupant.localy, this.localy);
 				}
 				else if(seen[i][j] != null && seen[i][j].isOccupied && isFood(seen[i][j].Occupant)){
+					MoveToX = getSideX(seen[i][j].Occupant.localx, this.localx);
 					MoveToY = getSideY(seen[i][j].Occupant.localy, this.localy);
 				}
 			}
 		}
-		
-		this.localx ++;
-		localy += MoveToY;
+
+		this.localx += MoveToX;
+		this.localy += MoveToY;
 	}
 
 	public void Age() {
@@ -56,7 +58,7 @@ public abstract class LifeForm {
 				return true;
 			}
 		}
-		return true;
+		return false;
 	}
 
 	public boolean isFood(LifeForm life){
@@ -65,7 +67,7 @@ public abstract class LifeForm {
 				return true;
 			}
 		}
-		return true;
+		return false;
 	}
 
 	public int getSideX(int xAnimal, int xSeer){
@@ -99,7 +101,7 @@ public abstract class LifeForm {
 		int a = 0;
 		int b = 0;
 
-		for(int i  = this.localx-viewDistance; i < this.localx + viewDistance && this.localx + viewDistance < grid.length && a < seen.length && i< seen.length; i++, a++){
+		/*for(int i  = this.localx-viewDistance; i < this.localx + viewDistance && this.localx + viewDistance < grid.length && a < seen.length && i< seen.length; i++, a++){
 			if(i < 0){
 				i = 0;
 				if(a != 0)
@@ -117,6 +119,16 @@ public abstract class LifeForm {
 						b--;
 				}
 				seen[a][b] = grid[i][j];
+			}
+		}*/
+
+
+		for(int i = -viewDistance; i < viewDistance; i++, a++){
+			for(int j = -viewDistance; j < viewDistance; j++, b++){
+				if(this.localy + j > 0 && this.localx + i > 0 && a < seen.length && b < seen[a].length && this.localx + i < grid.length){
+					if(this.localy + j < grid[i + this.localx].length)
+						seen[a][b] = grid[this.localx + i][this.localy + j];
+				}
 			}
 		}
 

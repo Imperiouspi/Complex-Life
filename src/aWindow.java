@@ -1,3 +1,9 @@
+import gui.BackgroundPanel;
+import gui.LabelButton;
+import gui.LifeFormInfoScreen;
+import gui.QuitButton;
+import gui.WorldPanel;
+
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -69,9 +75,10 @@ public class aWindow extends JFrame {
 		repaint();
 		world = new World(6, 5);
 		WorldlyPanel = new WorldPanel(world);
+		WorldlyPanel.addMouseListener(new worldClickAction());
 		add(WorldlyPanel);
 		Timer time = new Timer();
-		time.scheduleAtFixedRate(new TimerTask(){
+		time.scheduleAtFixedRate(new TimerTask() {
 
 			@Override
 			public void run() {
@@ -79,7 +86,7 @@ public class aWindow extends JFrame {
 				WorldlyPanel.repaint();
 				System.out.print(true);
 			}
-			
+
 		}, 100L, 100L);
 	}
 
@@ -215,5 +222,42 @@ public class aWindow extends JFrame {
 
 		}
 
+	}
+
+	class worldClickAction implements MouseListener {
+		public worldClickAction() {
+			super();
+		}
+
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			if (world.grid[e.getX() / 5][e.getY() / 5].isOccupied) {
+				LifeFormInfoScreen window2 = new LifeFormInfoScreen(
+						world.grid[e.getX() / 5][e.getY() / 5].Occupant);
+				window2.setVisible(true);
+			}
+		}
+
+		@Override
+		public void mousePressed(MouseEvent e) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent e) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void mouseEntered(MouseEvent e) {
+		}
+
+		@Override
+		public void mouseExited(MouseEvent e) {
+			// TODO Auto-generated method stub
+
+		}
 	}
 }
