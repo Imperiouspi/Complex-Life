@@ -1,3 +1,5 @@
+package gui;
+
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
@@ -28,7 +30,14 @@ public class QuitButton extends JPanel{
 	
 	@Override
 	public void paintComponent(Graphics g){
-		System.out.println("wat " + image + " " + this);
 		g.drawImage(image, 0, 0, null);
+	}
+	
+	public BufferedImage getImage () {
+		return image;
+	}
+	
+	public void setImage (BufferedImage pic) {
+		image = pic;
 	}
 }

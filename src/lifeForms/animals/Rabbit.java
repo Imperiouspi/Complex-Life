@@ -42,12 +42,6 @@ public class Rabbit extends LifeForm{
 	}
 
 	@Override
-	public void Move(Tile[][]grid) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public void Die() {
 		// TODO Auto-generated method stub
 		

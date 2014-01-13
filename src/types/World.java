@@ -38,8 +38,6 @@ public class World {
 				}
 			}
 		}
-		System.out.println("WAIT!");
-
 		// populate
 		for (int i = 0; i < grid.length; i++) {
 			for (int j = 0; j < grid[i].length; j++) {
@@ -48,16 +46,18 @@ public class World {
 					// spawn living things on tiles
 					int animalOrPlant = (int) (Math.random() * 2);
 					if (animalOrPlant == 0) {
-						occupy = populate(grid[i][j], "Plant");
+						occupy = populate(grid[i][j], "Plant", i, j);
 
 					} else {
-						occupy = populate(grid[i][j], "Animal");
+						occupy = populate(grid[i][j], "Animal", i, j);
 					}
-					grid[i][j].Occupant = occupy;
-					grid[i][j].isOccupied = true;
-					grid[i][j].Occupant.localx = i;
-					grid[i][j].Occupant.localy = j;
-					Life.add(occupy);
+					if (occupy != null) {
+						grid[i][j].Occupant = occupy;
+						grid[i][j].isOccupied = true;
+						grid[i][j].Occupant.localx = i;
+						grid[i][j].Occupant.localy = j;
+						Life.add(occupy);
+					}
 				}
 			}
 		}
@@ -75,15 +75,14 @@ public class World {
 		if (random == 2) {
 			biome = new Mountains(i, j);
 		}
-		if(random == 3){
+		if (random == 3) {
 			biome = new Ocean(i, j);
 		}
 
-		System.out.println(biome);
 		return biome;
 	}
 
-	public static LifeForm populate(Tile tile, String spawnType) {
+	public static LifeForm populate(Tile tile, String spawnType, int x, int y) {
 		LifeForm Occupant = null;
 		int spawnChance;
 		if (spawnType.equals("Plant")) {
@@ -91,34 +90,35 @@ public class World {
 			for (i = 0; i < tile.location.foods.length; i++) {
 			}
 			spawnChance = (int) (Math.random() * i);
-			Occupant = creature(tile.location.foods[spawnChance]);
+			Occupant = creature(tile.location.foods[spawnChance], x, y);
 		} else {
 			int i;
 			for (i = 0; i < tile.location.support.length; i++) {
 			}
 			spawnChance = (int) (Math.random() * i);
-			Occupant = creature(tile.location.support[spawnChance]);
+			Occupant = creature(tile.location.support[spawnChance], x, y);
 		}
 
 		return Occupant;
 	}
 
-	public static LifeForm creature(String species) {
+	public static LifeForm creature(String species, int x, int y) {
 		LifeForm living = null;
 
 		switch (species) {
 		case "Horse":
-			living = new Horse();
+			living = new Horse(x, y);
 			break;
 		case "Lion":
-			living = new Lion();
+			living = new Lion(x, y);
 			break;
 		case "MountainGoat":
-			living = new MountainGoat();
+			living = new MountainGoat(x, y);
 			break;
 		case "Rabbit":
-			living = new Rabbit();
+			living = new Rabbit(x, y);
 			break;
+//<<<<<<< HEAD
 		case "Wolf":
 			living = new Wolf();
 			break;
@@ -126,14 +126,16 @@ public class World {
 			living = new Deer();
 			break;
 		
+//=======
+//>>>>>>> dc01fc49dd080fea72dca786917c7132317a235d
 		case "DeadGrass":
-			living = new DeadGrass();
+			living = new DeadGrass(x, y);
 			break;
 		case "Grass":
-			living = new Grass();
+			living = new Grass(x, y);
 			break;
 		case "VenusFlytrap":
-			living = new VenusFlytrap();
+			living = new VenusFlytrap(x, y);
 			break;
 		}
 

@@ -1,3 +1,5 @@
+package gui;
+
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -6,7 +8,6 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
-
 public class BackgroundPanel extends JPanel{
 	public BackgroundPanel(){
 		super();
@@ -14,7 +15,6 @@ public class BackgroundPanel extends JPanel{
 	
 	@Override
 	public void paintComponent(Graphics g) {
-		System.out.println("huh?");
 		BufferedImage background = null;
 		try {
 			background = ImageIO.read(new File("src/resources/BackgroundWithText.png"));
