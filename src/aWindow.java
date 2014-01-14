@@ -84,7 +84,6 @@ public class aWindow extends JFrame {
 			public void run() {
 				world.advance();
 				WorldlyPanel.repaint();
-				System.out.print(true);
 			}
 
 		}, 100L, 100L);
