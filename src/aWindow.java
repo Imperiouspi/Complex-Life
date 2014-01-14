@@ -100,8 +100,8 @@ public class aWindow extends JFrame {
 		@Override
 		public void mouseEntered(MouseEvent arg0) {
 			try {
-				play.image = ImageIO.read(new File(
-						"src/resources/PlayMoused.png"));
+				play.setImage(ImageIO.read(new File(
+						"src/resources/PlayMoused.png")));
 				play.repaint();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -112,7 +112,7 @@ public class aWindow extends JFrame {
 		@Override
 		public void mouseExited(MouseEvent arg0) {
 			try {
-				play.image = ImageIO.read(new File("src/resources/Play.png"));
+				play.setImage(ImageIO.read(new File("src/resources/Play.png")));
 				play.repaint();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -144,8 +144,8 @@ public class aWindow extends JFrame {
 		@Override
 		public void mouseEntered(MouseEvent arg0) {
 			try {
-				options.image = ImageIO.read(new File(
-						"src/resources/optionsMoused.png"));
+				options.setImage(ImageIO.read(new File(
+						"src/resources/optionsMoused.png")));
 				options.repaint();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -156,8 +156,8 @@ public class aWindow extends JFrame {
 		@Override
 		public void mouseExited(MouseEvent arg0) {
 			try {
-				options.image = ImageIO.read(new File(
-						"src/resources/options.png"));
+				options.setImage(ImageIO.read(new File(
+						"src/resources/options.png")));
 				options.repaint();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -189,8 +189,8 @@ public class aWindow extends JFrame {
 		@Override
 		public void mouseEntered(MouseEvent arg0) {
 			try {
-				quit.image = ImageIO.read(new File(
-						"src/resources/QuitMoused.png"));
+				quit.setImage(ImageIO.read(new File(
+						"src/resources/QuitMoused.png")));
 				quit.repaint();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -201,7 +201,7 @@ public class aWindow extends JFrame {
 		@Override
 		public void mouseExited(MouseEvent arg0) {
 			try {
-				quit.image = ImageIO.read(new File("src/resources/Quit.png"));
+				quit.setImage(ImageIO.read(new File("src/resources/Quit.png")));
 				quit.repaint();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block

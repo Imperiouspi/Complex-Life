@@ -16,7 +16,7 @@ public class Grass extends Plant { // :)
 		healthLeft = MaxHealth;
 		hungerLeft = MaxHunger;
 		eats = new String[] {null, null};
-		predators = new String[] {"Lion", "Venus Flytrap"};
+		predators = new String[] {"Horse", "Deer", "Rabbit", "MountainGoat"}; //Predators have been changed
 		color = new Color(0, 200, 0);
 		LifeSpan = 20;
 	}
@@ -32,8 +32,8 @@ public class Grass extends Plant { // :)
 		healthLeft = MaxHealth;
 		hungerLeft = MaxHunger;
 		eats = new String[] {null, null};
-		predators = new String[] {"Lion", "Venus Flytrap"};
-		color = new Color(10, 200, 10);
+		predators = new String[] {"Horse", "Deer", "Rabbit", "MountainGoat"};
+		color = new Color(0, 200, 0); //Should this be (0, 200, 0) like the one above, or (10, 200, 10) like it used to be?
 		LifeSpan = 20;
 	}
 
@@ -51,9 +51,11 @@ public class Grass extends Plant { // :)
 
 	@Override
 	public void onEaten(LifeForm eating) {
-		healthLeft = Math.min(healthLeft ++, MaxHealth);
-		hungerLeft = Math.min(hungerLeft ++, MaxHunger);
-
+		//If you put healthLeft++, healthLeft will increase by one. I don't think that's what you want.
+		eating.healthLeft = Math.min(healthLeft + 1, MaxHealth);
+		eating.hungerLeft = Math.max(hungerLeft - 1, 0);
+		//I changed the hungerLeft assignment. I feel like hunger should decrease, not increase.
+		//These changes to healthLeft and hungerLeft should be to the life form eating the grass, right? Not the grass itself?
 	}
 
 }
