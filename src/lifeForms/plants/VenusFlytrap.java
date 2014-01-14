@@ -2,7 +2,6 @@ package lifeForms.plants;
 
 import java.awt.Color;
 
-import lifeForms.animals.Lion;
 import types.LifeForm;
 import types.Plant;
 

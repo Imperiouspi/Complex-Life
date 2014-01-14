@@ -2,8 +2,7 @@ package types;
 
 import java.awt.Color;
 import java.awt.Graphics;
-
-//Maybe add id for easy access?
+import java.awt.Point;
 
 public abstract class LifeForm {
 	public String species;
@@ -26,34 +25,115 @@ public abstract class LifeForm {
 	public abstract void Eat(LifeForm eaten);
 
 	public void Move(Tile[][] grid) {
-		Tile[][] seen = new Tile[2 * viewDistance + 1][2 * viewDistance + 1];
-		int MoveToX = 0, MoveToY = 0;
+		// if no prey or predators around, move randomly.
+		boolean surrounded = false;
+		int predatorsAround = 0, preyAround = 0;
+		Point moveTo = new Point((int) (Math.random() * 2) + 1,
+				(int) (Math.random() * 2) + 1);
 
-		seen = getSeenSquares(grid);
-
-		for (int i = 0; i < seen.length; i++) {
-			for (int j = 0; j < seen[i].length; j++) {
-				if (seen[i][j] != null && seen[i][j].isOccupied
-						&& isPredator(seen[i][j].Occupant)) {
-					MoveToX = -getSideX(seen[i][j].Occupant.localx, this.localx);
-					MoveToY = -getSideY(seen[i][j].Occupant.localy, this.localy);
-				} else if (seen[i][j] != null && seen[i][j].isOccupied
-						&& isFood(seen[i][j].Occupant)) {
-					MoveToX = getSideX(seen[i][j].Occupant.localx, this.localx);
-					MoveToY = getSideY(seen[i][j].Occupant.localy, this.localy);
+		for (int i = 0; i < 8; i++) {
+			if (localx - 1 > 0 && grid[localx - 1][localy].Occupant != null) {
+				surrounded = true;
+				if (isPredator(grid[localx - 1][localy].Occupant)) {
+					predatorsAround++;
+				} else if (isFood(grid[localx - 1][localy].Occupant)) {
+					preyAround++;
+				}
+			}
+			if (localx - 1 > 0 && grid[localx - 1][localy - 1] != null) {
+				surrounded = true;
+				if (isPredator(grid[localx - 1][localy - 1].Occupant)) {
+					predatorsAround++;
+				} else if (isFood(grid[localx - 1][localy - 1].Occupant)) {
+					preyAround++;
+				}
+			}
+			if (localx + 1 < grid.length && grid[localx + 1][localy] != null) {
+				surrounded = true;
+				if (isPredator(grid[localx + 1][localy].Occupant)) {
+					predatorsAround++;
+				} else if (isFood(grid[localx + 1][localy].Occupant)) {
+					preyAround++;
+				}
+			}
+			if (localx + 1 < grid.length && localy + 1 < grid.length
+					&& grid[localx + 1][localy + 1] != null) {
+				surrounded = true;
+				if (isPredator(grid[localx + 1][localy + 1].Occupant)) {
+					predatorsAround++;
+				} else if (isFood(grid[localx + 1][localy + 1].Occupant)) {
+					preyAround++;
+				}
+			}
+			if (localy - 1 > 0 && grid[localx][localy - 1] != null) {
+				surrounded = true;
+				if (isPredator(grid[localx][localy - 1].Occupant)) {
+					predatorsAround++;
+				} else if (isFood(grid[localx][localy - 1].Occupant)) {
+					preyAround++;
+				}
+			}
+			if (localy + 1 < grid.length && grid[localx][localy + 1] != null) {
+				surrounded = true;
+				if (isPredator(grid[localx][localy + 1].Occupant)) {
+					predatorsAround++;
+				} else if (isFood(grid[localx][localy + 1].Occupant)) {
+					preyAround++;
+				}
+			}
+			if (localx + 1 < grid.length && localy - 1 > 0
+					&& grid[localx + 1][localy - 1] != null) {
+				surrounded = true;
+				if (isPredator(grid[localx + 1][localy - 1].Occupant)) {
+					predatorsAround++;
+				} else if (isFood(grid[localx + 1][localy - 1].Occupant)) {
+					preyAround++;
+				}
+			}
+			if (localx - 1 > 0 && localy + 1 < grid.length
+					&& grid[localx - 1][localy + 1] != null) {
+				surrounded = true;
+				if (isPredator(grid[localx - 1][localy + 1].Occupant)) {
+					predatorsAround++;
+				} else if (isFood(grid[localx - 1][localy + 1].Occupant)) {
+					preyAround++;
 				}
 			}
 		}
 
-		this.localx += MoveToX;
-		this.localy += MoveToY;
+		if (surrounded) {
+
+		} else {
+			int chance = (int) (Math.random() * 2);
+			if (chance == 1 && this.localx + moveTo.x < grid.length) {
+				this.localx += moveTo.x;
+			} else {
+				if (this.localx - moveTo.x > 0) {
+					this.localx -= moveTo.x;
+				} else {
+					this.localx += moveTo.x;
+				}
+			}
+			chance = (int) (Math.random() * 2);
+			if (chance == 1 && this.localy + moveTo.y < grid.length) {
+				this.localy += moveTo.y;
+			} else {
+				if (this.localy - moveTo.y > 0) {
+					this.localy -= moveTo.y;
+				} else {
+					this.localy += moveTo.y;
+				}
+			}
+		}
 	}
 
 	public boolean isPredator(LifeForm life) {
 		for (int i = 0; i < predators.length; i++) {
-			if (predators[i] != null && predators[i].equals(life.species)) {
-				System.out.println("Predator");
-				return true;
+			if (predators[i] != null) {
+				if (predators[i].equals(life.species)) {
+					System.out.println("Predator");
+					return true;
+				}
 			}
 		}
 		return false;
@@ -67,48 +147,6 @@ public abstract class LifeForm {
 			}
 		}
 		return false;
-	}
-
-	public int getSideX(int xAnimal, int xSeer) {
-		if (xAnimal == xSeer) {
-			return 0;
-		} else if (xAnimal < xSeer) {
-			return 1;
-		} else if (xAnimal > xSeer) {
-			return -1;
-		}
-		return 1;
-	}
-
-	public int getSideY(int yAnimal, int ySeer) {
-		if (yAnimal == ySeer) {
-			return 0;
-		} else if (yAnimal < ySeer) {
-			return 1;
-		} else if (yAnimal > ySeer) {
-			return -1;
-		}
-		return 0;
-	}
-
-	public Tile[][] getSeenSquares(Tile[][] grid) {
-		Tile[][] seen = new Tile[(viewDistance * 2) + 1][(viewDistance * 2) + 1];
-		int a = 0;
-		int b = 0;
-
-		for (int i = -viewDistance; i <= viewDistance; i++, a++) {
-			for (int j = -viewDistance; j <= viewDistance; j++, b++) {
-				if (this.localy + j > 0 && this.localx + i > 0) {
-					if (this.localx + i < grid.length && this.localy + j < grid[i + this.localx].length) {
-						seen[a][b] = grid[this.localx + i][this.localy + j];
-					}
-				} else {
-					seen[a][b] = null;
-				}
-			}
-		}
-
-		return seen;
 	}
 
 	public abstract void Die();
@@ -126,15 +164,5 @@ public abstract class LifeForm {
 	public void draw(Graphics g) {
 		g.setColor(color);
 		g.fillRect(this.localx * 5, this.localy * 5, 6, 6);
-	}
-
-	public void drawSeenSquares(Graphics g, Tile[][] grid) {
-		Tile[][] seen = getSeenSquares(grid);
-		for (int i = 0; i < seen.length; i++) {
-			for (int j = 0; j < seen[i].length; j++) {
-				if (seen[i][j] != null)
-					g.drawRect(seen[i][j].x * 5, seen[i][j].y * 5, 5, 5);
-			}
-		}
 	}
 }

@@ -3,7 +3,6 @@ package lifeForms.animals;
 import java.awt.Color;
 
 import types.LifeForm;
-import types.Tile;
 
 public class MountainGoat extends LifeForm{
 
