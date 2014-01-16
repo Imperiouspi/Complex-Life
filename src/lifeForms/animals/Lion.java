@@ -1,10 +1,8 @@
 package lifeForms.animals;
 
 import java.awt.Color;
-import java.awt.Graphics;
 
 import types.LifeForm;
-import types.Tile;
 
 public class Lion extends LifeForm {
 

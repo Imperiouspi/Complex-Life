@@ -118,16 +118,13 @@ public class World {
 		case "Rabbit":
 			living = new Rabbit(x, y);
 			break;
-//<<<<<<< HEAD
 		case "Wolf":
-			living = new Wolf();
+			living = new Wolf(x, y);
 			break;
 		case "Deer":
-			living = new Deer();
+			living = new Deer(x, y);
 			break;
 		
-//=======
-//>>>>>>> dc01fc49dd080fea72dca786917c7132317a235d
 		case "DeadGrass":
 			living = new DeadGrass(x, y);
 			break;
