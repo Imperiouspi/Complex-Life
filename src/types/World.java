@@ -134,6 +134,12 @@ public class World {
 		case "VenusFlytrap":
 			living = new VenusFlytrap(x, y);
 			break;
+		case "Deer":
+			living = new Deer(x, y);
+			break;
+		case "Wolf":
+			living = new Wolf(x, y);
+			break;
 		}
 
 		return living;

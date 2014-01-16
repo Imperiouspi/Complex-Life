@@ -11,7 +11,7 @@ import javax.swing.JPanel;
 
 
 public class QuitButton extends JPanel{
-	BufferedImage image;
+	public BufferedImage image;
 	
 	public QuitButton(String imagePath){
 		super();

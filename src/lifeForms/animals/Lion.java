@@ -17,7 +17,6 @@ public class Lion extends LifeForm {
 		predators = new String[] { null };
 		color = Color.yellow;
 		LifeSpan = 10;
-		viewDistance = 5;
 	}
 
 	public Lion(int x, int y) {
@@ -31,7 +30,6 @@ public class Lion extends LifeForm {
 		predators = new String[] { null };
 		color = Color.yellow;
 		LifeSpan = 10;
-		viewDistance = 5;
 		localx = x;
 		localy = y;
 	}

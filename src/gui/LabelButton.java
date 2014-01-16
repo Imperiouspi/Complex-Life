@@ -11,7 +11,7 @@ import javax.swing.JPanel;
 
 
 public class LabelButton extends JPanel{
-	BufferedImage image;
+	public BufferedImage image;
 	
 	public LabelButton(String imagePath){
 		super();
