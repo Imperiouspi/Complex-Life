@@ -10,7 +10,7 @@ public class MountainGoat extends LifeForm{
 		super();
 		species = "MountainGoat";
 		MaxHealth = 30;
-		MaxHunger = 20;
+		MaxHunger = 200;
 		healthLeft = MaxHealth;
 		hungerLeft = MaxHunger;
 		eats = new String[] {"Grass"};
@@ -27,35 +27,11 @@ public class MountainGoat extends LifeForm{
 		healthLeft = MaxHealth;
 		hungerLeft = MaxHunger;
 		eats = new String[] {"Grass"};
-		predators = new String[] {"MountainLion"};
+		predators = new String[] {"Lion"};
 		color = new Color(129, 89, 30);
 		LifeSpan = 10;
 		localx = x;
 		localy = y;
-	}
-
-	@Override
-	public void Eat(LifeForm eaten) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void Die() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void Breed() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void findNutrients() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override

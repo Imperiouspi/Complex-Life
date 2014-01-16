@@ -10,7 +10,7 @@ public class Wolf extends LifeForm {
 		super();
 		species = "Wolf";
 		MaxHealth = 30;
-		MaxHunger = 20;
+		MaxHunger = 200;
 		healthLeft = MaxHealth;
 		hungerLeft = MaxHunger;
 		eats = new String[] {"Deer", "Moose", "Rabbit", "Squirrel", "Blueberry", "Nightshade", "Apple", "Pear"};
@@ -32,30 +32,6 @@ public class Wolf extends LifeForm {
 		LifeSpan = 30;
 		localx = x;
 		localy = y;
-	}
-
-	@Override
-	public void Eat(LifeForm eaten) {
-		eaten.Die();
-		this.healthLeft++;
-	}
-
-	@Override
-	public void Die() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void Breed() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void findNutrients() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override

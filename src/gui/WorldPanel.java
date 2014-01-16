@@ -1,6 +1,5 @@
 package gui;
 
-import java.awt.Color;
 import java.awt.Graphics;
 
 import javax.swing.JPanel;
@@ -25,7 +24,8 @@ public class WorldPanel extends JPanel{
 
 		for (int i = 0; i < world.Life.size(); i++) {
 			g.setColor(world.Life.get(i).color);
-			world.Life.get(i).draw(g);
+			if(world.Life.get(i).alive)
+				world.Life.get(i).draw(g);
 		}
 	}
 }

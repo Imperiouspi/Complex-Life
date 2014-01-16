@@ -10,7 +10,7 @@ public class Rabbit extends LifeForm{
 		super();
 		species = "Rabbit";
 		MaxHealth = 30;
-		MaxHunger = 20;
+		MaxHunger = 200;
 		healthLeft = MaxHealth;
 		hungerLeft = MaxHunger;
 		eats = new String[] {"Grass"};
@@ -32,30 +32,6 @@ public class Rabbit extends LifeForm{
 		LifeSpan = 12;
 		localx = x;
 		localy = y;
-	}
-
-	@Override
-	public void Eat(LifeForm eaten) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void Die() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void Breed() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void findNutrients() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override

@@ -10,7 +10,7 @@ public class Deer extends LifeForm{
 		super();
 		species = "Deer";
 		MaxHealth = 30;
-		MaxHunger = 20;
+		MaxHunger = 200;
 		healthLeft = MaxHealth;
 		hungerLeft = MaxHunger;
 		eats = new String[] {"Poison Ivy", "Grass", "Mushroom", "Clover", "Juneberry", "Mulberry", "Raspberry", "Strawberry", "Blueberry", "Blackberry", "Apple", "Pear", "Ash", "Oak", "Maple", "Birch", "Dogwood"};
@@ -33,31 +33,6 @@ public class Deer extends LifeForm{
 		localx = x;
 		localy = y;
 	}
-
-	@Override
-	public void Eat(LifeForm eaten) {
-		eaten.Die();
-		this.healthLeft++;
-	}
-
-	@Override
-	public void Die() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void Breed() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void findNutrients() {
-		// TODO Auto-generated method stub
-		
-	}
-
 	@Override
 	public void onEaten(LifeForm eating) {
 		// TODO Auto-generated method stub
