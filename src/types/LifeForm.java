@@ -19,10 +19,6 @@ public abstract class LifeForm {
 		localy = y;
 	}
 
-	public LifeForm() {
-
-	}
-
 	public LifeForm Eat(LifeForm eaten) {
 		eaten.onEaten(this);
 		eaten.Die();

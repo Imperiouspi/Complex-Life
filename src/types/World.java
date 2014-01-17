@@ -141,6 +141,14 @@ public class World {
 	public void advance() {
 		for (int i = 0; i < Life.size(); i++) {
 			Life.get(i).Move(grid);
+			Life.get(i).isDead();
+			if (!Life.get(i).alive) {
+				Life.get(i).Die();
+				Life.remove(i);
+			}
+			if(Life.get(i).Breed(grid)){
+				Life.add(i, creature(Life.get(i).species, Life.get(i).localx, Life.get(i).localy));
+			}
 		}
 	}
 

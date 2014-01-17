@@ -86,7 +86,7 @@ public class aWindow extends JFrame {
 				WorldlyPanel.repaint();
 			}
 
-		}, 100L, 100L);
+		}, 500L, 500L);
 	}
 
 	class playAction implements MouseListener {

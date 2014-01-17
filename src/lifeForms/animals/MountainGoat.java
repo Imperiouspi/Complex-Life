@@ -5,25 +5,11 @@ import java.awt.Color;
 import types.LifeForm;
 
 public class MountainGoat extends LifeForm{
-
-	public MountainGoat() {
-		super();
+	public MountainGoat(int x, int y) {
+		super(x, y);
 		species = "MountainGoat";
 		MaxHealth = 30;
 		MaxHunger = 200;
-		healthLeft = MaxHealth;
-		hungerLeft = MaxHunger;
-		eats = new String[] {"Grass"};
-		predators = new String[] {"MountainLion"};
-		color = Color.DARK_GRAY;
-		LifeSpan = 10;
-	}
-	
-	public MountainGoat(int x, int y) {
-		super();
-		species = "MountainGoat";
-		MaxHealth = 30;
-		MaxHunger = 20;
 		healthLeft = MaxHealth;
 		hungerLeft = MaxHunger;
 		eats = new String[] {"Grass"};

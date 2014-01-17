@@ -2,12 +2,8 @@ package types;
 
 
 public abstract class Plant extends LifeForm{
-	public Plant(){
-		super();
-	}
-	
 	public Plant(int x, int y){
-		super();
+		super(x, y);
 		localx = x;
 		localy = y;
 	}
@@ -17,8 +13,6 @@ public abstract class Plant extends LifeForm{
 		return grid;
 		
 	}
-	public abstract void Die();
-	public abstract void Breed();
 	
 	public abstract void onEaten(LifeForm eating);
 }

@@ -7,24 +7,11 @@ import types.LifeForm;
 
 public class Horse extends LifeForm {
 
-	public Horse() {
-		super();
+	public Horse(int x, int y) {
+		super(x, y);
 		species = "Horse";
 		MaxHealth = 30;
 		MaxHunger = 200;
-		healthLeft = MaxHealth;
-		hungerLeft = MaxHunger;
-		eats = new String[] { "Grass" };
-		predators = new String[] { "Lion" };
-		color = Color.lightGray;
-		LifeSpan = 30;
-	}
-
-	public Horse(int x, int y) {
-		super();
-		species = "Horse";
-		MaxHealth = 30;
-		MaxHunger = 20;
 		healthLeft = MaxHealth;
 		hungerLeft = MaxHunger;
 		eats = new String[] { "Grass" };
