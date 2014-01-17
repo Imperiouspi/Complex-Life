@@ -36,7 +36,7 @@ public abstract class LifeForm {
 
 		for (int i = 0; i < 8; i++) {
 
-			getAveragePredatorAndPrey(grid);
+			moveTo = getAveragePredatorAndPrey(grid);
 
 			if (moveTo.x == 0 && moveTo.y == 0) {
 				moveTo = new Point((int) (Math.random() * 2) + 1,
