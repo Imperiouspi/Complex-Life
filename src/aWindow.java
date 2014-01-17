@@ -72,11 +72,11 @@ public class aWindow extends JFrame {
 
 	public void play() {
 		back.setVisible(false);
-		repaint();
 		world = new World(6, 50);
 		WorldlyPanel = new WorldPanel(world);
 		WorldlyPanel.addMouseListener(new worldClickAction());
 		add(WorldlyPanel);
+		repaint();
 		Timer time = new Timer();
 		time.scheduleAtFixedRate(new TimerTask() {
 
@@ -86,7 +86,7 @@ public class aWindow extends JFrame {
 				WorldlyPanel.repaint();
 			}
 
-		}, 100L, 100L);
+		}, 1000L, 1000L);
 	}
 
 	class playAction implements MouseListener {

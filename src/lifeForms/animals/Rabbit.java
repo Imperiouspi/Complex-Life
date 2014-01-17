@@ -23,7 +23,7 @@ public class Rabbit extends LifeForm{
 		super();
 		species = "Rabbit";
 		MaxHealth = 30;
-		MaxHunger = 20;
+		MaxHunger = 200;
 		healthLeft = MaxHealth;
 		hungerLeft = MaxHunger;
 		eats = new String[] {"Grass"};

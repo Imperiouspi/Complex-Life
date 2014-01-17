@@ -10,7 +10,7 @@ public class Lion extends LifeForm {
 		super();
 		species = "Lion";
 		MaxHealth = 30;
-		MaxHunger = 20;
+		MaxHunger = 200;
 		healthLeft = MaxHealth;
 		hungerLeft = MaxHunger;
 		eats = new String[] { "Horse", "MountainGoat" };
