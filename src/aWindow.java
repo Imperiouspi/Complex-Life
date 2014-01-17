@@ -73,7 +73,7 @@ public class aWindow extends JFrame {
 	public void play() {
 		back.setVisible(false);
 		repaint();
-		world = new World(6, 30);
+		world = new World(6, 50);
 		WorldlyPanel = new WorldPanel(world);
 		WorldlyPanel.addMouseListener(new worldClickAction());
 		add(WorldlyPanel);
