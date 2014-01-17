@@ -24,9 +24,8 @@ public class WorldPanel extends JPanel{
 
 		for (int i = 0; i < world.Life.size(); i++) {
 			g.setColor(world.Life.get(i).color);
-			world.Life.get(i).draw(g);
+			if(world.Life.get(i).alive)
+				world.Life.get(i).draw(g);
 		}
-		g.setColor(Color.black);
-		world.Life.get(123).drawSeenSquares(g, world.grid);
 	}
 }
