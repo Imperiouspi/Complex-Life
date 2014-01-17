@@ -29,36 +29,55 @@ public abstract class LifeForm {
 	public Tile[][] Move(Tile[][] grid) {
 		// if no prey or predators around, move randomly.
 		Point moveTo = new Point(0, 0);
+		Tile[][] seen = new Tile[5][5];
 
-		for (int i = 0; i < 8; i++) {
+		int a = 0, b = 0;
+		for (int i = -2; i <= 2; i++, a++) {
+			for (int j = -2; j <= 2; j++, b++) {
+				try {
+					seen[a][b] = grid[localx + i][localy + j];
+				} catch (NullPointerException e) {
 
-			moveTo = getAveragePredatorAndPrey(grid);
+				} catch (ArrayIndexOutOfBoundsException e) {
 
-			if (moveTo.x == 0 && moveTo.y == 0) {
-				moveTo = new Point((int) (Math.random() * 2) + 1,
-						(int) (Math.random() * 2) + 1);
-				int chance = (int) (Math.random() * 2);
-				if (chance == 1 && this.localx + moveTo.x < grid.length) {
-					this.localx += moveTo.x;
-				} else {
-					if (this.localx - moveTo.x > 0) {
-						this.localx -= moveTo.x;
-					} else {
-						this.localx += moveTo.x;
-					}
-				}
-				chance = (int) (Math.random() * 2);
-				if (chance == 1 && this.localy + moveTo.y < grid.length) {
-					this.localy += moveTo.y;
-				} else {
-					if (this.localy - moveTo.y > 0) {
-						this.localy -= moveTo.y;
-					} else {
-						this.localy += moveTo.y;
-					}
 				}
 			}
 		}
+		moveTo = getPoint(getAveragePredatorAngle(seen)
+				+ getAverageFoodAngle(seen));
+
+		if (moveTo.x == 0 && moveTo.y == 0) { // if it hasn't moved
+			moveTo = new Point((int) (Math.random() * 2) + 1,
+					(int) (Math.random() * 2) + 1);
+			int chance = (int) (Math.random() * 2);
+			if (chance == 1 && this.localx + moveTo.x < grid.length) {
+				this.localx += moveTo.x;
+			} else {
+				if (this.localx - moveTo.x > 0) {
+					this.localx -= moveTo.x;
+				} else {
+					this.localx += moveTo.x;
+				}
+			}
+			chance = (int) (Math.random() * 2);
+			if (chance == 1 && this.localy + moveTo.y < grid.length) {
+				this.localy += moveTo.y;
+			} else {
+				if (this.localy - moveTo.y > 0) {
+					this.localy -= moveTo.y;
+				} else {
+					this.localy += moveTo.y;
+				}
+			}
+		} else {
+			if(localx + moveTo.x > 0 && localx + moveTo.x < grid.length){
+				localx += moveTo.x;
+			}
+			if(localy + moveTo.y > 0 && localy + moveTo.y < grid.length){
+				localy += moveTo.y;
+			}
+		}
+
 		if (grid[localx][localy].isOccupied) {
 			Eat(grid[localx][localy].Occupant);
 		} else {
@@ -68,6 +87,176 @@ public abstract class LifeForm {
 		grid[localx][localy].isOccupied = true;
 		grid[localx][localy].Occupant = this;
 		return grid;
+	}
+
+	public int getAveragePredatorAngle(Tile[][] seen) {
+		int angle = 0;
+		int predatorCount = 0;
+
+		for (int i = 0; i < 5; i++) {
+			for (int j = 0; j < 5; j++) {
+				if (seen[i][j] != null && seen[i][j].Occupant != null) {
+					if (isPredator(seen[i][j].Occupant)) {
+						angle += getAngle(seen, i, j);
+						predatorCount++;
+					}
+				}
+			}
+		}
+
+		if (predatorCount != 0) {
+			if (angle / predatorCount > 0 && angle / predatorCount < 180) {
+				return angle / predatorCount + 180;
+			} else {
+				if (angle / predatorCount < 0) {
+					angle = 360 - angle;
+				}
+				return angle / predatorCount - 180;
+			}
+		} else {
+			return 0;
+		}
+	}
+
+	public int getAverageFoodAngle(Tile[][] seen) {
+		int angle = 0;
+		int foodCount = 0;
+
+		for (int i = 0; i < 5; i++) {
+			for (int j = 0; j < 5; j++) {
+				if (seen[i][j] != null && seen[i][j].Occupant != null) {
+					if (isFood(seen[i][j].Occupant)) {
+						angle += getAngle(seen, i, j);
+						foodCount++;
+					}
+				}
+			}
+		}
+		if (foodCount != 0) {
+			if (angle / foodCount > 0 && angle / foodCount < 180) {
+				return angle / foodCount + 180;
+			} else {
+				if (angle / foodCount < 0) {
+					angle = 360 - angle;
+				}
+				return angle / foodCount - 180;
+			}
+		} else {
+			return 0;
+		}
+	}
+
+	public int getAngle(Tile[][] seen, int x, int y) {
+		switch (y) {
+		case 0:
+			switch (x) {
+			case 0:
+				return 135;
+			case 1:
+				return 112;
+			case 2:
+				return 90;
+			case 3:
+				return 67;
+			case 4:
+				return 45;
+			}
+		case 1:
+			switch (x) {
+			case 0:
+				return 157;
+			case 1:
+				return 135;
+			case 2:
+				return 90;
+			case 3:
+				return 45;
+			case 4:
+				return 22;
+			}
+		case 2:
+			switch (x) {
+			case 0:
+				return 180;
+			case 1:
+				return 180;
+			case 2:
+				return 0;
+			case 3:
+				return 0;
+			case 4:
+				return 0;
+			}
+		case 3:
+			switch (x) {
+			case 0:
+				return 157 + 180;
+			case 1:
+				return 135 + 180;
+			case 2:
+				return 270;
+			case 3:
+				return 45 + 180;
+			case 4:
+				return 22 + 180;
+			}
+		case 4:
+			switch (x) {
+			case 0:
+				return 135 + 180;
+			case 1:
+				return 112 + 180;
+			case 2:
+				return 270;
+			case 3:
+				return 67 + 180;
+			case 4:
+				return 45 + 180;
+			}
+		}
+		return 0;
+	}
+
+	public Point getPoint(int angle) {
+		if (angle < 0) {
+			angle = 360 - angle;
+		}
+		Point moveTo = new Point(0, 0);
+
+		// 22-67
+		if (22 <= angle && angle < 67) {
+			return new Point(1, 1);
+		}
+		// 67-112
+		if (67 <= angle && angle < 112) {
+			return new Point(1, 0);
+		}
+		// 112-157
+		if (112 <= angle && angle < 157) {
+			return new Point(1, -1);
+		}
+		// 157-202
+		if (157 <= angle && angle < 202) {
+			return new Point(0, -1);
+		}
+		// 202-247
+		if (202 <= angle && angle < 247) {
+			return new Point(-1, -1);
+		}
+		// 247-292
+		if (237 <= angle && angle < 292) {
+			return new Point(-1, 0);
+		}
+		// 292-337
+		if (292 <= angle && angle < 337) {
+			return new Point(1, -1);
+		}
+		// 337-22
+		if (337 <= angle && angle < 22) {
+			return new Point(0, 1);
+		}
+
+		return moveTo;
 	}
 
 	public boolean isPredator(LifeForm life) {
@@ -94,28 +283,6 @@ public abstract class LifeForm {
 			}
 		}
 		return false;
-	}
-
-	public Point getAveragePredatorAndPrey(Tile[][] grid) {
-		Point toMove = new Point(0, 0);
-		Point[] directions = directionalArray(grid);
-
-		/*
-		 * [-][+][-] [+][0][-] [+][+][-]
-		 */
-
-		int x = (directions[0].x + directions[1].x + directions[2].x
-				+ directions[3].x + directions[4].x + directions[5].x
-				+ directions[6].x + directions[7].x) / 7; // average x
-		int y = (directions[0].y + directions[1].y + directions[2].y
-				+ directions[3].y + directions[4].y + directions[5].y
-				+ directions[6].y + directions[7].y) / 7; // average y
-
-		// average point away from predators and towards food.
-		toMove.x = x;
-		toMove.y = y;
-
-		return toMove;
 	}
 
 	public Point[] directionalArray(Tile[][] grid) {
