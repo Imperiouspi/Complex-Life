@@ -70,10 +70,10 @@ public abstract class LifeForm {
 				}
 			}
 		} else {
-			if(localx + moveTo.x > 0 && localx + moveTo.x < grid.length){
+			if (localx + moveTo.x > 0 && localx + moveTo.x < grid.length) {
 				localx += moveTo.x;
 			}
-			if(localy + moveTo.y > 0 && localy + moveTo.y < grid.length){
+			if (localy + moveTo.y > 0 && localy + moveTo.y < grid.length) {
 				localy += moveTo.y;
 			}
 		}
@@ -97,7 +97,10 @@ public abstract class LifeForm {
 			for (int j = 0; j < 5; j++) {
 				if (seen[i][j] != null && seen[i][j].Occupant != null) {
 					if (isPredator(seen[i][j].Occupant)) {
-						angle += getAngle(seen, i, j);
+						angle += (int) (Math.asin(Math.sqrt(Math.pow(
+								seen[i][j].Occupant.localx - this.localx, 2)
+								+ Math.pow(seen[i][j].Occupant.localy,
+										this.localy))));
 						predatorCount++;
 					}
 				}
@@ -126,7 +129,10 @@ public abstract class LifeForm {
 			for (int j = 0; j < 5; j++) {
 				if (seen[i][j] != null && seen[i][j].Occupant != null) {
 					if (isFood(seen[i][j].Occupant)) {
-						angle += getAngle(seen, i, j);
+						angle += (int) (Math.asin(Math.sqrt(Math.pow(
+								seen[i][j].Occupant.localx - this.localx, 2)
+								+ Math.pow(seen[i][j].Occupant.localy,
+										this.localy))));
 						foodCount++;
 					}
 				}
