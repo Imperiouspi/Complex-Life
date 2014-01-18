@@ -10,7 +10,7 @@ public class Deer extends LifeForm{
 		super(x, y);
 		species = "Deer";
 		MaxHealth = 30;
-		MaxHunger = 2000;
+		MaxHunger = 200;
 		healthLeft = MaxHealth;
 		hungerLeft = MaxHunger;
 		eats = new String[] {"Poison Ivy", "Grass", "Mushroom", "Clover", "Juneberry", "Mulberry", "Raspberry", "Strawberry", "Blueberry", "Blackberry", "Apple", "Pear", "Ash", "Oak", "Maple", "Birch", "Dogwood"};

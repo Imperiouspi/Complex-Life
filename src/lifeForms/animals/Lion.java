@@ -9,11 +9,11 @@ public class Lion extends LifeForm {
 		super(x, y);
 		species = "Lion";
 		MaxHealth = 30;
-		MaxHunger = 2000;
+		MaxHunger = 200;
 		healthLeft = MaxHealth;
 		hungerLeft = MaxHunger;
 		eats = new String[] { "Horse", "MountainGoat" };
-		predators = new String[] { null };
+		predators = new String[] {};
 		color = Color.yellow;
 		LifeSpan = 10;
 		localx = x;

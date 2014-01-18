@@ -18,7 +18,7 @@ public class WorldPanel extends JPanel{
 		for (int i = 0; i < world.grid.length; i++) {
 			for (int j = 0; j < world.grid[i].length; j++) {
 				g.setColor(world.grid[i][j].color);
-				g.fillOval(i * 5, j * 5, 5, 5);
+				g.fillRect(i * 5, j * 5, 5, 5);
 			}
 		}
 

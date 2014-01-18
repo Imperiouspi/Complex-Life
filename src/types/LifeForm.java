@@ -22,7 +22,7 @@ public abstract class LifeForm {
 	public LifeForm Eat(LifeForm eaten) {
 		eaten.onEaten(this);
 		System.out.println(this.species + " " + eaten.species);
-		//eaten.Die();
+		eaten.Die();
 		this.hungerLeft = MaxHunger;
 		return eaten;
 	}
@@ -44,20 +44,21 @@ public abstract class LifeForm {
 				}
 			}
 		}
-		moveTo = getPoint((getAveragePredatorAngle(seen)
-				+ getAverageFoodAngle(seen))/2);
+		moveTo = getPoint((getAveragePredatorAngle(seen) + getAverageFoodAngle(seen)) / 2);
 		if (moveTo.x == 0 && moveTo.y == 0) { // if it hasn't moved
 			moveTo = moveRandom(grid);
-		}
-		else {
-			if (this.localx + moveTo.x > 0 && this.localx + moveTo.x < grid.length) {
+		} else {
+			if (this.localx + moveTo.x > 0
+					&& this.localx + moveTo.x < grid.length) {
 				this.localx += moveTo.x;
 			}
-			if (this.localy + moveTo.y > 0 && this.localy + moveTo.y < grid.length) {
+			if (this.localy + moveTo.y > 0
+					&& this.localy + moveTo.y < grid.length) {
 				this.localy += moveTo.y;
 			}
 		}
-		if (grid[this.localx][this.localy].isOccupied) {
+		if (grid[this.localx][this.localy].isOccupied
+				&& isFood(grid[this.localx][this.localy].Occupant)) {
 			Eat(grid[this.localx][this.localy].Occupant);
 		} else {
 			hungerLeft--;
@@ -68,8 +69,8 @@ public abstract class LifeForm {
 		return grid;
 	}
 
-	public Point moveRandom(Tile[][]grid){
-		Point moveTo = new Point(0,0);
+	public Point moveRandom(Tile[][] grid) {
+		Point moveTo = new Point(0, 0);
 		moveTo = new Point((int) (Math.random() * 2) + 1,
 				(int) (Math.random() * 2) + 1);
 		int chance = (int) (Math.random() * 2);
@@ -95,7 +96,8 @@ public abstract class LifeForm {
 		return moveTo;
 	}
 
-	public int getAveragePredatorAngle(Tile[][] seen) {//Lions don't have predators. :(
+	public int getAveragePredatorAngle(Tile[][] seen) {// Lions don't have
+														// predators. :(
 		int angle = 0;
 		int predatorCount = 0;
 
@@ -277,12 +279,14 @@ public abstract class LifeForm {
 		if (life != null) {
 			for (int i = 0; i < this.predators.length; i++) {
 				if (this.predators[i] != null) {
-					if (this.predators[i].equals(life.species)
-							&& this.predators[i] != null) {
+					if (this.predators[i].equals(life.species)) {
 						return true;
 					}
+				} else {
+					return false;
 				}
 			}
+			return false;
 		}
 		return false;
 	}
@@ -290,11 +294,15 @@ public abstract class LifeForm {
 	public boolean isFood(LifeForm life) {
 		if (life != null) {
 			for (int i = 0; i < this.eats.length; i++) {
-				if (this.eats[i] != null && this.eats[i].equals(life.species)
-						&& this.eats[i] != null) {
-					return true;
+				if (this.eats[i] != null) {
+					if (this.eats[i].equals(life.species)) {
+						return true;
+					}
+				} else {
+					return false;
 				}
 			}
+			return false;
 		}
 		return false;
 	}
@@ -409,7 +417,7 @@ public abstract class LifeForm {
 		for (int i = 0; i < 8; i++) {
 			try {
 				surroundTiles[i] = grid[this.localx + surroundPoints[i].x][this.localy
-				                                                           + surroundPoints[i].y];// outside grid sometimes
+						+ surroundPoints[i].y];// outside grid sometimes
 			} catch (ArrayIndexOutOfBoundsException e) {
 
 			}
@@ -435,7 +443,7 @@ public abstract class LifeForm {
 	public abstract void onEaten(LifeForm eating);
 
 	public void isDead() {
-		if (healthLeft == 0) {
+		if (healthLeft == 0 || hungerLeft ==0) {
 			this.Die();
 		}
 	}
