@@ -10,8 +10,8 @@ public abstract class Plant extends LifeForm{
 	
 	@Override
 	public Tile[][] Move(Tile[][]grid){
+		isDead();
 		return grid;
-		
 	}
 	
 	@Override
@@ -21,7 +21,7 @@ public abstract class Plant extends LifeForm{
 	
 	@Override
 	public void Die(){
-		
+		this.alive = false;
 	}
 	public abstract void onEaten(LifeForm eating);
 }

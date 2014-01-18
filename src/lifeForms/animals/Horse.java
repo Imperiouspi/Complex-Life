@@ -11,15 +11,16 @@ public class Horse extends LifeForm {
 		super(x, y);
 		species = "Horse";
 		MaxHealth = 30;
-		MaxHunger = 200;
+		MaxHunger = 500;
 		healthLeft = MaxHealth;
 		hungerLeft = MaxHunger;
 		eats = new String[] { "Grass" };
 		predators = new String[] { "Lion" };
-		color = Color.lightGray;
+		color = Color.black;
 		LifeSpan = 30;
 		localx = x;
 		localy = y;
+		breedCooldown = 0;
 		breedChance = 10;
 	}
 
@@ -28,11 +29,4 @@ public class Horse extends LifeForm {
 		// TODO Auto-generated method stub
 
 	}
-
-	@Override
-	public void draw(Graphics g) {
-		// TODO Auto-generated method stub
-
-	}
-
 }

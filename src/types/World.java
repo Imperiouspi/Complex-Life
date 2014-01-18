@@ -65,19 +65,19 @@ public class World {
 
 	private Biome worldBiomeGen(int i, int j) {
 		Biome biome = null;
-		int random = (int) (Math.random() * 4);
-		if (random == 0) {
-			biome = new Jungle(i, j);
-		}
-		if (random == 1) {
+		int random = (int) (Math.random() * 3) + 1;
+		/*
+		 * if (random == 0) { biome = new Jungle(i, j); }
+		 */
+		if (random == 1 || random == 3) {
 			biome = new Plains(i, j);
 		}
 		if (random == 2) {
 			biome = new Mountains(i, j);
 		}
-		if (random == 3) {
-			biome = new Ocean(i, j);
-		}
+		/*
+		 * if (random == 3) { biome = new Ocean(i, j); }
+		 */
 
 		return biome;
 	}
@@ -86,16 +86,10 @@ public class World {
 		LifeForm Occupant = null;
 		int spawnChance;
 		if (spawnType.equals("Plant")) {
-			int i;
-			for (i = 0; i < tile.location.foods.length; i++) {
-			}
-			spawnChance = (int) (Math.random() * i);
+			spawnChance = (int) (Math.random() * tile.location.foods.length);
 			Occupant = creature(tile.location.foods[spawnChance], x, y);
 		} else {
-			int i;
-			for (i = 0; i < tile.location.support.length; i++) {
-			}
-			spawnChance = (int) (Math.random() * i);
+			spawnChance = (int) (Math.random() * tile.location.support.length);
 			Occupant = creature(tile.location.support[spawnChance], x, y);
 		}
 
@@ -142,16 +136,17 @@ public class World {
 		for (int i = 0; i < Life.size(); i++) {
 			grid = Life.get(i).Move(grid);
 			Life.get(i).breedCooldown--;
+			if (Life.get(i).willBreed && Life.get(i).breedCooldown == 0) {
+				Life.get(i).Breed(this);
+				Life.get(i).willBreed = false;
+				Life.get(i).breedCooldown = 100;
+			}
 			Life.get(i).isDead();
 			if (!Life.get(i).alive) {
 				Life.get(i).Die();
 				Life.remove(i);
 			}
-			if(Life.get(i).willBreed && Life.get(i).breedCooldown == 0){
-				Life.get(i).Breed(this);
-				Life.get(i).willBreed = false;
-				Life.get(i).breedCooldown = 100;
-			}
+
 		}
 	}
 

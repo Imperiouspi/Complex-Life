@@ -17,6 +17,7 @@ public abstract class LifeForm {
 	public LifeForm(int x, int y) {
 		localx = x;
 		localy = y;
+		hungerLeft = MaxHunger;
 	}
 
 	public LifeForm Eat(LifeForm eaten) {
@@ -141,7 +142,7 @@ public abstract class LifeForm {
 		for (int i = 0; i < 5; i++) {
 			for (int j = 0; j < 5; j++) {
 				if (seen[i][j] != null && seen[i][j].Occupant != null) {
-					if (isFood(seen[i][j].Occupant)) {
+					if (isFood(seen[i][j].Occupant) || seen[i][j].Occupant.species == this.species) {
 						angle += (int) (Math.asin(Math.sqrt(Math.pow(
 								seen[i][j].Occupant.localx - this.localx, 2)
 								+ Math.pow(seen[i][j].Occupant.localy,
