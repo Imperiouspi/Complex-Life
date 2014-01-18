@@ -1,11 +1,13 @@
 package gui;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.Timer;
@@ -23,10 +25,13 @@ public class aWindow extends JFrame {
 	static World world;
 	WorldPanel WorldlyPanel;
 	public Timer time;
+	public LifeFormInfoScreen informations;
+	SetPanel set;
 
 	public aWindow() {
 		super("Complex Life");
-		back = new BackgroundPanel();
+		world = new World(6, 10);
+		back = new BackgroundPanel(new Dimension(world.Lands.length*100, world.Lands.length*100));
 
 		setSize(1000, 625);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -94,15 +99,20 @@ public class aWindow extends JFrame {
 			setLayout(new BorderLayout());
 			back.setVisible(false);
 			repaint();
-			world = new World(6, 10);
 
-			SetPanel options = new SetPanel();
-			options.playPause.addMouseListener(new PauseAction());
-			add(options, BorderLayout.WEST);
+			set = new SetPanel();
+			set.playPause.addMouseListener(new PauseAction());
+			add(set, BorderLayout.WEST);
+			informations = new LifeFormInfoScreen();
+			informations.addMouseListener(new Click());
+			add(informations);
 
 			WorldlyPanel = new WorldPanel(world);
 			WorldlyPanel.addMouseListener(new worldClickAction());
 			add(WorldlyPanel, BorderLayout.CENTER);
+			
+			
+
 			play();
 		}
 
@@ -242,9 +252,8 @@ public class aWindow extends JFrame {
 			if (e.getX() > 0 && e.getX() < 600 && e.getY() > 0
 					&& e.getY() < 600
 					&& world.grid[e.getX() / 5][e.getY() / 5].isOccupied) {
-				LifeFormInfoScreen information = new LifeFormInfoScreen(
-						world.grid[e.getX() / 5][e.getY() / 5].Occupant);
-				add(information);
+				informations
+						.setAnimal(world.grid[e.getX() / 5][e.getY() / 5].Occupant);
 				repaint();
 			}
 		}
@@ -274,13 +283,13 @@ public class aWindow extends JFrame {
 
 	class PauseAction implements MouseListener {
 		boolean isPause;
+
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			if(isPause){
+			if (isPause) {
 				play();
 				isPause = false;
-			}
-			else{
+			} else {
 				pause();
 				isPause = true;
 			}
@@ -298,13 +307,62 @@ public class aWindow extends JFrame {
 
 		@Override
 		public void mouseEntered(MouseEvent e) {
-			System.out.println("IN");
+			BufferedImage image2 = null;
+			try {
+				image2 = ImageIO.read(new File("src/resources/PlayPauseSelected.png"));
+			} catch (IOException e2) {
+				System.out.println("Unable to find Image.");
+				e2.printStackTrace();
+			}
+			set.playPause.setImage(image2);
+			repaint();
 		}
 
 		@Override
 		public void mouseExited(MouseEvent e) {
-
+			BufferedImage image = null;
+			try {
+				image = ImageIO.read(new File("src/resources/PlayPause.png"));
+			} catch (IOException e2) {
+				System.out.println("Unable to find Image.");
+				e2.printStackTrace();
+			}
+			set.playPause.setImage(image);
+			repaint();
 		}
 
+	}
+
+	class Click implements MouseListener{
+
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			System.out.println("TO TEST");
+		}
+
+		@Override
+		public void mousePressed(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseEntered(MouseEvent e) {
+			System.out.println("IN");
+			
+		}
+
+		@Override
+		public void mouseExited(MouseEvent e) {
+			System.out.println("OUT");
+			
+		}
+		
 	}
 }

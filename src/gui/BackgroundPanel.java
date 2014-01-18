@@ -1,5 +1,6 @@
 package gui;
 
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -9,8 +10,11 @@ import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 public class BackgroundPanel extends JPanel{
-	public BackgroundPanel(){
+	public BackgroundPanel(Dimension d){
 		super();
+		setPreferredSize(d);
+		setMaximumSize(d);
+		setMinimumSize(d);
 	}
 	
 	@Override

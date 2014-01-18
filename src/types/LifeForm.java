@@ -105,8 +105,6 @@ public abstract class LifeForm {
 		int angle = 0;
 		int predatorCount = 0;
 
-		System.out.println(this.species + "predator");
-
 		for (int i = 0; i < 5; i++) {
 			for (int j = 0; j < 5; j++) {
 				if (seen[i][j] != null && seen[i][j].Occupant != null) {
