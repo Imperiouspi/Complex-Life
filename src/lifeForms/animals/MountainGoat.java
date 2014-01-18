@@ -9,13 +9,14 @@ public class MountainGoat extends LifeForm{
 		super(x, y);
 		species = "MountainGoat";
 		MaxHealth = 30;
-		MaxHunger = 200;
+		MaxHunger = 100;
 		healthLeft = MaxHealth;
 		hungerLeft = MaxHunger;
 		eats = new String[] {"Grass"};
 		predators = new String[] {"Lion"};
 		color = new Color(129, 89, 30);
 		LifeSpan = 10;
+		breedChance = 6;
 		localx = x;
 		localy = y;
 	}

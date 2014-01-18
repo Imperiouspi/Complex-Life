@@ -83,6 +83,7 @@ public class aWindow extends JFrame {
 			@Override
 			public void run() {
 				world.advance();
+				System.gc();
 				WorldlyPanel.repaint();
 			}
 

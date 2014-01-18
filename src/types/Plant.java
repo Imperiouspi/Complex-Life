@@ -14,5 +14,14 @@ public abstract class Plant extends LifeForm{
 		
 	}
 	
+	@Override
+	public boolean Breed(World world){
+		return false;
+	}
+	
+	@Override
+	public void Die(){
+		
+	}
 	public abstract void onEaten(LifeForm eating);
 }

@@ -16,6 +16,7 @@ public class Wolf extends LifeForm {
 		predators = new String[] {"Tiger"};
 		color = Color.LIGHT_GRAY;
 		LifeSpan = 30;
+		breedChance = 3;
 		localx = x;
 		localy = y;
 	}

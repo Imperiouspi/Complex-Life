@@ -18,6 +18,7 @@ public class Lion extends LifeForm {
 		LifeSpan = 10;
 		localx = x;
 		localy = y;
+		breedChance = 1;
 	}
 
 	@Override

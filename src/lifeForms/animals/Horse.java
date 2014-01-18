@@ -20,6 +20,7 @@ public class Horse extends LifeForm {
 		LifeSpan = 30;
 		localx = x;
 		localy = y;
+		breedChance = 10;
 	}
 
 	@Override

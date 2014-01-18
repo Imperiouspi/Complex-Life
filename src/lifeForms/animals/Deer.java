@@ -19,6 +19,7 @@ public class Deer extends LifeForm{
 		LifeSpan = 15;
 		localx = x;
 		localy = y;
+		breedChance = 20;
 	}
 	@Override
 	public void onEaten(LifeForm eating) {

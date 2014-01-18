@@ -11,8 +11,8 @@ public abstract class LifeForm {
 	public String[] eats, predators;
 	public Color color;
 	public int LifeSpan;
-	public int localx, localy, viewDistance = 5;
-	public boolean alive = true;
+	public int localx, localy, viewDistance = 5, breedChance, breedCooldown = 10;
+	public boolean alive = true, willBreed = false;
 
 	public LifeForm(int x, int y) {
 		localx = x;
@@ -21,7 +21,6 @@ public abstract class LifeForm {
 
 	public LifeForm Eat(LifeForm eaten) {
 		eaten.onEaten(this);
-		System.out.println(this.species + " " + eaten.species);
 		eaten.Die();
 		this.hungerLeft = MaxHunger;
 		return eaten;
@@ -60,6 +59,10 @@ public abstract class LifeForm {
 		if (grid[this.localx][this.localy].isOccupied
 				&& isFood(grid[this.localx][this.localy].Occupant)) {
 			Eat(grid[this.localx][this.localy].Occupant);
+		} else if (grid[this.localx][this.localy].isOccupied
+				&& grid[this.localx][this.localy].Occupant.species
+						.equals(this.species)) {
+			willBreed = true;
 		} else {
 			hungerLeft--;
 		}
@@ -307,143 +310,23 @@ public abstract class LifeForm {
 		return false;
 	}
 
-	public Point[] directionalArray(Tile[][] grid) {
-		Directions d = new Directions();
-		Point moveDirection[] = new Point[8];
-
-		if (localx + 1 < grid.length && grid[localx + 1][localy] != null) {
-			if (isPredator(grid[localx + 1][localy].Occupant)) {
-				moveDirection[0] = new Point(-d.get("NORTH").x,
-						-d.get("NORTH").y);
-			} else if (isFood(grid[localx + 1][localy].Occupant)) {
-				moveDirection[0] = d.get("NORTH");
-			} else
-				moveDirection[0] = d.get("NOWHERE");
-		} else
-			moveDirection[0] = d.get("NOWHERE");
-
-		if (localx + 1 < grid.length && localy + 1 < grid.length
-				&& grid[localx + 1][localy + 1] != null) {
-			if (isPredator(grid[localx + 1][localy + 1].Occupant)) {
-				moveDirection[1] = new Point(-d.get("NORTHEAST").x,
-						-d.get("NORTHEAST").y);
-			} else if (isFood(grid[localx + 1][localy + 1].Occupant)) {
-				moveDirection[1] = d.get("NORTHEAST");
-			} else
-				moveDirection[1] = d.get("NOWHERE");
-		} else
-			moveDirection[1] = d.get("NOWHERE");
-
-		if (localx + 1 < grid.length && localy + 1 < grid.length
-				&& grid[localx + 1][localy + 1] != null) {
-			if (isPredator(grid[localx + 1][localy].Occupant)) {
-				moveDirection[2] = new Point(-d.get("EAST").x, -d.get("EAST").y);
-			} else if (isFood(grid[localx + 1][localy].Occupant)) {
-				moveDirection[2] = d.get("EAST");
-			} else
-				moveDirection[2] = d.get("NOWHERE");
-		} else
-			moveDirection[2] = d.get("NOWHERE");
-
-		if (localx + 1 < grid.length && localy - 1 > 0
-				&& grid[localx + 1][localy - 1] != null) {
-			if (isPredator(grid[localx + 1][localy - 1].Occupant)) {
-				moveDirection[3] = new Point(-d.get("SOUTHEAST").x,
-						-d.get("SOUTHEAST").y);
-			} else if (isFood(grid[localx + 1][localy - 1].Occupant)) {
-				moveDirection[3] = d.get("SOUTHEAST");
-			} else
-				moveDirection[3] = d.get("NOWHERE");
-		} else
-			moveDirection[3] = d.get("NOWHERE");
-
-		if (localy - 1 > 0 && grid[localx][localy - 1] != null) {
-			if (isPredator(grid[localx][localy - 1].Occupant)) {
-				moveDirection[4] = new Point(-d.get("SOUTH").x,
-						-d.get("SOUTH").y);
-				;
-			} else if (isFood(grid[localx][localy - 1].Occupant)) {
-				moveDirection[4] = d.get("SOUTH");
-			} else
-				moveDirection[4] = d.get("NOWHERE");
-		} else
-			moveDirection[4] = d.get("NOWHERE");
-
-		if (localx - 1 > 0 && localy - 1 > 0
-				&& grid[localx - 1][localy - 1] != null) {
-			if (isPredator(grid[localx - 1][localy - 1].Occupant)) {
-				moveDirection[5] = new Point(-d.get("SOUTHWEST").x,
-						-d.get("SOUTHWEST").y);
-			} else if (isFood(grid[localx - 1][localy - 1].Occupant)) {
-				moveDirection[5] = d.get("SOUTHWEST");
-			} else
-				moveDirection[5] = d.get("NOWHERE");
-		} else
-			moveDirection[5] = d.get("NOWHERE");
-
-		if (localx - 1 > 0 && grid[localx - 1][localy] != null) {
-			if (isPredator(grid[localx - 1][localy].Occupant)) {
-				moveDirection[6] = new Point(-d.get("WEST").x, -d.get("WEST").y);
-			} else if (isFood(grid[localx - 1][localy].Occupant)) {
-				moveDirection[6] = d.get("WEST");
-			} else
-				moveDirection[6] = d.get("NOWHERE");
-		} else
-			moveDirection[6] = d.get("NOWHERE");
-
-		if (localx - 1 > 0 && localy + 1 < grid.length
-				&& grid[localx - 1][localy + 1] != null) {
-			if (isPredator(grid[localx - 1][localy + 1].Occupant)) {
-				moveDirection[7] = new Point(-d.get("NORTHWEST").x,
-						-d.get("NORTHWEST").y);
-			} else if (isFood(grid[localx - 1][localy + 1].Occupant)) {
-				moveDirection[7] = d.get("NORTHWEST");
-			} else
-				moveDirection[7] = d.get("NOWHERE");
-		} else
-			moveDirection[7] = d.get("NOWHERE");
-
-		return moveDirection;
-	}
-
 	public void Die() {
 		this.alive = false;
 	}
 
-	public Tile[] convertToTiles(Tile[][] grid) {
-		Point[] surroundPoints = directionalArray(grid);
-		Tile[] surroundTiles = new Tile[8];
-
-		for (int i = 0; i < 8; i++) {
-			try {
-				surroundTiles[i] = grid[this.localx + surroundPoints[i].x][this.localy
-						+ surroundPoints[i].y];// outside grid sometimes
-			} catch (ArrayIndexOutOfBoundsException e) {
-
-			}
+	public boolean Breed(World world) {
+		int breed = (int) (Math.random() * 100);
+		if (breed < this.breedChance) {
+			world.Life.add(World.creature(this.species, localx, localy));
+			return true;
 		}
-		return surroundTiles;
-	}
-
-	public boolean Breed(Tile[][] grid) {
-		Tile[] tiles = convertToTiles(grid);
-		boolean surrounded = false;
-		for (int i = 0; i < 8; i++) {
-			if (tiles[i] != null) {
-				if (tiles[i].Occupant != null) {
-					if (tiles[i].Occupant.equals(this.species)) { // so null
-						surrounded = true;
-					}
-				}
-			}
-		}
-		return surrounded;
+		return false;
 	}
 
 	public abstract void onEaten(LifeForm eating);
 
 	public void isDead() {
-		if (healthLeft == 0 || hungerLeft ==0) {
+		if (healthLeft == 0 || hungerLeft == 0) {
 			this.Die();
 		}
 	}
