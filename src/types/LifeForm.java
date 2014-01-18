@@ -21,7 +21,8 @@ public abstract class LifeForm {
 
 	public LifeForm Eat(LifeForm eaten) {
 		eaten.onEaten(this);
-		eaten.Die();
+		System.out.println(this.species + " " + eaten.species);
+		//eaten.Die();
 		this.hungerLeft = MaxHunger;
 		return eaten;
 	}
@@ -43,43 +44,21 @@ public abstract class LifeForm {
 				}
 			}
 		}
-		moveTo = getPoint(getAveragePredatorAngle(seen)
-				+ getAverageFoodAngle(seen));
-
+		moveTo = getPoint((getAveragePredatorAngle(seen)
+				+ getAverageFoodAngle(seen))/2);
 		if (moveTo.x == 0 && moveTo.y == 0) { // if it hasn't moved
-			moveTo = new Point((int) (Math.random() * 2) + 1,
-					(int) (Math.random() * 2) + 1);
-			int chance = (int) (Math.random() * 2);
-			if (chance == 1 && this.localx + moveTo.x < grid.length) {
+			moveTo = moveRandom(grid);
+		}
+		else {
+			if (this.localx + moveTo.x > 0 && this.localx + moveTo.x < grid.length) {
 				this.localx += moveTo.x;
-			} else {
-				if (this.localx - moveTo.x > 0) {
-					this.localx -= moveTo.x;
-				} else {
-					this.localx += moveTo.x;
-				}
 			}
-			chance = (int) (Math.random() * 2);
-			if (chance == 1 && this.localy + moveTo.y < grid.length) {
+			if (this.localy + moveTo.y > 0 && this.localy + moveTo.y < grid.length) {
 				this.localy += moveTo.y;
-			} else {
-				if (this.localy - moveTo.y > 0) {
-					this.localy -= moveTo.y;
-				} else {
-					this.localy += moveTo.y;
-				}
-			}
-		} else {
-			if (localx + moveTo.x > 0 && localx + moveTo.x < grid.length) {
-				localx += moveTo.x;
-			}
-			if (localy + moveTo.y > 0 && localy + moveTo.y < grid.length) {
-				localy += moveTo.y;
 			}
 		}
-
-		if (grid[localx][localy].isOccupied) {
-			Eat(grid[localx][localy].Occupant);
+		if (grid[this.localx][this.localy].isOccupied) {
+			Eat(grid[this.localx][this.localy].Occupant);
 		} else {
 			hungerLeft--;
 		}
@@ -89,9 +68,38 @@ public abstract class LifeForm {
 		return grid;
 	}
 
-	public int getAveragePredatorAngle(Tile[][] seen) {
+	public Point moveRandom(Tile[][]grid){
+		Point moveTo = new Point(0,0);
+		moveTo = new Point((int) (Math.random() * 2) + 1,
+				(int) (Math.random() * 2) + 1);
+		int chance = (int) (Math.random() * 2);
+		if (chance == 1 && this.localx + moveTo.x < grid.length) {
+			this.localx += moveTo.x;
+		} else {
+			if (this.localx - moveTo.x > 0) {
+				this.localx -= moveTo.x;
+			} else {
+				this.localx += moveTo.x;
+			}
+		}
+		chance = (int) (Math.random() * 2);
+		if (chance == 1 && this.localy + moveTo.y < grid.length) {
+			this.localy += moveTo.y;
+		} else {
+			if (this.localy - moveTo.y > 0) {
+				this.localy -= moveTo.y;
+			} else {
+				this.localy += moveTo.y;
+			}
+		}
+		return moveTo;
+	}
+
+	public int getAveragePredatorAngle(Tile[][] seen) {//Lions don't have predators. :(
 		int angle = 0;
 		int predatorCount = 0;
+
+		System.out.println(this.species + "predator");
 
 		for (int i = 0; i < 5; i++) {
 			for (int j = 0; j < 5; j++) {
@@ -401,7 +409,7 @@ public abstract class LifeForm {
 		for (int i = 0; i < 8; i++) {
 			try {
 				surroundTiles[i] = grid[this.localx + surroundPoints[i].x][this.localy
-						+ surroundPoints[i].y];// outside grid sometimes
+				                                                           + surroundPoints[i].y];// outside grid sometimes
 			} catch (ArrayIndexOutOfBoundsException e) {
 
 			}

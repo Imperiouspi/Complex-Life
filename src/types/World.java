@@ -85,19 +85,19 @@ public class World {
 	public static LifeForm populate(Tile tile, String spawnType, int x, int y) {
 		LifeForm Occupant = null;
 		int spawnChance;
-		if (spawnType.equals("Plant")) {
+		/*if (spawnType.equals("Plant")) {
 			int i;
 			for (i = 0; i < tile.location.foods.length; i++) {
 			}
 			spawnChance = (int) (Math.random() * i);
 			Occupant = creature(tile.location.foods[spawnChance], x, y);
-		} else {
+		} else {*/
 			int i;
 			for (i = 0; i < tile.location.support.length; i++) {
 			}
 			spawnChance = (int) (Math.random() * i);
 			Occupant = creature(tile.location.support[spawnChance], x, y);
-		}
+		//}
 
 		return Occupant;
 	}
@@ -140,15 +140,15 @@ public class World {
 
 	public void advance() {
 		for (int i = 0; i < Life.size(); i++) {
-			Life.get(i).Move(grid);
+			grid = Life.get(i).Move(grid);
 			Life.get(i).isDead();
 			if (!Life.get(i).alive) {
 				Life.get(i).Die();
 				Life.remove(i);
 			}
-			if(Life.get(i).Breed(grid)){
+			/*if(Life.get(i).Breed(grid)){
 				Life.add(i, creature(Life.get(i).species, Life.get(i).localx, Life.get(i).localy));
-			}
+			}*/
 		}
 	}
 

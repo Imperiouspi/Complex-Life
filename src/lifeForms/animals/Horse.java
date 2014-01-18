@@ -11,7 +11,7 @@ public class Horse extends LifeForm {
 		super(x, y);
 		species = "Horse";
 		MaxHealth = 30;
-		MaxHunger = 200;
+		MaxHunger = 2000;
 		healthLeft = MaxHealth;
 		hungerLeft = MaxHunger;
 		eats = new String[] { "Grass" };
