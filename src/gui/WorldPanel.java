@@ -1,5 +1,6 @@
 package gui;
 
+import java.awt.Dimension;
 import java.awt.Graphics;
 
 import javax.swing.JPanel;
@@ -11,6 +12,8 @@ public class WorldPanel extends JPanel{
 
 	public WorldPanel(World place) {
 		this.world = place;
+		setMaximumSize(new Dimension(600, 600));
+		setMinimumSize(new Dimension(600, 600));
 	}
 
 	@Override

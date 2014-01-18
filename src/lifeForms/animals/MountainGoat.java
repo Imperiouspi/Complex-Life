@@ -1,4 +1,4 @@
-package lifeForms.animals;
+   package lifeForms.animals;
 
 import java.awt.Color;
 

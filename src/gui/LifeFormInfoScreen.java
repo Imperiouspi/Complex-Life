@@ -1,18 +1,17 @@
 package gui;
 
-import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
 import types.LifeForm;
 
-public class LifeFormInfoScreen extends JFrame {
+public class LifeFormInfoScreen extends JPanel {
 	JTextArea Info;
 	public LifeFormInfoScreen(LifeForm life){
-		super(life.species);
+		super();
 		Info = new JTextArea(life.species + ":\nHealth: " + life.healthLeft + "\nHunger: " + life.hungerLeft);
 		Info.setBackground(life.color);
 		Info.setEditable(false);
 		add(Info);
-		pack();
 	}
 }

@@ -1,9 +1,6 @@
-import gui.BackgroundPanel;
-import gui.LabelButton;
-import gui.LifeFormInfoScreen;
-import gui.QuitButton;
-import gui.WorldPanel;
+package gui;
 
+import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -25,6 +22,7 @@ public class aWindow extends JFrame {
 	QuitButton quit;
 	static World world;
 	WorldPanel WorldlyPanel;
+	public Timer time;
 
 	public aWindow() {
 		super("Complex Life");
@@ -71,30 +69,40 @@ public class aWindow extends JFrame {
 	}
 
 	public void play() {
-		back.setVisible(false);
-		repaint();
-		world = new World(6, 10);
-		WorldlyPanel = new WorldPanel(world);
-		WorldlyPanel.addMouseListener(new worldClickAction());
-		add(WorldlyPanel);
-		Timer time = new Timer();
+		time = new Timer();
 		time.scheduleAtFixedRate(new TimerTask() {
 
 			@Override
 			public void run() {
 				world.advance();
 				System.gc();
+				repaint();
 				WorldlyPanel.repaint();
 			}
 
 		}, 100L, 100L);
 	}
 
+	public void pause() {
+		time.cancel();
+	}
+
 	class playAction implements MouseListener {
 
 		@Override
 		public void mouseClicked(MouseEvent arg0) {
-			// TODO Play
+			setLayout(new BorderLayout());
+			back.setVisible(false);
+			repaint();
+			world = new World(6, 10);
+
+			SetPanel options = new SetPanel();
+			options.playPause.addMouseListener(new PauseAction());
+			add(options, BorderLayout.WEST);
+
+			WorldlyPanel = new WorldPanel(world);
+			WorldlyPanel.addMouseListener(new worldClickAction());
+			add(WorldlyPanel, BorderLayout.CENTER);
 			play();
 		}
 
@@ -231,10 +239,13 @@ public class aWindow extends JFrame {
 
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			if (world.grid[e.getX() / 5][e.getY() / 5].isOccupied) {
-				LifeFormInfoScreen window2 = new LifeFormInfoScreen(
+			if (e.getX() > 0 && e.getX() < 600 && e.getY() > 0
+					&& e.getY() < 600
+					&& world.grid[e.getX() / 5][e.getY() / 5].isOccupied) {
+				LifeFormInfoScreen information = new LifeFormInfoScreen(
 						world.grid[e.getX() / 5][e.getY() / 5].Occupant);
-				window2.setVisible(true);
+				add(information);
+				repaint();
 			}
 		}
 
@@ -259,5 +270,41 @@ public class aWindow extends JFrame {
 			// TODO Auto-generated method stub
 
 		}
+	}
+
+	class PauseAction implements MouseListener {
+		boolean isPause;
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			if(isPause){
+				play();
+				isPause = false;
+			}
+			else{
+				pause();
+				isPause = true;
+			}
+		}
+
+		@Override
+		public void mousePressed(MouseEvent e) {
+
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent e) {
+
+		}
+
+		@Override
+		public void mouseEntered(MouseEvent e) {
+			System.out.println("IN");
+		}
+
+		@Override
+		public void mouseExited(MouseEvent e) {
+
+		}
+
 	}
 }
