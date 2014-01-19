@@ -22,7 +22,7 @@ public class Grass extends Plant { // :)
 		color = new Color(0, 200, 0); // Should this be (0, 200, 0) like the one
 										// above, or (10, 200, 10) like it used
 										// to be?
-		LifeSpan = 20;
+		LifeSpan = 500;
 	}
 
 	@Override
@@ -37,6 +37,7 @@ public class Grass extends Plant { // :)
 		// think that's what you want.
 		eating.healthLeft = Math.min(healthLeft + 1, MaxHealth);
 		eating.hungerLeft = Math.max(hungerLeft - 1, 0);
+		this.LifeSpan -= 10;
 		// I changed the hungerLeft assignment. I feel like hunger should
 		// decrease, not increase.
 		// These changes to healthLeft and hungerLeft should be to the life form

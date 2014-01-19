@@ -39,8 +39,6 @@ public class SetPanel extends JPanel{
 	public JSlider chanceBreed_Sl;
 	public JLabel cool_L;
 	public JSlider cool_Sl;
-	public JButton open;
-	public JButton save;
 	public ApocalypsePane apocalypse;
 	
 	public SetPanel(){
@@ -50,12 +48,13 @@ public class SetPanel extends JPanel{
 		setMinimumSize(new Dimension(200, 1000));
 		this.setBorder(new EmptyBorder(new Insets(10, 10, 10, 10)));
 		
-		setLayout(new GridLayout(0, 1));
+		GridLayout grid = new GridLayout(0,1);
+		setLayout(grid);
 		
 		playPause = new PauseButton("src/resources/PlayPause.png");
 		add(playPause);
 		
-		add(new JSeparator(SwingConstants.HORIZONTAL));
+		//add(new JSeparator(SwingConstants.HORIZONTAL));
 		
 		animals = new JComboBox<String>(new String[]{"Lion", "Mountain Goat", "Horse"});
 		animals.addActionListener(new ActionListener(){
@@ -126,7 +125,7 @@ public class SetPanel extends JPanel{
 		add(chanceBreed_L);
 		
 		chanceBreed_Sl = new JSlider(0, 100);
-		chanceBreed_Sl.setMajorTickSpacing(10);
+		chanceBreed_Sl.setMajorTickSpacing(20);
 		chanceBreed_Sl.setPaintLabels(true);
 		chanceBreed_Sl.setPaintTicks(true);
 		chanceBreed_Sl.setValue((World.creature((String)(animals.getSelectedItem()), 0, 0).breedChance));
@@ -136,20 +135,16 @@ public class SetPanel extends JPanel{
 		add(cool_L);
 		
 		cool_Sl = new JSlider(0, 1000);
-		cool_Sl.setMajorTickSpacing(100);
+		cool_Sl.setMajorTickSpacing(500);
 		cool_Sl.setPaintTicks(true);
 		cool_Sl.setPaintLabels(true);
 		cool_Sl.setValue((World.creature((String)(animals.getSelectedItem()), 0, 0).breedCooldown));
 		add(cool_Sl);
 		
 		add(new JSeparator(SwingConstants.HORIZONTAL));
+
 		
-		open = new JButton();
-		add(open);
-		save = new JButton();
-		add(save);
-		
-		apocalypse = new ApocalypsePane();
+		apocalypse = new ApocalypsePane("src/resources/ApocalypseButton.png");
 		add(apocalypse);
 	}
 }

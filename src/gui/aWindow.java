@@ -30,11 +30,13 @@ public class aWindow extends JFrame {
 	SetPanel set;
 	Component[] setCom;
 	boolean isPause;
+	int score;
 
 	public aWindow() {
 		super("Complex Life");
 		world = new World(6, 10);
-		back = new BackgroundPanel(new Dimension(world.Lands.length*100, world.Lands.length*100));
+		back = new BackgroundPanel(new Dimension(world.Lands.length * 100,
+				world.Lands.length * 100));
 
 		setSize(1000, 625);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -77,7 +79,7 @@ public class aWindow extends JFrame {
 	}
 
 	public void play() {
-		for(int i = 0; i < setCom.length; i++){
+		for (int i = 0; i < setCom.length; i++) {
 			setCom[i].setEnabled(false);
 		}
 		time = new Timer();
@@ -89,16 +91,20 @@ public class aWindow extends JFrame {
 				System.gc();
 				repaint();
 				WorldlyPanel.repaint();
+				if(world.Life.size() > 0){
+					score++;
+				}
+				informations.setScore(score);
 			}
 
 		}, 100L, 100L);
 	}
 
 	public void pause() {
-		for(int i = 0; i < setCom.length; i++){
+		for (int i = 0; i < setCom.length; i++) {
 			setCom[i].setEnabled(true);
 		}
-		if(time !=null)
+		if (time != null)
 			time.cancel();
 	}
 
@@ -106,14 +112,14 @@ public class aWindow extends JFrame {
 
 		@Override
 		public void mouseClicked(MouseEvent arg0) {
-			setSize(1000, 800);
+			setSize(1000, 1000);
 			setLayout(new BorderLayout());
 			back.setVisible(false);
 			repaint();
 
 			set = new SetPanel();
 			set.setEnabled(false);
-			set.apocalypse.addMouseListener(new MouseListener(){
+			set.apocalypse.addMouseListener(new MouseListener() {
 
 				@Override
 				public void mouseClicked(MouseEvent e) {
@@ -124,33 +130,35 @@ public class aWindow extends JFrame {
 				@Override
 				public void mousePressed(MouseEvent e) {
 					// TODO Auto-generated method stub
-					
+
 				}
 
 				@Override
 				public void mouseReleased(MouseEvent e) {
 					// TODO Auto-generated method stub
-					
+
 				}
 
 				@Override
 				public void mouseEntered(MouseEvent e) {
 					// TODO Auto-generated method stub
-					
+
 				}
 
 				@Override
 				public void mouseExited(MouseEvent e) {
-					// TODO Auto-generated method stub
-					
+
 				}
-			
+
 			});
+			score = 0;
 			set.playPause.addMouseListener(new PauseAction());
 			add(set, BorderLayout.WEST);
 			informations = new LifeFormInfoScreen();
+			informations.setBackground(set.getBackground());
 			informations.addMouseListener(new Click());
-			add(informations);
+			add(informations, BorderLayout.EAST);
+			
 			setCom = set.getComponents();
 
 			WorldlyPanel = new WorldPanel(world);
@@ -158,7 +166,8 @@ public class aWindow extends JFrame {
 			add(WorldlyPanel, BorderLayout.CENTER);
 
 			isPause = true;
-			set.setBackground(World.creature((String)(set.animals.getSelectedItem()), 0, 0).color);
+			set.setBackground(World.creature(
+					(String) (set.animals.getSelectedItem()), 0, 0).color);
 			pause();
 		}
 
@@ -295,7 +304,7 @@ public class aWindow extends JFrame {
 					&& e.getY() < 600
 					&& world.grid[e.getX() / 5][e.getY() / 5].isOccupied) {
 				informations
-				.setAnimal(world.grid[e.getX() / 5][e.getY() / 5].Occupant);
+						.setAnimal(world.grid[e.getX() / 5][e.getY() / 5].Occupant);
 				repaint();
 			}
 		}
@@ -331,11 +340,13 @@ public class aWindow extends JFrame {
 				play();
 				isPause = false;
 				set.setEnabled(false);
+				repaint();
 			} else {
 				pause();
 				isPause = true;
 				set.setEnabled(true);
-				set.setBackground(World.creature((String)(set.animals.getSelectedItem()), 0, 0).color);
+				set.setBackground(World.creature(
+						(String) (set.animals.getSelectedItem()), 0, 0).color);
 				repaint();
 			}
 		}
@@ -354,7 +365,8 @@ public class aWindow extends JFrame {
 		public void mouseEntered(MouseEvent e) {
 			BufferedImage image2 = null;
 			try {
-				image2 = ImageIO.read(new File("src/resources/PlayPauseSelected.png"));
+				image2 = ImageIO.read(new File(
+						"src/resources/PlayPauseSelected.png"));
 			} catch (IOException e2) {
 				System.out.println("Unable to find Image.");
 				e2.printStackTrace();
@@ -378,7 +390,7 @@ public class aWindow extends JFrame {
 
 	}
 
-	class Click implements MouseListener{
+	class Click implements MouseListener {
 
 		@Override
 		public void mouseClicked(MouseEvent e) {
