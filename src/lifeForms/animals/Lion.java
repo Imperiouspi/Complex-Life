@@ -5,56 +5,23 @@ import java.awt.Color;
 import types.LifeForm;
 
 public class Lion extends LifeForm {
-
-	public Lion() {
-		super();
-		species = "Lion";
-		MaxHealth = 30;
-		MaxHunger = 20;
-		healthLeft = MaxHealth;
-		hungerLeft = MaxHunger;
-		eats = new String[] { "Horse" };
-		predators = new String[] { null };
-		color = Color.yellow;
-		LifeSpan = 10;
-	}
-
+	public static Color staticColor;
 	public Lion(int x, int y) {
-		super();
+		super(x, y);
 		species = "Lion";
 		MaxHealth = 30;
-		MaxHunger = 20;
+		MaxHunger = 50;
 		healthLeft = MaxHealth;
 		hungerLeft = MaxHunger;
-		eats = new String[] { "Horse" };
-		predators = new String[] { null };
+		eats = new String[] { "Horse", "MountainGoat" };
+		predators = new String[] {};
 		color = Color.yellow;
 		LifeSpan = 10;
 		localx = x;
 		localy = y;
-	}
-
-	@Override
-	public void Eat(LifeForm eaten) {
-		eaten.Die();
-		this.healthLeft++;
-	}
-
-	@Override
-	public void Die() {
+		breedChance = 1;
 		
-	}
-
-	@Override
-	public void Breed() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void findNutrients() {
-		// TODO Auto-generated method stub
-
+		staticColor = this.color;
 	}
 
 	@Override

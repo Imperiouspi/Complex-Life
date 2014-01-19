@@ -2,32 +2,27 @@ package types;
 
 
 public abstract class Plant extends LifeForm{
-	public Plant(){
-		super();
-	}
-	
 	public Plant(int x, int y){
-		super();
+		super(x, y);
 		localx = x;
 		localy = y;
 	}
+	
+	@Override
+	public Tile[][] Move(Tile[][]grid){
+		isDead();
+		LifeSpan--;
+		return grid;
+	}
+	
+	@Override
+	public boolean Breed(World world){
+		return false;
+	}
+	
+	@Override
+	public void Die(){
 
-	@Override
-	public void Eat(LifeForm eaten){
-		
 	}
-	
-	@Override
-	public void Move(Tile[][] grid){		
-	}
-	
-	public abstract void Die();
-	public abstract void Breed();
-	
-	@Override
-	public void findNutrients(){
-		
-	}
-	
 	public abstract void onEaten(LifeForm eating);
 }

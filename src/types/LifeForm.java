@@ -2,122 +2,333 @@ package types;
 
 import java.awt.Color;
 import java.awt.Graphics;
-
-//Maybe add id for easy access?
+import java.awt.Point;
 
 public abstract class LifeForm {
 	public String species;
-	public static int MaxHealth, MaxHunger;
+	public int MaxHealth, MaxHunger;
 	public int healthLeft, hungerLeft;
-	public static String[] eats, predators;
+	public String[] eats, predators;
 	public Color color;
-	public static int LifeSpan;
-	public int localx, localy, viewDistance = 5;
+	public int LifeSpan;
+	public int localx, localy, viewDistance = 5, breedChance, breedCooldown = 10;
+	public boolean alive = true, willBreed = false;
 
 	public LifeForm(int x, int y) {
 		localx = x;
 		localy = y;
+		hungerLeft = MaxHunger;
 	}
 
-	public LifeForm() {
-
+	public LifeForm Eat(LifeForm eaten) {
+		eaten.onEaten(this);
+		eaten.Die();
+		this.hungerLeft = MaxHunger;
+		return eaten;
 	}
 
-	public abstract void Eat(LifeForm eaten);
+	public Tile[][] Move(Tile[][] grid) {
+		// if no prey or predators around, move randomly.
+		Point moveTo = new Point(0, 0);
+		Tile[][] seen = new Tile[5][5];
 
-	public void Move(Tile[][] grid) {
-		Tile[][] seen = new Tile[2 * viewDistance + 1][2 * viewDistance + 1];
-		int MoveToX = 0, MoveToY = 0;
+		int a = 0, b = 0;
+		for (int i = -2; i <= 2; i++, a++) {
+			for (int j = -2; j <= 2; j++, b++) {
+				try {
+					seen[a][b] = grid[localx + i][localy + j];
+				} catch (NullPointerException e) {
 
-		seen = getSeenSquares(grid);
+				} catch (ArrayIndexOutOfBoundsException e) {
 
-		for (int i = 0; i < seen.length; i++) {
-			for (int j = 0; j < seen[i].length; j++) {
-				if (seen[i][j] != null && seen[i][j].isOccupied
-						&& isPredator(seen[i][j].Occupant)) {
-					MoveToX = -getSideX(seen[i][j].Occupant.localx, this.localx);
-					MoveToY = -getSideY(seen[i][j].Occupant.localy, this.localy);
-				} else if (seen[i][j] != null && seen[i][j].isOccupied
-						&& isFood(seen[i][j].Occupant)) {
-					MoveToX = getSideX(seen[i][j].Occupant.localx, this.localx);
-					MoveToY = getSideY(seen[i][j].Occupant.localy, this.localy);
+				}
+			}
+		}
+		moveTo = getPoint((getAveragePredatorAngle(seen) + getAverageFoodAngle(seen)) / 2);
+		if (moveTo.x == 0 && moveTo.y == 0) { // if it hasn't moved
+			moveTo = moveRandom(grid);
+		} else {
+			if (this.localx + moveTo.x > 0
+					&& this.localx + moveTo.x < grid.length) {
+				this.localx += moveTo.x;
+			}
+			if (this.localy + moveTo.y > 0
+					&& this.localy + moveTo.y < grid.length) {
+				this.localy += moveTo.y;
+			}
+		}
+		if (grid[this.localx][this.localy].isOccupied
+				&& isFood(grid[this.localx][this.localy].Occupant)) {
+			Eat(grid[this.localx][this.localy].Occupant);
+		} else if (grid[this.localx][this.localy].isOccupied
+				&& grid[this.localx][this.localy].Occupant.species
+						.equals(this.species)) {
+			willBreed = true;
+		} else {
+			hungerLeft--;
+		}
+
+		grid[localx][localy].isOccupied = true;
+		grid[localx][localy].Occupant = this;
+		return grid;
+	}
+
+	public Point moveRandom(Tile[][] grid) {
+		Point moveTo = new Point(0, 0);
+		moveTo = new Point((int) (Math.random() * 2) + 1,
+				(int) (Math.random() * 2) + 1);
+		int chance = (int) (Math.random() * 2);
+		if (chance == 1 && this.localx + moveTo.x < grid.length) {
+			this.localx += moveTo.x;
+		} else {
+			if (this.localx - moveTo.x > 0) {
+				this.localx -= moveTo.x;
+			} else {
+				this.localx += moveTo.x;
+			}
+		}
+		chance = (int) (Math.random() * 2);
+		if (chance == 1 && this.localy + moveTo.y < grid.length) {
+			this.localy += moveTo.y;
+		} else {
+			if (this.localy - moveTo.y > 0) {
+				this.localy -= moveTo.y;
+			} else {
+				this.localy += moveTo.y;
+			}
+		}
+		return moveTo;
+	}
+
+	public int getAveragePredatorAngle(Tile[][] seen) {// Lions don't have
+														// predators. :(
+		int angle = 0;
+		int predatorCount = 0;
+
+		for (int i = 0; i < 5; i++) {
+			for (int j = 0; j < 5; j++) {
+				if (seen[i][j] != null && seen[i][j].Occupant != null) {
+					if (isPredator(seen[i][j].Occupant)) {
+						angle += (int) (Math.asin(Math.sqrt(Math.pow(
+								seen[i][j].Occupant.localx - this.localx, 2)
+								+ Math.pow(seen[i][j].Occupant.localy,
+										this.localy))));
+						predatorCount++;
+					}
 				}
 			}
 		}
 
-		this.localx += MoveToX;
-		this.localy += MoveToY;
+		if (predatorCount != 0) {
+			if (angle / predatorCount > 0 && angle / predatorCount < 180) {
+				return angle / predatorCount + 180;
+			} else {
+				if (angle / predatorCount < 0) {
+					angle = 360 - angle;
+				}
+				return angle / predatorCount - 180;
+			}
+		} else {
+			return 0;
+		}
+	}
+
+	public int getAverageFoodAngle(Tile[][] seen) {
+		int angle = 0;
+		int foodCount = 0;
+
+		for (int i = 0; i < 5; i++) {
+			for (int j = 0; j < 5; j++) {
+				if (seen[i][j] != null && seen[i][j].Occupant != null) {
+					if (isFood(seen[i][j].Occupant) || seen[i][j].Occupant.species == this.species) {
+						angle += (int) (Math.asin(Math.sqrt(Math.pow(
+								seen[i][j].Occupant.localx - this.localx, 2)
+								+ Math.pow(seen[i][j].Occupant.localy,
+										this.localy))));
+						foodCount++;
+					}
+				}
+			}
+		}
+		if (foodCount != 0) {
+			if (angle / foodCount > 0 && angle / foodCount < 180) {
+				return angle / foodCount + 180;
+			} else {
+				if (angle / foodCount < 0) {
+					angle = 360 - angle;
+				}
+				return angle / foodCount - 180;
+			}
+		} else {
+			return 0;
+		}
+	}
+
+	public int getAngle(Tile[][] seen, int x, int y) {
+		switch (y) {
+		case 0:
+			switch (x) {
+			case 0:
+				return 135;
+			case 1:
+				return 112;
+			case 2:
+				return 90;
+			case 3:
+				return 67;
+			case 4:
+				return 45;
+			}
+		case 1:
+			switch (x) {
+			case 0:
+				return 157;
+			case 1:
+				return 135;
+			case 2:
+				return 90;
+			case 3:
+				return 45;
+			case 4:
+				return 22;
+			}
+		case 2:
+			switch (x) {
+			case 0:
+				return 180;
+			case 1:
+				return 180;
+			case 2:
+				return 0;
+			case 3:
+				return 0;
+			case 4:
+				return 0;
+			}
+		case 3:
+			switch (x) {
+			case 0:
+				return 157 + 180;
+			case 1:
+				return 135 + 180;
+			case 2:
+				return 270;
+			case 3:
+				return 45 + 180;
+			case 4:
+				return 22 + 180;
+			}
+		case 4:
+			switch (x) {
+			case 0:
+				return 135 + 180;
+			case 1:
+				return 112 + 180;
+			case 2:
+				return 270;
+			case 3:
+				return 67 + 180;
+			case 4:
+				return 45 + 180;
+			}
+		}
+		return 0;
+	}
+
+	public Point getPoint(int angle) {
+		if (angle < 0) {
+			angle = 360 - angle;
+		}
+		Point moveTo = new Point(0, 0);
+
+		// 22-67
+		if (22 <= angle && angle < 67) {
+			return new Point(1, 1);
+		}
+		// 67-112
+		if (67 <= angle && angle < 112) {
+			return new Point(1, 0);
+		}
+		// 112-157
+		if (112 <= angle && angle < 157) {
+			return new Point(1, -1);
+		}
+		// 157-202
+		if (157 <= angle && angle < 202) {
+			return new Point(0, -1);
+		}
+		// 202-247
+		if (202 <= angle && angle < 247) {
+			return new Point(-1, -1);
+		}
+		// 247-292
+		if (237 <= angle && angle < 292) {
+			return new Point(-1, 0);
+		}
+		// 292-337
+		if (292 <= angle && angle < 337) {
+			return new Point(1, -1);
+		}
+		// 337-22
+		if (337 <= angle && angle < 22) {
+			return new Point(0, 1);
+		}
+
+		return moveTo;
 	}
 
 	public boolean isPredator(LifeForm life) {
-		for (int i = 0; i < predators.length; i++) {
-			if (predators[i] != null && predators[i].equals(life.species)) {
-				System.out.println("Predator");
-				return true;
+		if (life != null) {
+			for (int i = 0; i < this.predators.length; i++) {
+				if (this.predators[i] != null) {
+					if (this.predators[i].equals(life.species)) {
+						return true;
+					}
+				} else {
+					return false;
+				}
 			}
+			return false;
 		}
 		return false;
 	}
 
 	public boolean isFood(LifeForm life) {
-		for (int i = 0; i < eats.length; i++) {
-			if (eats[i] != null && eats[i].equals(life.species)) {
-				System.out.println("Prey");
-				return true;
+		if (life != null) {
+			for (int i = 0; i < this.eats.length; i++) {
+				if (this.eats[i] != null) {
+					if (this.eats[i].equals(life.species)) {
+						return true;
+					}
+				} else {
+					return false;
+				}
 			}
+			return false;
 		}
 		return false;
 	}
 
-	public int getSideX(int xAnimal, int xSeer) {
-		if (xAnimal == xSeer) {
-			return 0;
-		} else if (xAnimal < xSeer) {
-			return 1;
-		} else if (xAnimal > xSeer) {
-			return -1;
-		}
-		return 1;
+	public void Die() {
+		this.alive = false;
 	}
 
-	public int getSideY(int yAnimal, int ySeer) {
-		if (yAnimal == ySeer) {
-			return 0;
-		} else if (yAnimal < ySeer) {
-			return 1;
-		} else if (yAnimal > ySeer) {
-			return -1;
+	public boolean Breed(World world) {
+		int breed = (int) (Math.random() * 100);
+		if (breed < this.breedChance) {
+			world.Life.add(World.creature(this.species, localx, localy));
+			return true;
 		}
-		return 0;
+		return false;
 	}
-
-	public Tile[][] getSeenSquares(Tile[][] grid) {
-		Tile[][] seen = new Tile[(viewDistance * 2) + 1][(viewDistance * 2) + 1];
-		int a = 0;
-		int b = 0;
-
-		for (int i = -viewDistance; i <= viewDistance; i++, a++) {
-			for (int j = -viewDistance; j <= viewDistance; j++, b++) {
-				if (this.localy + j > 0 && this.localx + i > 0) {
-					if (this.localx + i < grid.length && this.localy + j < grid[i + this.localx].length) {
-						seen[a][b] = grid[this.localx + i][this.localy + j];
-					}
-				} else {
-					seen[a][b] = null;
-				}
-			}
-		}
-
-		return seen;
-	}
-
-	public abstract void Die();
-
-	public abstract void Breed();
-
-	public abstract void findNutrients();
 
 	public abstract void onEaten(LifeForm eating);
+
+	public void isDead() {
+		if (healthLeft == 0 || hungerLeft == 0) {
+			this.Die();
+		}
+	}
 
 	public void Age() {
 		LifeSpan--;
@@ -128,13 +339,8 @@ public abstract class LifeForm {
 		g.fillRect(this.localx * 5, this.localy * 5, 6, 6);
 	}
 
-	public void drawSeenSquares(Graphics g, Tile[][] grid) {
-		Tile[][] seen = getSeenSquares(grid);
-		for (int i = 0; i < seen.length; i++) {
-			for (int j = 0; j < seen[i].length; j++) {
-				if (seen[i][j] != null)
-					g.drawRect(seen[i][j].x * 5, seen[i][j].y * 5, 5, 5);
-			}
-		}
+	@Override
+	public String toString(){
+		return species;
 	}
 }

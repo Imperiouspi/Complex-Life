@@ -1,61 +1,25 @@
-package lifeForms.animals;
+   package lifeForms.animals;
 
 import java.awt.Color;
 
 import types.LifeForm;
 
 public class MountainGoat extends LifeForm{
-
-	public MountainGoat() {
-		super();
-		species = "MountainGoat";
-		MaxHealth = 30;
-		MaxHunger = 20;
-		healthLeft = MaxHealth;
-		hungerLeft = MaxHunger;
-		eats = new String[] {"Grass"};
-		predators = new String[] {"MountainLion"};
-		color = Color.DARK_GRAY;
-		LifeSpan = 10;
-	}
-	
 	public MountainGoat(int x, int y) {
-		super();
-		species = "MountainGoat";
+		super(x, y);
+		species = "Mountain Goat";
 		MaxHealth = 30;
-		MaxHunger = 20;
+		MaxHunger = 200;
 		healthLeft = MaxHealth;
 		hungerLeft = MaxHunger;
 		eats = new String[] {"Grass"};
-		predators = new String[] {"MountainLion"};
+		predators = new String[] {"Lion"};
 		color = new Color(129, 89, 30);
 		LifeSpan = 10;
+		breedChance = 100;
+		breedCooldown = 0;
 		localx = x;
 		localy = y;
-	}
-
-	@Override
-	public void Eat(LifeForm eaten) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void Die() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void Breed() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void findNutrients() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override

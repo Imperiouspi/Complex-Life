@@ -1,7 +1,6 @@
 package types;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Point;
 
 public abstract class Biome {
@@ -19,5 +18,10 @@ public abstract class Biome {
 		this.color = color;
 		this.close = close;
 		this.far = far;
+	}
+	
+	@Override
+	public String toString(){
+		return name;
 	}
 }
