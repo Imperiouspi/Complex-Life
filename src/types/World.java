@@ -152,7 +152,9 @@ public class World {
 
 	public void Apocalypse() {
 		for (int i = 0; i < Life.size(); i++) {
+			Life.get(i).alive = false;
 			Life.get(i).Die();
+			Life.remove(i);
 		}
 	}
 }

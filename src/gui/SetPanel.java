@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.ButtonGroup;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -34,6 +35,13 @@ public class SetPanel extends JPanel{
 	public ButtonGroup breedGroup;
 	public JRadioButton trueBreed;
 	public JRadioButton falseBreed;
+	public JLabel chanceBreed_L;
+	public JSlider chanceBreed_Sl;
+	public JLabel cool_L;
+	public JSlider cool_Sl;
+	public JButton open;
+	public JButton save;
+	public ApocalypsePane apocalypse;
 	
 	public SetPanel(){
 		super();
@@ -113,5 +121,35 @@ public class SetPanel extends JPanel{
 		falseBreed = new JRadioButton("False");
 		breedGroup.add(falseBreed);
 		add(falseBreed);
+		
+		chanceBreed_L = new JLabel("Chance of Breeding: ");
+		add(chanceBreed_L);
+		
+		chanceBreed_Sl = new JSlider(0, 100);
+		chanceBreed_Sl.setMajorTickSpacing(10);
+		chanceBreed_Sl.setPaintLabels(true);
+		chanceBreed_Sl.setPaintTicks(true);
+		chanceBreed_Sl.setValue((World.creature((String)(animals.getSelectedItem()), 0, 0).breedChance));
+		add(chanceBreed_Sl);
+		
+		cool_L = new JLabel("Cooldown: ");
+		add(cool_L);
+		
+		cool_Sl = new JSlider(0, 1000);
+		cool_Sl.setMajorTickSpacing(100);
+		cool_Sl.setPaintTicks(true);
+		cool_Sl.setPaintLabels(true);
+		cool_Sl.setValue((World.creature((String)(animals.getSelectedItem()), 0, 0).breedCooldown));
+		add(cool_Sl);
+		
+		add(new JSeparator(SwingConstants.HORIZONTAL));
+		
+		open = new JButton();
+		add(open);
+		save = new JButton();
+		add(save);
+		
+		apocalypse = new ApocalypsePane();
+		add(apocalypse);
 	}
 }

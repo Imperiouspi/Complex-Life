@@ -113,6 +113,39 @@ public class aWindow extends JFrame {
 
 			set = new SetPanel();
 			set.setEnabled(false);
+			set.apocalypse.addMouseListener(new MouseListener(){
+
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					world.Apocalypse();
+					repaint();
+				}
+
+				@Override
+				public void mousePressed(MouseEvent e) {
+					// TODO Auto-generated method stub
+					
+				}
+
+				@Override
+				public void mouseReleased(MouseEvent e) {
+					// TODO Auto-generated method stub
+					
+				}
+
+				@Override
+				public void mouseEntered(MouseEvent e) {
+					// TODO Auto-generated method stub
+					
+				}
+
+				@Override
+				public void mouseExited(MouseEvent e) {
+					// TODO Auto-generated method stub
+					
+				}
+			
+			});
 			set.playPause.addMouseListener(new PauseAction());
 			add(set, BorderLayout.WEST);
 			informations = new LifeFormInfoScreen();
