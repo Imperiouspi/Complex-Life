@@ -19,4 +19,9 @@ public abstract class Biome {
 		this.close = close;
 		this.far = far;
 	}
+	
+	@Override
+	public String toString(){
+		return name;
+	}
 }

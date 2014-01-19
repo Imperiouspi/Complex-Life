@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
@@ -9,15 +10,22 @@ import java.awt.Insets;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
+import types.Biome;
 import types.World;
+import biomes.Mountains;
+import biomes.Plains;
 
 public class aWindow extends JFrame {
 	BackgroundPanel back;
@@ -108,6 +116,103 @@ public class aWindow extends JFrame {
 			time.cancel();
 	}
 
+	public static void save(File file) {
+		PrintWriter writer = null;
+		try {
+			writer = new PrintWriter(file);
+		} catch (FileNotFoundException e) {
+			System.out.println("File not created");
+			e.printStackTrace();
+		}
+
+		writer.write(world.Lands.length);
+
+		for (int i = 0; i < world.grid.length; i++) {
+			for (int j = 0; j < world.grid[i].length; j++) {
+				writer.write(world.grid[i][j].x);
+				writer.write(world.grid[i][j].y);
+			}
+		}
+		for(int n = 0; n < world.Lands.length; n++){
+			for(int m = 0; m < world.Lands[n].length; m++){
+				for(int k = 0; n < 20; n++){
+					for(int l = 0; l < 20; l++){
+						writer.write(world.grid[(n*20) + k][(m*20) + l].location.toString());
+					}
+				}
+			}
+		}
+		//color, isOccupied, Occupant
+
+		for (int i = 0; i < world.grid.length; i++) {
+			for (int j = 0; j < world.grid[i].length; j++) {
+				writer.write(world.grid[i][j].color.getRed());
+				writer.write(world.grid[i][j].color.getGreen());
+				writer.write(world.grid[i][j].color.getBlue());
+				writer.write(world.grid[i][j].Occupant.toString());
+
+			}
+		}
+		writer.close();
+	}
+
+	public static void loadFile(File file) throws NumberFormatException, IOException {
+		BufferedReader br = null;
+		try {
+			br = new BufferedReader(new FileReader(file));
+		} catch (FileNotFoundException e) {
+			System.out.println("File not found in loading");
+			e.printStackTrace();
+		}
+
+		int length = Integer.parseInt(br.readLine());
+		world.Lands = new Biome[length][length];
+
+		for(int i = 0; i < world.grid.length; i++){
+			for(int j = 0; j < world.grid[i].length; j++){
+				world.grid[i][j].x = Integer.parseInt(br.readLine());
+				world.grid[i][j].y = Integer.parseInt(br.readLine());
+			}
+		}
+
+		for(int n = 0; n < world.Lands.length; n++){
+			for(int m = 0; m < world.Lands[n].length; m++){
+				for(int k = 0; n < 20; n++){
+					for(int l = 0; l < 20; l++){
+						world.grid[n* 20 + k][m* 20 + l].location = getBiome(br.readLine(), n* 20 + k, m * 20 + l);
+					}
+				}
+				world.Lands[n][m] = world.grid[n*20][m*20].location;
+			}
+		}
+		for (int i = 0; i < world.grid.length; i++) {
+			for (int j = 0; j < world.grid[i].length; j++) {
+				world.grid[i][j].color = new Color(Integer.parseInt(br.readLine()), Integer.parseInt(br.readLine()), Integer.parseInt(br.readLine()));
+				world.grid[i][j].Occupant = World.creature(br.readLine(), i, j);
+				if(world.grid[i][j].Occupant == null){
+					world.grid[i][j].isOccupied = false;
+				}
+			}
+		}
+
+		world.Life.clear();
+		for (int i = 0; i < world.grid.length; i++) {
+			for (int j = 0; j < world.grid[i].length; j++) {
+				world.Life.add(world.grid[i][j].Occupant);
+			}
+		}
+	}
+
+	public static Biome getBiome(String name, int x, int y){
+		switch(name){
+		case "Plains":
+			return new Plains(x, y);
+		case "Mountains":
+			return new Mountains(x, y);
+		}
+		return null;
+	}
+
 	class playAction implements MouseListener {
 
 		@Override
@@ -156,9 +261,8 @@ public class aWindow extends JFrame {
 			add(set, BorderLayout.WEST);
 			informations = new LifeFormInfoScreen();
 			informations.setBackground(set.getBackground());
-			informations.addMouseListener(new Click());
 			add(informations, BorderLayout.EAST);
-			
+
 			setCom = set.getComponents();
 
 			WorldlyPanel = new WorldPanel(world);
@@ -304,7 +408,7 @@ public class aWindow extends JFrame {
 					&& e.getY() < 600
 					&& world.grid[e.getX() / 5][e.getY() / 5].isOccupied) {
 				informations
-						.setAnimal(world.grid[e.getX() / 5][e.getY() / 5].Occupant);
+				.setAnimal(world.grid[e.getX() / 5][e.getY() / 5].Occupant);
 				repaint();
 			}
 		}
@@ -386,39 +490,6 @@ public class aWindow extends JFrame {
 			}
 			set.playPause.setImage(image);
 			repaint();
-		}
-
-	}
-
-	class Click implements MouseListener {
-
-		@Override
-		public void mouseClicked(MouseEvent e) {
-			System.out.println("TO TEST");
-		}
-
-		@Override
-		public void mousePressed(MouseEvent e) {
-			// TODO Auto-generated method stub
-
-		}
-
-		@Override
-		public void mouseReleased(MouseEvent e) {
-			// TODO Auto-generated method stub
-
-		}
-
-		@Override
-		public void mouseEntered(MouseEvent e) {
-			System.out.println("IN");
-
-		}
-
-		@Override
-		public void mouseExited(MouseEvent e) {
-			System.out.println("OUT");
-
 		}
 
 	}

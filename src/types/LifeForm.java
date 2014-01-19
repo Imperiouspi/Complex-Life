@@ -338,4 +338,9 @@ public abstract class LifeForm {
 		g.setColor(color);
 		g.fillRect(this.localx * 5, this.localy * 5, 6, 6);
 	}
+
+	@Override
+	public String toString(){
+		return species;
+	}
 }
