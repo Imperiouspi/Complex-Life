@@ -106,7 +106,7 @@ public class World {
 		case "Lion":
 			living = new Lion(x, y);
 			break;
-		case "MountainGoat":
+		case "Mountain Goat":
 			living = new MountainGoat(x, y);
 			break;
 		case "Rabbit":

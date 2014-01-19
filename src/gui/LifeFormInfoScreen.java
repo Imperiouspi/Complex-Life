@@ -11,9 +11,9 @@ public class LifeFormInfoScreen extends JPanel {
 	JTextArea Info;
 	public LifeFormInfoScreen(){
 		super();
-		setPreferredSize(new Dimension(200, 600));
-		setMaximumSize(new Dimension(200, 600));
-		setMinimumSize(new Dimension(200, 600));
+		setPreferredSize(new Dimension(200, 1000));
+		setMaximumSize(new Dimension(200, 1000));
+		setMinimumSize(new Dimension(200, 1000));
 	}
 	
 	public void setAnimal(LifeForm life){

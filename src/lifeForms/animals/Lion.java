@@ -5,6 +5,7 @@ import java.awt.Color;
 import types.LifeForm;
 
 public class Lion extends LifeForm {
+	public static Color staticColor;
 	public Lion(int x, int y) {
 		super(x, y);
 		species = "Lion";
@@ -19,6 +20,8 @@ public class Lion extends LifeForm {
 		localx = x;
 		localy = y;
 		breedChance = 1;
+		
+		staticColor = this.color;
 	}
 
 	@Override

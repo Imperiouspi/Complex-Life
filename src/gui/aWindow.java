@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -27,6 +28,8 @@ public class aWindow extends JFrame {
 	public Timer time;
 	public LifeFormInfoScreen informations;
 	SetPanel set;
+	Component[] setCom;
+	boolean isPause;
 
 	public aWindow() {
 		super("Complex Life");
@@ -74,6 +77,9 @@ public class aWindow extends JFrame {
 	}
 
 	public void play() {
+		for(int i = 0; i < setCom.length; i++){
+			setCom[i].setEnabled(false);
+		}
 		time = new Timer();
 		time.scheduleAtFixedRate(new TimerTask() {
 
@@ -89,31 +95,38 @@ public class aWindow extends JFrame {
 	}
 
 	public void pause() {
-		time.cancel();
+		for(int i = 0; i < setCom.length; i++){
+			setCom[i].setEnabled(true);
+		}
+		if(time !=null)
+			time.cancel();
 	}
 
 	class playAction implements MouseListener {
 
 		@Override
 		public void mouseClicked(MouseEvent arg0) {
+			setSize(1000, 800);
 			setLayout(new BorderLayout());
 			back.setVisible(false);
 			repaint();
 
 			set = new SetPanel();
+			set.setEnabled(false);
 			set.playPause.addMouseListener(new PauseAction());
 			add(set, BorderLayout.WEST);
 			informations = new LifeFormInfoScreen();
 			informations.addMouseListener(new Click());
 			add(informations);
+			setCom = set.getComponents();
 
 			WorldlyPanel = new WorldPanel(world);
 			WorldlyPanel.addMouseListener(new worldClickAction());
 			add(WorldlyPanel, BorderLayout.CENTER);
-			
-			
 
-			play();
+			isPause = true;
+			set.setBackground(World.creature((String)(set.animals.getSelectedItem()), 0, 0).color);
+			pause();
 		}
 
 		@Override
@@ -123,7 +136,6 @@ public class aWindow extends JFrame {
 						"src/resources/PlayMoused.png")));
 				play.repaint();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -134,7 +146,6 @@ public class aWindow extends JFrame {
 				play.setImage(ImageIO.read(new File("src/resources/Play.png")));
 				play.repaint();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -167,7 +178,6 @@ public class aWindow extends JFrame {
 						"src/resources/optionsMoused.png")));
 				options.repaint();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -179,7 +189,6 @@ public class aWindow extends JFrame {
 						"src/resources/options.png")));
 				options.repaint();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -253,7 +262,7 @@ public class aWindow extends JFrame {
 					&& e.getY() < 600
 					&& world.grid[e.getX() / 5][e.getY() / 5].isOccupied) {
 				informations
-						.setAnimal(world.grid[e.getX() / 5][e.getY() / 5].Occupant);
+				.setAnimal(world.grid[e.getX() / 5][e.getY() / 5].Occupant);
 				repaint();
 			}
 		}
@@ -282,16 +291,19 @@ public class aWindow extends JFrame {
 	}
 
 	class PauseAction implements MouseListener {
-		boolean isPause;
 
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			if (isPause) {
 				play();
 				isPause = false;
+				set.setEnabled(false);
 			} else {
 				pause();
 				isPause = true;
+				set.setEnabled(true);
+				set.setBackground(World.creature((String)(set.animals.getSelectedItem()), 0, 0).color);
+				repaint();
 			}
 		}
 
@@ -343,26 +355,26 @@ public class aWindow extends JFrame {
 		@Override
 		public void mousePressed(MouseEvent e) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
 		public void mouseReleased(MouseEvent e) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
 		public void mouseEntered(MouseEvent e) {
 			System.out.println("IN");
-			
+
 		}
 
 		@Override
 		public void mouseExited(MouseEvent e) {
 			System.out.println("OUT");
-			
+
 		}
-		
+
 	}
 }

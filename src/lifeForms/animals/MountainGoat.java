@@ -7,7 +7,7 @@ import types.LifeForm;
 public class MountainGoat extends LifeForm{
 	public MountainGoat(int x, int y) {
 		super(x, y);
-		species = "MountainGoat";
+		species = "Mountain Goat";
 		MaxHealth = 30;
 		MaxHunger = 200;
 		healthLeft = MaxHealth;
