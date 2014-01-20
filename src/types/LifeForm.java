@@ -10,7 +10,7 @@ import lifeForms.animals.MountainGoat;
 
 public abstract class LifeForm {
 	public String species;
-	public int MaxHealth, MaxHunger;
+	public int MaxHealth, MaxHunger, maxLife;
 	public int healthLeft, hungerLeft;
 	public String[] eats, predators;
 	public Color color;
