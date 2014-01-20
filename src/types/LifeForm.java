@@ -24,13 +24,7 @@ public abstract class LifeForm {
 		hungerLeft = MaxHunger;
 	}
 
-	public LifeForm Eat(ArrayList<LifeForm> toEat) {
-		LifeForm eaten;
-		int rand = 0;
-		while (!isFood(toEat.get(rand))) {
-			rand = (int) (Math.random() * toEat.size());
-		}
-		eaten = toEat.get(rand);
+	public LifeForm Eat(LifeForm eaten) {
 		eaten.onEaten(this);
 		eaten.Die();
 		this.hungerLeft = MaxHunger;
@@ -71,15 +65,14 @@ public abstract class LifeForm {
 				&& isFood(grid[this.localx][this.localy].Occupant)) {
 			Eat(grid[this.localx][this.localy].Occupant);
 		} else if (grid[this.localx][this.localy].Occupant != null
-				&& grid[this.localx][this.localy].Occupant
-						.contains(this.species)) {
+				&& grid[this.localx][this.localy].Occupant.species.equals(this.species)) {
 			willBreed = true;
 		} else {
 			hungerLeft--;
 		}
 
 		//if (grid[this.localx][this.localy].Occupant != null) {
-			grid[localx][localy].Occupant.add(this);
+			grid[localx][localy].Occupant = this;
 		//}
 		return grid;
 	}
@@ -151,7 +144,7 @@ public abstract class LifeForm {
 			for (int j = 0; j < 5; j++) {
 				if (seen[i][j] != null && seen[i][j].Occupant != null) {
 					if (isFood(seen[i][j].Occupant)
-							|| seen[i][j].Occupant.contains(this.species)) {
+							|| seen[i][j].Occupant.species.equals(this.species)) {
 						angle += (int) (Math.asin(Math.sqrt(Math.pow(i
 								- this.localx, 2)
 								+ Math.pow(j, this.localy))));

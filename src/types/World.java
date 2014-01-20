@@ -52,9 +52,9 @@ public class World {
 						occupy = populate(grid[i][j], "Animal", i, j);
 					}
 					if (occupy != null) {
-						grid[i][j].Occupant.add(occupy);
-						grid[i][j].Occupant.get(grid[i][j].Occupant.size() - 1).localx = i;
-						grid[i][j].Occupant.get(grid[i][j].Occupant.size() - 1).localy = j;
+						grid[i][j].Occupant = occupy;
+						grid[i][j].Occupant.localx = i;
+						grid[i][j].Occupant.localy = j;
 						Life.add(occupy);
 					}
 				}
@@ -169,7 +169,7 @@ public class World {
 			
 			if (Life.get(i).isDead()) {
 				Life.get(i).Die();
-				grid[Life.get(i).localx][Life.get(i).localy].Occupant.remove(grid[Life.get(i).localx][Life.get(i).localy].Occupant.indexOf(creature(Life.get(i).species, Life.get(i).localx, Life.get(i).localx)));
+				grid[Life.get(i).localx][Life.get(i).localy].Occupant = null;
 				Life.remove(i);
 			}
 			if(aWindow.count == 10){
@@ -182,7 +182,7 @@ public class World {
 	public void Apocalypse() {
 		for (int i = 0; i < Life.size(); i++) {
 			Life.get(i).Die();
-			grid[Life.get(i).localx][Life.get(i).localy].Occupant.clear();;
+			grid[Life.get(i).localx][Life.get(i).localy].Occupant = null;
 			Life.remove(i);
 		}
 	}

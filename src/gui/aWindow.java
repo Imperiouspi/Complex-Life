@@ -219,14 +219,14 @@ public class aWindow extends JFrame {
 				world.grid[i][j].color = new Color(Integer.parseInt(br
 						.readLine()), Integer.parseInt(br.readLine()),
 						Integer.parseInt(br.readLine()));
-				world.grid[i][j].Occupant.add(World.creature(br.readLine(), i, j));
+				world.grid[i][j].Occupant = World.creature(br.readLine(), i, j);
 			}
 		}
 
 		world.Life.clear();
 		for (int i = 0; i < world.grid.length; i++) {
 			for (int j = 0; j < world.grid[i].length; j++) {
-				world.Life.addAll(world.grid[i][j].Occupant);
+				world.Life.add(world.grid[i][j].Occupant);
 			}
 		}
 	}
@@ -447,7 +447,7 @@ public class aWindow extends JFrame {
 					&& e.getY() < 600
 					&& world.grid[e.getX() / 5][e.getY() / 5].Occupant != null) {
 				informations
-				.setAnimal(world.grid[e.getX() / 5][e.getY() / 5].Occupant.get(world.grid[e.getX() / 5][e.getY() / 5].Occupant.size()-1));
+				.setAnimal(world.grid[e.getX() / 5][e.getY() / 5].Occupant);
 				repaint();
 			}
 		}
