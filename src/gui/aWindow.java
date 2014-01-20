@@ -560,13 +560,13 @@ public class aWindow extends JFrame {
 			news += "WORLD CREATED!\t\n";
 		}
 		if (getHorses() == 0) {
-			news += "HORSES WENT EXCTINCT!\t\n";
+			news += "HORSES WENT EXTINCT!\t\n";
 		}
 		if (getLions() == 0) {
-			news += "LIONS WENT EXCTINCT!\t\n";
+			news += "LIONS WENT EXTINCT!\t\n";
 		}
 		if (getGoats() == 0) {
-			news += "GOATS WENT EXCTINCT!\t\n";
+			news += "GOATS WENT EXTINCT!\t\n";
 		}
 		return news;
 	}
