@@ -68,18 +68,16 @@ public class SetPanel extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Color col = Color.black;
-				String currentSet = "Lion";
 				switch (World.creature((String)(animals.getSelectedItem()), 0, 0).species) {
-				case "Lion":
-					currentSet = "Lion"; col = Lion.colour;
+				case "Lion": col = Lion.colour;
 					R_Sl.setValue(lionSet.R_Sl.getValue()); G_Sl.setValue(lionSet.G_Sl.getValue()); B_Sl.setValue(lionSet.B_Sl.getValue()); 
 					trueBreed.setSelected(lionSet.trueBreed.isSelected()); falseBreed.setSelected(lionSet.falseBreed.isSelected()); 
 					chanceBreed_Sl.setValue(lionSet.chanceBreed_Sl.getValue()); cool_Sl.setValue(lionSet.cool_Sl.getValue()); break;
-				case "Horse": currentSet = "Horse"; col = Horse.colour;
+				case "Horse": col = Horse.colour;
 					R_Sl.setValue(horseSet.R_Sl.getValue()); G_Sl.setValue(horseSet.G_Sl.getValue()); B_Sl.setValue(horseSet.B_Sl.getValue()); 
 					trueBreed.setSelected(horseSet.trueBreed.isSelected()); falseBreed.setSelected(horseSet.falseBreed.isSelected()); 
 					chanceBreed_Sl.setValue(horseSet.chanceBreed_Sl.getValue()); cool_Sl.setValue(horseSet.cool_Sl.getValue()); break;
-				case "Mountain Goat": currentSet = "Mountain Goat"; col = MountainGoat.colour;
+				case "Mountain Goat": col = MountainGoat.colour;
 				R_Sl.setValue(mGoatSet.R_Sl.getValue()); G_Sl.setValue(mGoatSet.G_Sl.getValue()); B_Sl.setValue(mGoatSet.B_Sl.getValue()); 
 				trueBreed.setSelected(mGoatSet.trueBreed.isSelected()); falseBreed.setSelected(mGoatSet.falseBreed.isSelected()); 
 				chanceBreed_Sl.setValue(mGoatSet.chanceBreed_Sl.getValue()); cool_Sl.setValue(mGoatSet.cool_Sl.getValue()); break;
