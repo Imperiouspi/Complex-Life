@@ -52,9 +52,9 @@ public class World {
 						occupy = populate(grid[i][j], "Animal", i, j);
 					}
 					if (occupy != null) {
-						grid[i][j].Occupant = occupy;
-						grid[i][j].Occupant.localx = i;
-						grid[i][j].Occupant.localy = j;
+						grid[i][j].Occupant.add(occupy);
+						grid[i][j].Occupant.get(grid[i][j].Occupant.size() - 1).localx = i;
+						grid[i][j].Occupant.get(grid[i][j].Occupant.size() - 1).localy = j;
 						Life.add(occupy);
 					}
 				}

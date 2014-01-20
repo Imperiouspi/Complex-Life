@@ -179,7 +179,7 @@ public class aWindow extends JFrame {
 	}
 
 	public static void loadFile(File file) throws NumberFormatException,
-			IOException {
+	IOException {
 		BufferedReader br = null;
 		try {
 			br = new BufferedReader(new FileReader(file));
@@ -214,14 +214,14 @@ public class aWindow extends JFrame {
 				world.grid[i][j].color = new Color(Integer.parseInt(br
 						.readLine()), Integer.parseInt(br.readLine()),
 						Integer.parseInt(br.readLine()));
-				world.grid[i][j].Occupant = World.creature(br.readLine(), i, j);
+				world.grid[i][j].Occupant.add(World.creature(br.readLine(), i, j));
 			}
 		}
 
 		world.Life.clear();
 		for (int i = 0; i < world.grid.length; i++) {
 			for (int j = 0; j < world.grid[i].length; j++) {
-				world.Life.add(world.grid[i][j].Occupant);
+				world.Life.addAll(world.grid[i][j].Occupant);
 			}
 		}
 	}
@@ -437,7 +437,7 @@ public class aWindow extends JFrame {
 					&& e.getY() < 600
 					&& world.grid[e.getX() / 5][e.getY() / 5].Occupant != null) {
 				informations
-						.setAnimal(world.grid[e.getX() / 5][e.getY() / 5].Occupant);
+				.setAnimal(world.grid[e.getX() / 5][e.getY() / 5].Occupant.get(0));
 				repaint();
 			}
 		}
