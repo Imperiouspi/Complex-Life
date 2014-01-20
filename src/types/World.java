@@ -166,10 +166,10 @@ public class World {
 				case "MountainGoat": MountainGoat.statBreedCooldown = 3; break;
 				}
 			}
-			Life.get(i).isDead();
-			if (!Life.get(i).alive) {
+			
+			if (Life.get(i).isDead()) {
 				Life.get(i).Die();
-				grid[Life.get(i).localx][Life.get(i).localy].Occupant = null;
+				grid[Life.get(i).localx][Life.get(i).localy].Occupant.remove(grid[Life.get(i).localx][Life.get(i).localy].Occupant.indexOf(creature(Life.get(i).species, Life.get(i).localx, Life.get(i).localx)));
 				Life.remove(i);
 			}
 			if(aWindow.count == 10){
@@ -182,7 +182,7 @@ public class World {
 	public void Apocalypse() {
 		for (int i = 0; i < Life.size(); i++) {
 			Life.get(i).Die();
-			grid[Life.get(i).localx][Life.get(i).localy].Occupant = null;
+			grid[Life.get(i).localx][Life.get(i).localy].Occupant.clear();;
 			Life.remove(i);
 		}
 	}

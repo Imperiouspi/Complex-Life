@@ -78,9 +78,9 @@ public abstract class LifeForm {
 			hungerLeft--;
 		}
 
-		if (grid[this.localx][this.localy].Occupant != null) {
+		//if (grid[this.localx][this.localy].Occupant != null) {
 			grid[localx][localy].Occupant.add(this);
-		}
+		//}
 		return grid;
 	}
 

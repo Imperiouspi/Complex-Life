@@ -140,6 +140,7 @@ public class aWindow extends JFrame {
 			time.cancel();
 	}
 
+	@Deprecated
 	public static void save(File file) {
 		PrintWriter writer = null;
 		try {
@@ -181,6 +182,7 @@ public class aWindow extends JFrame {
 		writer.close();
 	}
 
+	@Deprecated
 	public static void loadFile(File file) throws NumberFormatException,
 	IOException {
 		BufferedReader br = null;
