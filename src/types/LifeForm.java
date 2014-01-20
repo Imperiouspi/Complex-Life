@@ -4,6 +4,10 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 
+import lifeForms.animals.Horse;
+import lifeForms.animals.Lion;
+import lifeForms.animals.MountainGoat;
+
 public abstract class LifeForm {
 	public String species;
 	public int MaxHealth, MaxHunger;
@@ -11,7 +15,7 @@ public abstract class LifeForm {
 	public String[] eats, predators;
 	public Color color;
 	public int LifeSpan;
-	public int localx, localy, viewDistance = 5, breedChance, breedCooldown = 10;
+	public int localx, localy, viewDistance = 5;
 	public boolean alive = true, willBreed = false;
 
 	public LifeForm(int x, int y) {
@@ -315,7 +319,13 @@ public abstract class LifeForm {
 
 	public boolean Breed(World world) {
 		int breed = (int) (Math.random() * 100);
-		if (breed < this.breedChance) {
+		int breedChance = 1;
+		switch (this.species) {
+		case "Lion": breedChance = Lion.statBreedChance; break;
+		case "Horse": breedChance = Horse.statBreedChance; break;
+		case "MountainGoat": breedChance = MountainGoat.statBreedChance; break;
+		}
+		if (breed < breedChance) {
 			world.Life.add(World.creature(this.species, localx, localy));
 			return true;
 		}

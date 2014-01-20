@@ -5,6 +5,7 @@ import java.awt.Color;
 import types.LifeForm;
 
 public class MountainGoat extends LifeForm{
+	public static int statBreedChance, statBreedCooldown;
 	public MountainGoat(int x, int y) {
 		super(x, y);
 		species = "Mountain Goat";
@@ -16,8 +17,8 @@ public class MountainGoat extends LifeForm{
 		predators = new String[] {"Lion"};
 		color = new Color(129, 89, 30);
 		LifeSpan = 10;
-		breedChance = 100;
-		breedCooldown = 0;
+		statBreedChance = 100;
+		statBreedCooldown = 3;
 		localx = x;
 		localy = y;
 	}

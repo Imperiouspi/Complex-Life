@@ -6,6 +6,7 @@ import types.LifeForm;
 
 public class Lion extends LifeForm {
 	public static Color staticColor;
+	public static int statBreedChance, statBreedCooldown;
 	public Lion(int x, int y) {
 		super(x, y);
 		species = "Lion";
@@ -19,13 +20,13 @@ public class Lion extends LifeForm {
 		LifeSpan = 10;
 		localx = x;
 		localy = y;
-		breedChance = 1;
-		
+		statBreedChance = 1;
+		statBreedCooldown = 10;
 		staticColor = this.color;
 	}
-
+	
 	@Override
 	public void onEaten(LifeForm eating) {
-
+		
 	}
 }

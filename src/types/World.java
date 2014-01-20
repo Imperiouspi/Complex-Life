@@ -11,9 +11,7 @@ import lifeForms.animals.Wolf;
 import lifeForms.plants.DeadGrass;
 import lifeForms.plants.Grass;
 import lifeForms.plants.VenusFlytrap;
-import biomes.Jungle;
 import biomes.Mountains;
-import biomes.Ocean;
 import biomes.Plains;
 
 public class World {
@@ -135,11 +133,20 @@ public class World {
 	public void advance() {
 		for (int i = 0; i < Life.size(); i++) {
 			grid = Life.get(i).Move(grid);
-			Life.get(i).breedCooldown--;
-			if (Life.get(i).willBreed && Life.get(i).breedCooldown == 0) {
+			int breedCooldown = 0;
+			switch (Life.get(i).species) {
+			case "Lion": breedCooldown = Lion.statBreedCooldown; Lion.statBreedCooldown--; break;
+			case "Horse": breedCooldown = Horse.statBreedCooldown; Horse.statBreedCooldown--; break;
+			case "MountainGoat": breedCooldown = MountainGoat.statBreedCooldown; MountainGoat.statBreedCooldown--; break;
+			}
+			if (Life.get(i).willBreed && breedCooldown == 0) {
 				Life.get(i).Breed(this);
 				Life.get(i).willBreed = false;
-				Life.get(i).breedCooldown = 100;
+				switch (Life.get(i).species) {
+				case "Lion": Lion.statBreedCooldown = 10; break;
+				case "Horse": Horse.statBreedCooldown = 3; break;
+				case "MountainGoat": MountainGoat.statBreedCooldown = 3; break;
+				}
 			}
 			Life.get(i).isDead();
 			if (!Life.get(i).alive) {

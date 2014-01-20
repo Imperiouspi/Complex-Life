@@ -1,12 +1,11 @@
 package lifeForms.animals;
 
 import java.awt.Color;
-import java.awt.Graphics;
 
 import types.LifeForm;
 
 public class Horse extends LifeForm {
-
+	public static int statBreedChance, statBreedCooldown;
 	public Horse(int x, int y) {
 		super(x, y);
 		species = "Horse";
@@ -20,8 +19,8 @@ public class Horse extends LifeForm {
 		LifeSpan = 30;
 		localx = x;
 		localy = y;
-		breedCooldown = 0;
-		breedChance = 10;
+		statBreedCooldown = 3;
+		statBreedChance = 10;
 	}
 
 	@Override
