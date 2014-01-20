@@ -37,6 +37,8 @@ public class aWindow extends JFrame {
 	public LifeFormInfoScreen informations;
 	SetPanel set;
 	Component[] setCom;
+	Component[] infoCom;
+	Component[] infoComPanelOpenSave;
 	boolean isPause;
 	int score;
 
@@ -90,6 +92,12 @@ public class aWindow extends JFrame {
 		for (int i = 0; i < setCom.length; i++) {
 			setCom[i].setEnabled(false);
 		}
+		for(int i = 0; i < infoCom.length; i++){
+			infoCom[i].setEnabled(false);
+		}
+		for(int i = 0; i < infoComPanelOpenSave.length; i++){
+			infoComPanelOpenSave[i].setEnabled(false);
+		}
 		time = new Timer();
 		time.scheduleAtFixedRate(new TimerTask() {
 
@@ -99,7 +107,7 @@ public class aWindow extends JFrame {
 				System.gc();
 				repaint();
 				WorldlyPanel.repaint();
-				if(world.Life.size() > 0){
+				if (world.Life.size() > 0) {
 					score++;
 				}
 				informations.setScore(score);
@@ -111,6 +119,12 @@ public class aWindow extends JFrame {
 	public void pause() {
 		for (int i = 0; i < setCom.length; i++) {
 			setCom[i].setEnabled(true);
+		}
+		for(int i = 0; i < infoCom.length; i++){
+			infoCom[i].setEnabled(true);
+		}
+		for(int i = 0; i < infoComPanelOpenSave.length; i++){
+			infoComPanelOpenSave[i].setEnabled(true);
 		}
 		if (time != null)
 			time.cancel();
@@ -133,16 +147,17 @@ public class aWindow extends JFrame {
 				writer.write(world.grid[i][j].y);
 			}
 		}
-		for(int n = 0; n < world.Lands.length; n++){
-			for(int m = 0; m < world.Lands[n].length; m++){
-				for(int k = 0; n < 20; n++){
-					for(int l = 0; l < 20; l++){
-						writer.write(world.grid[(n*20) + k][(m*20) + l].location.toString());
+		for (int n = 0; n < world.Lands.length; n++) {
+			for (int m = 0; m < world.Lands[n].length; m++) {
+				for (int k = 0; n < 20; n++) {
+					for (int l = 0; l < 20; l++) {
+						writer.write(world.grid[(n * 20) + k][(m * 20) + l].location
+								.toString());
 					}
 				}
 			}
 		}
-		//color, isOccupied, Occupant
+		// color, isOccupied, Occupant
 
 		for (int i = 0; i < world.grid.length; i++) {
 			for (int j = 0; j < world.grid[i].length; j++) {
@@ -156,7 +171,8 @@ public class aWindow extends JFrame {
 		writer.close();
 	}
 
-	public static void loadFile(File file) throws NumberFormatException, IOException {
+	public static void loadFile(File file) throws NumberFormatException,
+			IOException {
 		BufferedReader br = null;
 		try {
 			br = new BufferedReader(new FileReader(file));
@@ -168,28 +184,31 @@ public class aWindow extends JFrame {
 		int length = Integer.parseInt(br.readLine());
 		world.Lands = new Biome[length][length];
 
-		for(int i = 0; i < world.grid.length; i++){
-			for(int j = 0; j < world.grid[i].length; j++){
+		for (int i = 0; i < world.grid.length; i++) {
+			for (int j = 0; j < world.grid[i].length; j++) {
 				world.grid[i][j].x = Integer.parseInt(br.readLine());
 				world.grid[i][j].y = Integer.parseInt(br.readLine());
 			}
 		}
 
-		for(int n = 0; n < world.Lands.length; n++){
-			for(int m = 0; m < world.Lands[n].length; m++){
-				for(int k = 0; n < 20; n++){
-					for(int l = 0; l < 20; l++){
-						world.grid[n* 20 + k][m* 20 + l].location = getBiome(br.readLine(), n* 20 + k, m * 20 + l);
+		for (int n = 0; n < world.Lands.length; n++) {
+			for (int m = 0; m < world.Lands[n].length; m++) {
+				for (int k = 0; n < 20; n++) {
+					for (int l = 0; l < 20; l++) {
+						world.grid[n * 20 + k][m * 20 + l].location = getBiome(
+								br.readLine(), n * 20 + k, m * 20 + l);
 					}
 				}
-				world.Lands[n][m] = world.grid[n*20][m*20].location;
+				world.Lands[n][m] = world.grid[n * 20][m * 20].location;
 			}
 		}
 		for (int i = 0; i < world.grid.length; i++) {
 			for (int j = 0; j < world.grid[i].length; j++) {
-				world.grid[i][j].color = new Color(Integer.parseInt(br.readLine()), Integer.parseInt(br.readLine()), Integer.parseInt(br.readLine()));
+				world.grid[i][j].color = new Color(Integer.parseInt(br
+						.readLine()), Integer.parseInt(br.readLine()),
+						Integer.parseInt(br.readLine()));
 				world.grid[i][j].Occupant = World.creature(br.readLine(), i, j);
-				if(world.grid[i][j].Occupant == null){
+				if (world.grid[i][j].Occupant == null) {
 					world.grid[i][j].isOccupied = false;
 				}
 			}
@@ -203,8 +222,8 @@ public class aWindow extends JFrame {
 		}
 	}
 
-	public static Biome getBiome(String name, int x, int y){
-		switch(name){
+	public static Biome getBiome(String name, int x, int y) {
+		switch (name) {
 		case "Plains":
 			return new Plains(x, y);
 		case "Mountains":
@@ -264,7 +283,9 @@ public class aWindow extends JFrame {
 			add(informations, BorderLayout.EAST);
 
 			setCom = set.getComponents();
-
+			infoCom = informations.getComponents();
+			infoComPanelOpenSave = informations.openSave.getComponents();
+			
 			WorldlyPanel = new WorldPanel(world);
 			WorldlyPanel.addMouseListener(new worldClickAction());
 			add(WorldlyPanel, BorderLayout.CENTER);
@@ -406,9 +427,9 @@ public class aWindow extends JFrame {
 		public void mouseClicked(MouseEvent e) {
 			if (e.getX() > 0 && e.getX() < 600 && e.getY() > 0
 					&& e.getY() < 600
-					&& world.grid[e.getX() / 5][e.getY() / 5].isOccupied) {
+					&& world.grid[e.getX() / 5][e.getY() / 5].Occupant != null) {
 				informations
-				.setAnimal(world.grid[e.getX() / 5][e.getY() / 5].Occupant);
+						.setAnimal(world.grid[e.getX() / 5][e.getY() / 5].Occupant);
 				repaint();
 			}
 		}

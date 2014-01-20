@@ -1,18 +1,17 @@
 package gui;
 
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.swing.AbstractAction;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.filechooser.FileFilter;
@@ -24,31 +23,44 @@ public class LifeFormInfoScreen extends JPanel {
 	public JButton open;
 	public JButton save;
 	public JTextArea score;
+	public JPanel openSave;
 
 	public LifeFormInfoScreen() {
 		super();
 		setPreferredSize(new Dimension(200, 1000));
 		setMaximumSize(new Dimension(200, 1000));
 		setMinimumSize(new Dimension(200, 1000));
+		setLayout(new GridLayout(0, 1));
 
+		openSave = new JPanel();
+		
 		open = new JButton(new openAction());
-		add(open);
+		openSave.add(open);
 		save = new JButton(new saveAction());
-		add(save);
+		openSave.add(save);
 		score = new JTextArea(0, 10);
+		score.setEditable(false);
+		add(openSave);
 		add(score);
-	}
-
-	public void setAnimal(LifeForm life) {
-		Info = new JTextArea(life.species + ":\nHealth: " + life.healthLeft
-				+ "\nHunger: " + life.hungerLeft);
-		Info.setBackground(life.color);
+		
+		Info = new JTextArea();
 		Info.setEditable(false);
 		add(Info);
 	}
 
+	public void setAnimal(LifeForm life) {
+		Info.setText(life.species + ":\nHealth: " + life.healthLeft
+				+ "\nHunger: " + life.hungerLeft);
+		Info.setBackground(life.color);
+		if (life.species.equals("Horse")) {
+			Info.setForeground(Color.white);
+		} else {
+			Info.setForeground(Color.black);
+		}
+	}
+
 	public void setScore(int scoreNum) {
-		score.setText((String) (scoreNum + ""));
+		score.setText((String) ("Score: " + scoreNum));
 	}
 
 	class openAction extends AbstractAction {
@@ -94,8 +106,8 @@ public class LifeFormInfoScreen extends JPanel {
 
 			File opened;
 
-			int returnVal = openFile.showOpenDialog(new JFrame(
-					"Choose a world"));
+			int returnVal = openFile
+					.showOpenDialog(new JFrame("Choose a world"));
 
 			if (returnVal == JFileChooser.APPROVE_OPTION) {
 				opened = openFile.getSelectedFile();
@@ -119,8 +131,7 @@ public class LifeFormInfoScreen extends JPanel {
 
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			File save = new File(getSaveLocation().getAbsolutePath()
-					+ ".world");
+			File save = new File(getSaveLocation().getAbsolutePath() + ".world");
 			aWindow.save(save);
 		}
 	}

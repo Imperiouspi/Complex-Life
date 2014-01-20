@@ -74,6 +74,9 @@ public class SetPanel extends JPanel{
 						com[i].setForeground(Color.black);
 					}
 				}
+				R_Sl.setValue(World.creature((String)(animals.getSelectedItem()), 0, 0).color.getRed());
+				G_Sl.setValue(World.creature((String)(animals.getSelectedItem()), 0, 0).color.getGreen());
+				B_Sl.setValue(World.creature((String)(animals.getSelectedItem()), 0, 0).color.getBlue());
 			}
 			
 		});
