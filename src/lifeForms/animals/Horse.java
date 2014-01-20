@@ -18,6 +18,7 @@ public class Horse extends LifeForm {
 		predators = new String[] { "Lion" };
 		color = Color.black;
 		LifeSpan = 30;
+		maxLife = LifeSpan;
 		localx = x;
 		localy = y;
 		breedCooldown = 0;

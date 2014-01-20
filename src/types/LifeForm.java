@@ -12,6 +12,7 @@ public abstract class LifeForm {
 	public Color color;
 	public int LifeSpan;
 	public int localx, localy, viewDistance = 5, breedChance, breedCooldown = 10;
+	public int maxLife;
 	public boolean alive = true, willBreed = false;
 
 	public LifeForm(int x, int y) {
@@ -57,10 +58,10 @@ public abstract class LifeForm {
 				this.localy += moveTo.y;
 			}
 		}
-		if (grid[this.localx][this.localy].isOccupied
+		if (grid[this.localx][this.localy].Occupant != null
 				&& isFood(grid[this.localx][this.localy].Occupant)) {
 			Eat(grid[this.localx][this.localy].Occupant);
-		} else if (grid[this.localx][this.localy].isOccupied
+		} else if (grid[this.localx][this.localy].Occupant != null
 				&& grid[this.localx][this.localy].Occupant.species
 						.equals(this.species)) {
 			willBreed = true;
@@ -68,7 +69,6 @@ public abstract class LifeForm {
 			hungerLeft--;
 		}
 
-		grid[localx][localy].isOccupied = true;
 		grid[localx][localy].Occupant = this;
 		return grid;
 	}
@@ -324,10 +324,11 @@ public abstract class LifeForm {
 
 	public abstract void onEaten(LifeForm eating);
 
-	public void isDead() {
-		if (healthLeft == 0 || hungerLeft == 0) {
-			this.Die();
+	public boolean isDead() {
+		if (healthLeft == 0 || hungerLeft == 0 || LifeSpan == 0) {
+			return true;
 		}
+		return false;
 	}
 
 	public void Age() {

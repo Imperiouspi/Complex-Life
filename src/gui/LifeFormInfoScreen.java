@@ -50,7 +50,7 @@ public class LifeFormInfoScreen extends JPanel {
 
 	public void setAnimal(LifeForm life) {
 		Info.setText(life.species + ":\nHealth: " + life.healthLeft
-				+ "\nHunger: " + life.hungerLeft);
+				+ "\nHunger: " + life.hungerLeft + "\nAge: " + (life.maxLife - life.LifeSpan));
 		Info.setBackground(life.color);
 		if (life.species.equals("Horse")) {
 			Info.setForeground(Color.white);

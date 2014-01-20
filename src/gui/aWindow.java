@@ -35,12 +35,15 @@ public class aWindow extends JFrame {
 	WorldPanel WorldlyPanel;
 	public Timer time;
 	public LifeFormInfoScreen informations;
-	SetPanel set;
+	public SetPanel set;
+	public NewsPanel news;
 	Component[] setCom;
 	Component[] infoCom;
 	Component[] infoComPanelOpenSave;
 	boolean isPause;
-	int score;
+	static boolean newWorld = true;
+	public int score;
+	public static int count = 0;
 
 	public aWindow() {
 		super("Complex Life");
@@ -92,10 +95,10 @@ public class aWindow extends JFrame {
 		for (int i = 0; i < setCom.length; i++) {
 			setCom[i].setEnabled(false);
 		}
-		for(int i = 0; i < infoCom.length; i++){
+		for (int i = 0; i < infoCom.length; i++) {
 			infoCom[i].setEnabled(false);
 		}
-		for(int i = 0; i < infoComPanelOpenSave.length; i++){
+		for (int i = 0; i < infoComPanelOpenSave.length; i++) {
 			infoComPanelOpenSave[i].setEnabled(false);
 		}
 		time = new Timer();
@@ -104,6 +107,7 @@ public class aWindow extends JFrame {
 			@Override
 			public void run() {
 				world.advance();
+				count++;
 				System.gc();
 				repaint();
 				WorldlyPanel.repaint();
@@ -111,6 +115,9 @@ public class aWindow extends JFrame {
 					score++;
 				}
 				informations.setScore(score);
+				news.setNumbers();
+				checkWin();
+				news.getNews();
 			}
 
 		}, 100L, 100L);
@@ -120,10 +127,10 @@ public class aWindow extends JFrame {
 		for (int i = 0; i < setCom.length; i++) {
 			setCom[i].setEnabled(true);
 		}
-		for(int i = 0; i < infoCom.length; i++){
+		for (int i = 0; i < infoCom.length; i++) {
 			infoCom[i].setEnabled(true);
 		}
-		for(int i = 0; i < infoComPanelOpenSave.length; i++){
+		for (int i = 0; i < infoComPanelOpenSave.length; i++) {
 			infoComPanelOpenSave[i].setEnabled(true);
 		}
 		if (time != null)
@@ -208,9 +215,6 @@ public class aWindow extends JFrame {
 						.readLine()), Integer.parseInt(br.readLine()),
 						Integer.parseInt(br.readLine()));
 				world.grid[i][j].Occupant = World.creature(br.readLine(), i, j);
-				if (world.grid[i][j].Occupant == null) {
-					world.grid[i][j].isOccupied = false;
-				}
 			}
 		}
 
@@ -278,6 +282,7 @@ public class aWindow extends JFrame {
 			score = 0;
 			set.playPause.addMouseListener(new PauseAction());
 			add(set, BorderLayout.WEST);
+
 			informations = new LifeFormInfoScreen();
 			informations.setBackground(set.getBackground());
 			add(informations, BorderLayout.EAST);
@@ -285,10 +290,13 @@ public class aWindow extends JFrame {
 			setCom = set.getComponents();
 			infoCom = informations.getComponents();
 			infoComPanelOpenSave = informations.openSave.getComponents();
-			
+
 			WorldlyPanel = new WorldPanel(world);
 			WorldlyPanel.addMouseListener(new worldClickAction());
 			add(WorldlyPanel, BorderLayout.CENTER);
+
+			news = new NewsPanel();
+			add(news, BorderLayout.SOUTH);
 
 			isPause = true;
 			set.setBackground(World.creature(
@@ -513,5 +521,65 @@ public class aWindow extends JFrame {
 			repaint();
 		}
 
+	}
+
+	public static int getHorses() {
+		int horses = 0;
+		for (int i = 0; i < world.Life.size(); i++) {
+			if (world.Life.get(i).species.equals("Horse")) {
+				horses++;
+			}
+		}
+		return horses;
+	}
+
+	public static int getLions() {
+		int lions = 0;
+		for (int i = 0; i < world.Life.size(); i++) {
+			if (world.Life.get(i).species.equals("Lion")) {
+				lions++;
+			}
+		}
+		return lions;
+	}
+
+	public static int getGoats() {
+		int goats = 0;
+		for (int i = 0; i < world.Life.size(); i++) {
+			if (world.Life.get(i).species.equals("Mountain Goat")) {
+				goats++;
+			}
+		}
+		return goats;
+	}
+
+	public static String getNews() {
+		String news = "";
+		if (newWorld) {
+			newWorld = false;
+			news += "WORLD CREATED!\t\n";
+		}
+		if (getHorses() == 0) {
+			news += "HORSES WENT EXCTINCT!\t\n";
+		}
+		if (getLions() == 0) {
+			news += "LIONS WENT EXCTINCT!\t\n";
+		}
+		if (getGoats() == 0) {
+			news += "GOATS WENT EXCTINCT!\t\n";
+		}
+		return news;
+	}
+
+	public boolean checkWin() {
+		boolean win = false;
+		if (getHorses() + getLions() + getGoats() == 0) {
+			win = true;
+			time.cancel();
+			this.setVisible(false);
+			new WinScreen(score);
+		}
+
+		return win;
 	}
 }

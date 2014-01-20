@@ -7,9 +7,10 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
 
 import javax.swing.ButtonGroup;
-import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -80,6 +81,7 @@ public class SetPanel extends JPanel{
 			}
 			
 		});
+	
 		add(animals);
 		C_L = new JLabel("Color:");
 		add(C_L);
@@ -109,6 +111,18 @@ public class SetPanel extends JPanel{
 		B_Sl.setPaintTicks(true);
 		B_Sl.setPaintLabels(true);
 		B_Sl.setValue(Lion.staticColor.getGreen());
+		B_Sl.addMouseMotionListener(new MouseMotionListener(){
+
+			@Override
+			public void mouseDragged(MouseEvent e) {
+				
+			}
+
+			@Override
+			public void mouseMoved(MouseEvent e) {
+			}
+			
+		});
 		add(B_Sl);
 		
 		add(new JSeparator(SwingConstants.HORIZONTAL));

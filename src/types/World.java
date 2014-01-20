@@ -1,5 +1,7 @@
 package types;
 
+import gui.aWindow;
+
 import java.util.ArrayList;
 
 import lifeForms.animals.Deer;
@@ -53,7 +55,6 @@ public class World {
 					}
 					if (occupy != null) {
 						grid[i][j].Occupant = occupy;
-						grid[i][j].isOccupied = true;
 						grid[i][j].Occupant.localx = i;
 						grid[i][j].Occupant.localy = j;
 						Life.add(occupy);
@@ -144,16 +145,20 @@ public class World {
 			Life.get(i).isDead();
 			if (!Life.get(i).alive) {
 				Life.get(i).Die();
+				grid[Life.get(i).localx][Life.get(i).localy].Occupant = null;
 				Life.remove(i);
 			}
-
+			if(aWindow.count == 10){
+				aWindow.count = 0;
+				Life.get(i).Age();
+			}
 		}
 	}
 
 	public void Apocalypse() {
 		for (int i = 0; i < Life.size(); i++) {
-			Life.get(i).alive = false;
 			Life.get(i).Die();
+			grid[Life.get(i).localx][Life.get(i).localy].Occupant = null;
 			Life.remove(i);
 		}
 	}

@@ -5,6 +5,8 @@ import java.awt.Color;
 import types.LifeForm;
 
 public class MountainGoat extends LifeForm{
+	public static Color staticColor;
+	
 	public MountainGoat(int x, int y) {
 		super(x, y);
 		species = "Mountain Goat";
@@ -20,6 +22,8 @@ public class MountainGoat extends LifeForm{
 		breedCooldown = 0;
 		localx = x;
 		localy = y;
+		staticColor = color;
+		maxLife = LifeSpan;
 	}
 
 	@Override
@@ -27,5 +31,4 @@ public class MountainGoat extends LifeForm{
 		// TODO Auto-generated method stub
 		
 	}
-
 }
