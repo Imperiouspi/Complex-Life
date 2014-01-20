@@ -19,8 +19,12 @@ import javax.swing.JSeparator;
 import javax.swing.JSlider;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
+import lifeForms.animals.Horse;
 import lifeForms.animals.Lion;
+import lifeForms.animals.MountainGoat;
 import types.World;
 
 public class SetPanel extends JPanel{
@@ -129,12 +133,12 @@ public class SetPanel extends JPanel{
 		
 		add(new JLabel("Breeding: "));
 		
-		breedGroup = new ButtonGroup();
+		breedGroup = new ButtonGroup(); //TODO Enable breeding
 		trueBreed = new JRadioButton("True", true);
 		breedGroup.add(trueBreed);
 		add(trueBreed);
 		
-		falseBreed = new JRadioButton("False");
+		falseBreed = new JRadioButton("False"); //TODO Disable breeding
 		breedGroup.add(falseBreed);
 		add(falseBreed);
 		
@@ -145,7 +149,14 @@ public class SetPanel extends JPanel{
 		chanceBreed_Sl.setMajorTickSpacing(20);
 		chanceBreed_Sl.setPaintLabels(true);
 		chanceBreed_Sl.setPaintTicks(true);
-		chanceBreed_Sl.setValue((World.creature((String)(animals.getSelectedItem()), 0, 0).breedChance));
+		int breedChance = 1;
+		switch (World.creature((String)(animals.getSelectedItem()), 0, 0).species) {
+		case "Lion": breedChance = Lion.statBreedChance; break;
+		case "Horse": breedChance = Horse.statBreedChance; break;
+		case "MountainGoat": breedChance = MountainGoat.statBreedChance; break;
+		}
+		chanceBreed_Sl.setValue(breedChance);
+		chanceBreed_Sl.addChangeListener(new SliderListener(chanceBreed_Sl, cool_Sl, animals, 1));
 		add(chanceBreed_Sl);
 		
 		cool_L = new JLabel("Cooldown: ");
@@ -155,7 +166,13 @@ public class SetPanel extends JPanel{
 		cool_Sl.setMajorTickSpacing(500);
 		cool_Sl.setPaintTicks(true);
 		cool_Sl.setPaintLabels(true);
-		cool_Sl.setValue((World.creature((String)(animals.getSelectedItem()), 0, 0).breedCooldown));
+		int breedCooldown = 1;
+		switch (World.creature((String)(animals.getSelectedItem()), 0, 0).species) {
+		case "Lion": breedCooldown = Lion.statBreedCooldown; break;
+		case "Horse": breedCooldown = Horse.statBreedCooldown; break;
+		case "MountainGoat": breedCooldown = MountainGoat.statBreedCooldown; break;
+		}
+		cool_Sl.setValue(breedCooldown);
 		add(cool_Sl);
 		
 		add(new JSeparator(SwingConstants.HORIZONTAL));
@@ -163,5 +180,41 @@ public class SetPanel extends JPanel{
 		
 		apocalypse = new ApocalypsePane("src/resources/ApocalypseButton.png");
 		add(apocalypse);
+	}
+	
+	static class SliderListener implements ChangeListener {
+		private JSlider chanceBreed_Sl;
+		private JSlider cool_Sl;
+		private JComboBox<String> animals;
+		private int choice;
+		
+	    public SliderListener(JSlider sliderCB, JSlider sliderCD, JComboBox<String> comboBox, int choices) {
+	    	super();
+	    	chanceBreed_Sl = sliderCB;
+	    	cool_Sl = sliderCD;
+	    	animals = comboBox;
+	    	choice = choices;
+	    }
+	    
+		@Override
+		public void stateChanged(ChangeEvent e) {
+			if (choice == 0) {
+				
+			} else if (choice == 1) {
+				int breedingChance = chanceBreed_Sl.getValue();
+				switch (World.creature((String)(animals.getSelectedItem()), 0, 0).species) {
+				case "Lion": Lion.statBreedChance = breedingChance; break;
+				case "Horse": Horse.statBreedChance = breedingChance; break;
+				case "MountainGoat": MountainGoat.statBreedChance = breedingChance; break;
+				}
+			} else if (choice == 2) {
+				int breedingCooldown = cool_Sl.getValue();
+				switch (World.creature((String)(animals.getSelectedItem()), 0, 0).species) {
+				case "Lion": Lion.statBreedCooldown = breedingCooldown; break;
+				case "Horse": Horse.statBreedCooldown = breedingCooldown; break;
+				case "MountainGoat": MountainGoat.statBreedCooldown = breedingCooldown; break;
+				}
+			}
+		}
 	}
 }

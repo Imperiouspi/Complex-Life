@@ -5,6 +5,7 @@ import java.awt.Color;
 import types.LifeForm;
 
 public class Deer extends LifeForm{
+	public static int statBreedChance, statBreedCooldown;
 	
 	public Deer(int x, int y) {
 		super(x, y);
@@ -19,7 +20,8 @@ public class Deer extends LifeForm{
 		LifeSpan = 15;
 		localx = x;
 		localy = y;
-		breedChance = 20;
+		statBreedChance = 20;
+		statBreedCooldown = 3;
 	}
 	@Override
 	public void onEaten(LifeForm eating) {
