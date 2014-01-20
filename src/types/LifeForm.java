@@ -3,6 +3,7 @@ package types;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
+import java.util.ArrayList;
 
 import lifeForms.animals.Horse;
 import lifeForms.animals.Lion;
@@ -24,7 +25,13 @@ public abstract class LifeForm {
 		hungerLeft = MaxHunger;
 	}
 
-	public LifeForm Eat(LifeForm eaten) {
+	public LifeForm Eat(ArrayList<LifeForm> toEat) {
+		LifeForm eaten;
+		int rand = 0;
+		while (!isFood(toEat.get(rand))) {
+			rand = (int) (Math.random() * toEat.size());
+		}
+		eaten = toEat.get(rand);
 		eaten.onEaten(this);
 		eaten.Die();
 		this.hungerLeft = MaxHunger;
@@ -65,14 +72,14 @@ public abstract class LifeForm {
 				&& isFood(grid[this.localx][this.localy].Occupant)) {
 			Eat(grid[this.localx][this.localy].Occupant);
 		} else if (grid[this.localx][this.localy].Occupant != null
-				&& grid[this.localx][this.localy].Occupant.species
-						.equals(this.species)) {
+				&& grid[this.localx][this.localy].Occupant
+						.contains(this.species)) {
 			willBreed = true;
 		} else {
 			hungerLeft--;
 		}
 
-		grid[localx][localy].Occupant = this;
+		grid[localx][localy].Occupant.add(this);
 		return grid;
 	}
 
@@ -104,7 +111,7 @@ public abstract class LifeForm {
 	}
 
 	public int getAveragePredatorAngle(Tile[][] seen) {// Lions don't have
-														// predators. :(
+		// predators. :(
 		int angle = 0;
 		int predatorCount = 0;
 
@@ -112,10 +119,9 @@ public abstract class LifeForm {
 			for (int j = 0; j < 5; j++) {
 				if (seen[i][j] != null && seen[i][j].Occupant != null) {
 					if (isPredator(seen[i][j].Occupant)) {
-						angle += (int) (Math.asin(Math.sqrt(Math.pow(
-								seen[i][j].Occupant.localx - this.localx, 2)
-								+ Math.pow(seen[i][j].Occupant.localy,
-										this.localy))));
+						angle += (int) (Math.asin(Math.sqrt(Math.pow(i
+								- this.localx, 2)
+								+ Math.pow(j - this.localy, 2))));
 						predatorCount++;
 					}
 				}
@@ -143,11 +149,11 @@ public abstract class LifeForm {
 		for (int i = 0; i < 5; i++) {
 			for (int j = 0; j < 5; j++) {
 				if (seen[i][j] != null && seen[i][j].Occupant != null) {
-					if (isFood(seen[i][j].Occupant) || seen[i][j].Occupant.species == this.species) {
-						angle += (int) (Math.asin(Math.sqrt(Math.pow(
-								seen[i][j].Occupant.localx - this.localx, 2)
-								+ Math.pow(seen[i][j].Occupant.localy,
-										this.localy))));
+					if (isFood(seen[i][j].Occupant)
+							|| seen[i][j].Occupant.contains(this.species)) {
+						angle += (int) (Math.asin(Math.sqrt(Math.pow(i
+								- this.localx, 2)
+								+ Math.pow(j, this.localy))));
 						foodCount++;
 					}
 				}
@@ -280,6 +286,42 @@ public abstract class LifeForm {
 		return moveTo;
 	}
 
+	public boolean isPredator(ArrayList<LifeForm> life) {
+		for (int j = 0; j < life.size(); j++) {
+			if (life.get(j) != null) {
+				for (int i = 0; i < this.predators.length; i++) {
+					if (this.predators[i] != null) {
+						if (this.predators[i].equals(life.get(j).species)) {
+							return true;
+						}
+					} else {
+						return false;
+					}
+				}
+				return false;
+			}
+		}
+		return false;
+	}
+
+	public boolean isFood(ArrayList<LifeForm> life) {
+		for (int j = 0; j < life.size(); j++) {
+			if (life.get(j) != null) {
+				for (int i = 0; i < this.eats.length; i++) {
+					if (this.eats[i] != null) {
+						if (this.eats[i].equals(life.get(j).species)) {
+							return true;
+						}
+					} else {
+						return false;
+					}
+				}
+				return false;
+			}
+		}
+		return false;
+	}
+
 	public boolean isPredator(LifeForm life) {
 		if (life != null) {
 			for (int i = 0; i < this.predators.length; i++) {
@@ -290,8 +332,8 @@ public abstract class LifeForm {
 				} else {
 					return false;
 				}
+				return false;
 			}
-			return false;
 		}
 		return false;
 	}
@@ -320,9 +362,15 @@ public abstract class LifeForm {
 		int breed = (int) (Math.random() * 100);
 		int breedChance = 1;
 		switch (this.species) {
-		case "Lion": breedChance = Lion.statBreedChance; break;
-		case "Horse": breedChance = Horse.statBreedChance; break;
-		case "MountainGoat": breedChance = MountainGoat.statBreedChance; break;
+		case "Lion":
+			breedChance = Lion.statBreedChance;
+			break;
+		case "Horse":
+			breedChance = Horse.statBreedChance;
+			break;
+		case "MountainGoat":
+			breedChance = MountainGoat.statBreedChance;
+			break;
 		}
 		if (breed < breedChance) {
 			world.Life.add(World.creature(this.species, localx, localy));
@@ -350,7 +398,7 @@ public abstract class LifeForm {
 	}
 
 	@Override
-	public String toString(){
+	public String toString() {
 		return species;
 	}
 }
