@@ -163,10 +163,11 @@ public class SetPanel extends JPanel{
 		add(new JLabel("Breeding: "));
 		breedGroup = new ButtonGroup();
 		trueBreed = new JRadioButton("True", true);
+		trueBreed.addChangeListener(new BreedEnableListener(trueBreed, animals));
 		breedGroup.add(trueBreed);
 		falseBreed = new JRadioButton("False");
+		falseBreed.addChangeListener(new BreedEnableListener(trueBreed, animals));
 		breedGroup.add(falseBreed);
-		trueBreed.addChangeListener(new BreedEnableListener(trueBreed, animals));
 		add(trueBreed);
 		add(falseBreed);
 		
