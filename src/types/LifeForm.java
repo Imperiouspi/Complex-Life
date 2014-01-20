@@ -366,7 +366,7 @@ public abstract class LifeForm {
 		switch (this.species) {
 		case "Lion": breedChance = Lion.statBreedChance; break;
 		case "Horse": breedChance = Horse.statBreedChance; break;
-		case "MountainGoat": breedChance = MountainGoat.statBreedChance; break;
+		case "Mountain Goat": breedChance = MountainGoat.statBreedChance; break;
 		}
 		if (breed < breedChance) {
 			world.Life.add(World.creature(this.species, localx, localy));
@@ -394,7 +394,7 @@ public abstract class LifeForm {
 		switch (this.species) {
 		case "Lion": col = Lion.colour; break;
 		case "Horse": col = Horse.colour; break;
-		case "MountainGoat": col = MountainGoat.colour; break;
+		case "Mountain Goat": col = MountainGoat.colour; break;
 		}
 		g.setColor(col);
 		g.fillRect(this.localx * 5, this.localy * 5, 6, 6);

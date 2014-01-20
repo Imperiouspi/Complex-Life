@@ -34,7 +34,7 @@ public class WorldPanel extends JPanel{
 			switch (world.Life.get(i).species) {
 			case "Lion": col = Lion.colour; break;
 			case "Horse": col = Horse.colour; break;
-			case "MountainGoat": col = MountainGoat.colour; break;
+			case "Mountain Goat": col = MountainGoat.colour; break;
 			}
 			g.setColor(col);
 			if(world.Life.get(i).alive)

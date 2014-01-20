@@ -308,7 +308,7 @@ public class aWindow extends JFrame {
 			switch (World.creature((String)(set.animals.getSelectedItem()), 0, 0).species) {
 			case "Lion": col = Lion.colour; break;
 			case "Horse": col = Horse.colour; break;
-			case "MountainGoat": col = MountainGoat.colour; break;
+			case "Mountain Goat": col = MountainGoat.colour; break;
 			}
 			set.setBackground(col);
 			pause();
@@ -492,7 +492,7 @@ public class aWindow extends JFrame {
 				switch (World.creature((String)(set.animals.getSelectedItem()), 0, 0).species) {
 				case "Lion": col = Lion.colour; break;
 				case "Horse": col = Horse.colour; break;
-				case "MountainGoat": col = MountainGoat.colour; break;
+				case "Mountain Goat": col = MountainGoat.colour; break;
 				}
 				set.setBackground(col);
 				repaint();

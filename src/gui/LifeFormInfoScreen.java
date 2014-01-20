@@ -58,7 +58,7 @@ public class LifeFormInfoScreen extends JPanel {
 		switch (life.species) {
 		case "Lion": col = Lion.colour; break;
 		case "Horse": col = Horse.colour; break;
-		case "MountainGoat": col = MountainGoat.colour; break;
+		case "Mountain Goat": col = MountainGoat.colour; break;
 		}
 		Info.setBackground(col);
 		if (life.species.equals("Horse")) {

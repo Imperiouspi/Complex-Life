@@ -70,7 +70,7 @@ public class SetPanel extends JPanel{
 				switch (World.creature((String)(animals.getSelectedItem()), 0, 0).species) {
 				case "Lion": col = Lion.colour; break;
 				case "Horse": col = Horse.colour; break;
-				case "MountainGoat": col = MountainGoat.colour; break;
+				case "Mountain Goat": col = MountainGoat.colour; break;
 				}
 				setBackground(col);
 				if(((String)(animals.getSelectedItem())).equals("Horse")){
@@ -106,7 +106,7 @@ public class SetPanel extends JPanel{
 		switch (World.creature((String)(animals.getSelectedItem()), 0, 0).species) {
 		case "Lion": col = Lion.colour; break;
 		case "Horse": col = Horse.colour; break;
-		case "MountainGoat": col = MountainGoat.colour; break;
+		case "Mountain Goat": col = MountainGoat.colour; break;
 		}
 		R_Sl.setValue(col.getRed());
 		R_Sl.addChangeListener(new ColourListener(R_Sl, G_Sl, B_Sl, animals, 0));
@@ -157,7 +157,7 @@ public class SetPanel extends JPanel{
 		switch (World.creature((String)(animals.getSelectedItem()), 0, 0).species) {
 		case "Lion": breedChance = Lion.statBreedChance; break;
 		case "Horse": breedChance = Horse.statBreedChance; break;
-		case "MountainGoat": breedChance = MountainGoat.statBreedChance; break;
+		case "Mountain Goat": breedChance = MountainGoat.statBreedChance; break;
 		}
 		chanceBreed_Sl.setValue(breedChance);
 		chanceBreed_Sl.addChangeListener(new SliderListener(chanceBreed_Sl, cool_Sl, animals, 1));
@@ -174,7 +174,7 @@ public class SetPanel extends JPanel{
 		switch (World.creature((String)(animals.getSelectedItem()), 0, 0).species) {
 		case "Lion": breedCooldown = Lion.statBreedCooldown; break;
 		case "Horse": breedCooldown = Horse.statBreedCooldown; break;
-		case "MountainGoat": breedCooldown = MountainGoat.statBreedCooldown; break;
+		case "Mountain Goat": breedCooldown = MountainGoat.statBreedCooldown; break;
 		}
 		cool_Sl.setValue(breedCooldown);
 		cool_Sl.addChangeListener(new SliderListener(chanceBreed_Sl, cool_Sl, animals, 2));
@@ -215,7 +215,7 @@ public class SetPanel extends JPanel{
 				case "Horse":
 					col = new Color (newR, Horse.colour.getGreen(), Horse.colour.getBlue());
 					Horse.colour = col; break;
-				case "MountainGoat":
+				case "Mountain Goat":
 					col = new Color (newR, MountainGoat.colour.getGreen(), MountainGoat.colour.getBlue());
 					MountainGoat.colour = col; break;
 				}
@@ -229,7 +229,7 @@ public class SetPanel extends JPanel{
 				case "Horse":
 					col = new Color (Horse.colour.getRed(), newG, Horse.colour.getBlue());
 					Horse.colour = col; break;
-				case "MountainGoat":
+				case "Mountain Goat":
 					col = new Color (MountainGoat.colour.getRed(), newG, MountainGoat.colour.getBlue());
 					MountainGoat.colour = col; break;
 				}
@@ -243,7 +243,7 @@ public class SetPanel extends JPanel{
 				case "Horse":
 					col = new Color (Horse.colour.getRed(), Horse.colour.getGreen(), newB);
 					Horse.colour = col; break;
-				case "MountainGoat":
+				case "Mountain Goat":
 					col = new Color (MountainGoat.colour.getRed(), MountainGoat.colour.getGreen(), newB);
 					MountainGoat.colour = col; break;
 				}
@@ -266,7 +266,7 @@ public class SetPanel extends JPanel{
 			switch (World.creature((String)(animals.getSelectedItem()), 0, 0).species) {
 			case "Lion": Lion.breedEnabled = breedingEnabled; break;
 			case "Horse": Horse.breedEnabled = breedingEnabled; break;
-			case "MountainGoat": MountainGoat.breedEnabled = breedingEnabled; break;
+			case "Mountain Goat": MountainGoat.breedEnabled = breedingEnabled; break;
 			}
 		}
 	}
@@ -292,14 +292,14 @@ public class SetPanel extends JPanel{
 				switch (World.creature((String)(animals.getSelectedItem()), 0, 0).species) {
 				case "Lion": Lion.statBreedChance = breedingChance; break;
 				case "Horse": Horse.statBreedChance = breedingChance; break;
-				case "MountainGoat": MountainGoat.statBreedChance = breedingChance; break;
+				case "Mountain Goat": MountainGoat.statBreedChance = breedingChance; break;
 				}
 			} else if (choice == 2) {
 				int breedingCooldown = cool_Sl.getValue();
 				switch (World.creature((String)(animals.getSelectedItem()), 0, 0).species) {
 				case "Lion": Lion.statBreedCooldown = breedingCooldown; break;
 				case "Horse": Horse.statBreedCooldown = breedingCooldown; break;
-				case "MountainGoat": MountainGoat.statBreedCooldown = breedingCooldown; break;
+				case "Mountain Goat": MountainGoat.statBreedCooldown = breedingCooldown; break;
 				}
 			}
 		}

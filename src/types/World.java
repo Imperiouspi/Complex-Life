@@ -145,7 +145,7 @@ public class World {
 				breedingEnabled = Horse.breedEnabled;
 				breedCooldown = Horse.statBreedCooldown;
 				Horse.statBreedCooldown--; break;
-			case "MountainGoat":
+			case "Mountain Goat":
 				breedingEnabled = MountainGoat.breedEnabled;
 				breedCooldown = MountainGoat.statBreedCooldown;
 				MountainGoat.statBreedCooldown--; break;
@@ -156,14 +156,14 @@ public class World {
 				switch (Life.get(i).species) {
 				case "Lion": Lion.statBreedCooldown = 10; break;
 				case "Horse": Horse.statBreedCooldown = 3; break;
-				case "MountainGoat": MountainGoat.statBreedCooldown = 3; break;
+				case "Mountain Goat": MountainGoat.statBreedCooldown = 3; break;
 				}
 			}
 			if (breedCooldown == 0) {
 				switch (Life.get(i).species) {
 				case "Lion": Lion.statBreedCooldown = 10; break;
 				case "Horse": Horse.statBreedCooldown = 3; break;
-				case "MountainGoat": MountainGoat.statBreedCooldown = 3; break;
+				case "Mountain Goat": MountainGoat.statBreedCooldown = 3; break;
 				}
 			}
 			
