@@ -134,15 +134,32 @@ public class World {
 	public void advance() {
 		for (int i = 0; i < Life.size(); i++) {
 			grid = Life.get(i).Move(grid);
+			boolean breedingEnabled = true;
 			int breedCooldown = 0;
 			switch (Life.get(i).species) {
-			case "Lion": breedCooldown = Lion.statBreedCooldown; Lion.statBreedCooldown--; break;
-			case "Horse": breedCooldown = Horse.statBreedCooldown; Horse.statBreedCooldown--; break;
-			case "MountainGoat": breedCooldown = MountainGoat.statBreedCooldown; MountainGoat.statBreedCooldown--; break;
+			case "Lion":
+				breedingEnabled = Lion.breedEnabled;
+				breedCooldown = Lion.statBreedCooldown;
+				Lion.statBreedCooldown--; break;
+			case "Horse":
+				breedingEnabled = Horse.breedEnabled;
+				breedCooldown = Horse.statBreedCooldown;
+				Horse.statBreedCooldown--; break;
+			case "MountainGoat":
+				breedingEnabled = MountainGoat.breedEnabled;
+				breedCooldown = MountainGoat.statBreedCooldown;
+				MountainGoat.statBreedCooldown--; break;
 			}
-			if (Life.get(i).willBreed && breedCooldown == 0) {
+			if (breedingEnabled && Life.get(i).willBreed && breedCooldown == 0) {
 				Life.get(i).Breed(this);
 				Life.get(i).willBreed = false;
+				switch (Life.get(i).species) {
+				case "Lion": Lion.statBreedCooldown = 10; break;
+				case "Horse": Horse.statBreedCooldown = 3; break;
+				case "MountainGoat": MountainGoat.statBreedCooldown = 3; break;
+				}
+			}
+			if (breedCooldown == 0) {
 				switch (Life.get(i).species) {
 				case "Lion": Lion.statBreedCooldown = 10; break;
 				case "Horse": Horse.statBreedCooldown = 3; break;

@@ -1,14 +1,12 @@
 package lifeForms.animals;
 
-import gui.aWindow;
-
 import java.awt.Color;
 
 import types.LifeForm;
-import types.Tile;
 
 public class Lion extends LifeForm {
 	public static Color staticColor;
+	public static boolean breedEnabled;
 	public static int statBreedChance, statBreedCooldown;
 	public Lion(int x, int y) {
 		super(x, y);
@@ -23,6 +21,7 @@ public class Lion extends LifeForm {
 		LifeSpan = 10;
 		localx = x;
 		localy = y;
+		breedEnabled = true;
 		statBreedChance = 1;
 		statBreedCooldown = 10;
 		staticColor = this.color;

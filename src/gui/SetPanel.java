@@ -7,6 +7,8 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 
@@ -133,12 +135,13 @@ public class SetPanel extends JPanel{
 		
 		add(new JLabel("Breeding: "));
 		
-		breedGroup = new ButtonGroup(); //TODO Enable breeding
+		breedGroup = new ButtonGroup();
 		trueBreed = new JRadioButton("True", true);
+		trueBreed.addItemListener(new BreedEnableListener(trueBreed, animals));
 		breedGroup.add(trueBreed);
 		add(trueBreed);
 		
-		falseBreed = new JRadioButton("False"); //TODO Disable breeding
+		falseBreed = new JRadioButton("False");
 		breedGroup.add(falseBreed);
 		add(falseBreed);
 		
@@ -173,6 +176,7 @@ public class SetPanel extends JPanel{
 		case "MountainGoat": breedCooldown = MountainGoat.statBreedCooldown; break;
 		}
 		cool_Sl.setValue(breedCooldown);
+		cool_Sl.addChangeListener(new SliderListener(chanceBreed_Sl, cool_Sl, animals, 2));
 		add(cool_Sl);
 		
 		add(new JSeparator(SwingConstants.HORIZONTAL));
@@ -180,6 +184,26 @@ public class SetPanel extends JPanel{
 		
 		apocalypse = new ApocalypsePane("src/resources/ApocalypseButton.png");
 		add(apocalypse);
+	}
+	
+	static class BreedEnableListener implements ItemListener {
+		private JRadioButton trueBreed;
+		private JComboBox<String> animals;
+		
+		public BreedEnableListener(JRadioButton trueB, JComboBox<String> comboBox) {
+			trueBreed = trueB;
+			animals = comboBox;
+		}
+		
+		@Override
+		public void itemStateChanged(ItemEvent arg0) {
+			boolean breedingEnabled = trueBreed.isSelected();
+			switch (World.creature((String)(animals.getSelectedItem()), 0, 0).species) {
+			case "Lion": Lion.breedEnabled = breedingEnabled; break;
+			case "Horse": Horse.breedEnabled = breedingEnabled; break;
+			case "MountainGoat": MountainGoat.breedEnabled = breedingEnabled; break;
+			}
+		}
 	}
 	
 	static class SliderListener implements ChangeListener {
@@ -198,9 +222,7 @@ public class SetPanel extends JPanel{
 	    
 		@Override
 		public void stateChanged(ChangeEvent e) {
-			if (choice == 0) {
-				
-			} else if (choice == 1) {
+			if (choice == 1) {
 				int breedingChance = chanceBreed_Sl.getValue();
 				switch (World.creature((String)(animals.getSelectedItem()), 0, 0).species) {
 				case "Lion": Lion.statBreedChance = breedingChance; break;

@@ -6,7 +6,7 @@ import types.LifeForm;
 
 public class MountainGoat extends LifeForm{
 	public static Color staticColor;
-	
+	public static boolean breedEnabled;
 	public static int statBreedChance, statBreedCooldown;
 	public MountainGoat(int x, int y) {
 		super(x, y);
@@ -19,6 +19,7 @@ public class MountainGoat extends LifeForm{
 		predators = new String[] {"Lion"};
 		color = new Color(129, 89, 30);
 		LifeSpan = 10;
+		breedEnabled = true;
 		statBreedChance = 100;
 		statBreedCooldown = 3;
 		localx = x;

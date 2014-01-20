@@ -5,6 +5,7 @@ import java.awt.Color;
 import types.LifeForm;
 
 public class Horse extends LifeForm {
+	public static boolean breedEnabled;
 	public static int statBreedChance, statBreedCooldown;
 	public Horse(int x, int y) {
 		super(x, y);
@@ -20,6 +21,7 @@ public class Horse extends LifeForm {
 		maxLife = LifeSpan;
 		localx = x;
 		localy = y;
+		breedEnabled = true;
 		statBreedCooldown = 3;
 		statBreedChance = 10;
 	}
