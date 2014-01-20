@@ -63,6 +63,7 @@ public class LifeFormInfoScreen extends JPanel {
 		score.setText((String) ("Score: " + scoreNum));
 	}
 
+	@Deprecated
 	class openAction extends AbstractAction {
 		public openAction() {
 			super("Open");
@@ -124,6 +125,7 @@ public class LifeFormInfoScreen extends JPanel {
 		}
 	}
 
+	@Deprecated
 	class saveAction extends AbstractAction {
 		public saveAction() {
 			super("Save");
