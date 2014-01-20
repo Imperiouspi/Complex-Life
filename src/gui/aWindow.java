@@ -437,7 +437,7 @@ public class aWindow extends JFrame {
 					&& e.getY() < 600
 					&& world.grid[e.getX() / 5][e.getY() / 5].Occupant != null) {
 				informations
-				.setAnimal(world.grid[e.getX() / 5][e.getY() / 5].Occupant.get(0));
+				.setAnimal(world.grid[e.getX() / 5][e.getY() / 5].Occupant.get(world.grid[e.getX() / 5][e.getY() / 5].Occupant.size()-1));
 				repaint();
 			}
 		}

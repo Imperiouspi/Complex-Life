@@ -79,7 +79,9 @@ public abstract class LifeForm {
 			hungerLeft--;
 		}
 
-		grid[localx][localy].Occupant.add(this);
+		if (grid[this.localx][this.localy].Occupant != null) {
+			grid[localx][localy].Occupant.add(this);
+		}
 		return grid;
 	}
 
@@ -322,6 +324,7 @@ public abstract class LifeForm {
 		return false;
 	}
 
+	
 	public boolean isPredator(LifeForm life) {
 		if (life != null) {
 			for (int i = 0; i < this.predators.length; i++) {
@@ -388,6 +391,7 @@ public abstract class LifeForm {
 		return false;
 	}
 
+	
 	public void Age() {
 		LifeSpan--;
 	}
@@ -397,6 +401,7 @@ public abstract class LifeForm {
 		g.fillRect(this.localx * 5, this.localy * 5, 6, 6);
 	}
 
+	
 	@Override
 	public String toString() {
 		return species;
