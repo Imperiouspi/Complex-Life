@@ -9,8 +9,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionListener;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JComboBox;
@@ -68,7 +66,13 @@ public class SetPanel extends JPanel{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				setBackground(World.creature((String)(animals.getSelectedItem()), 0, 0).color);
+				Color col = Color.black;
+				switch (World.creature((String)(animals.getSelectedItem()), 0, 0).species) {
+				case "Lion": col = Lion.colour; break;
+				case "Horse": col = Horse.colour; break;
+				case "MountainGoat": col = MountainGoat.colour; break;
+				}
+				setBackground(col);
 				if(((String)(animals.getSelectedItem())).equals("Horse")){
 					Component[] com = getComponents();
 					for(int i = 3; i < com.length; i++){
@@ -81,9 +85,9 @@ public class SetPanel extends JPanel{
 						com[i].setForeground(Color.black);
 					}
 				}
-				R_Sl.setValue(World.creature((String)(animals.getSelectedItem()), 0, 0).color.getRed());
-				G_Sl.setValue(World.creature((String)(animals.getSelectedItem()), 0, 0).color.getGreen());
-				B_Sl.setValue(World.creature((String)(animals.getSelectedItem()), 0, 0).color.getBlue());
+				R_Sl.setValue(col.getRed());
+				G_Sl.setValue(col.getGreen());
+				B_Sl.setValue(col.getBlue());
 			}
 			
 		});
@@ -98,7 +102,14 @@ public class SetPanel extends JPanel{
 		R_Sl.setMajorTickSpacing(50);
 		R_Sl.setPaintTicks(true);
 		R_Sl.setPaintLabels(true);
-		R_Sl.setValue(Lion.staticColor.getRed());
+		Color col = Color.black;
+		switch (World.creature((String)(animals.getSelectedItem()), 0, 0).species) {
+		case "Lion": col = Lion.colour; break;
+		case "Horse": col = Horse.colour; break;
+		case "MountainGoat": col = MountainGoat.colour; break;
+		}
+		R_Sl.setValue(col.getRed());
+		R_Sl.addChangeListener(new ColourListener(R_Sl, G_Sl, B_Sl, animals, 0));
 		add(R_Sl);
 		
 		G_L = new JLabel("G: ");
@@ -107,7 +118,8 @@ public class SetPanel extends JPanel{
 		G_Sl.setMajorTickSpacing(50);
 		G_Sl.setPaintTicks(true);
 		G_Sl.setPaintLabels(true);
-		R_Sl.setValue(Lion.staticColor.getBlue());
+		R_Sl.setValue(col.getBlue());
+		R_Sl.addChangeListener(new ColourListener(R_Sl, G_Sl, B_Sl, animals, 1));
 		add(G_Sl);
 		
 		B_L = new JLabel("B: ");
@@ -116,19 +128,8 @@ public class SetPanel extends JPanel{
 		B_Sl.setMajorTickSpacing(50);
 		B_Sl.setPaintTicks(true);
 		B_Sl.setPaintLabels(true);
-		B_Sl.setValue(Lion.staticColor.getGreen());
-		B_Sl.addMouseMotionListener(new MouseMotionListener(){
-
-			@Override
-			public void mouseDragged(MouseEvent e) {
-				
-			}
-
-			@Override
-			public void mouseMoved(MouseEvent e) {
-			}
-			
-		});
+		B_Sl.setValue(col.getGreen());
+		R_Sl.addChangeListener(new ColourListener(R_Sl, G_Sl, B_Sl, animals, 2));
 		add(B_Sl);
 		
 		add(new JSeparator(SwingConstants.HORIZONTAL));
@@ -184,6 +185,70 @@ public class SetPanel extends JPanel{
 		
 		apocalypse = new ApocalypsePane("src/resources/ApocalypseButton.png");
 		add(apocalypse);
+	}
+	
+	static class ColourListener implements ChangeListener {
+		private JSlider R_Sl;
+		private JSlider G_Sl;
+		private JSlider B_Sl;
+		private JComboBox<String> animals;
+		private int choice;
+		
+	    public ColourListener(JSlider R, JSlider G, JSlider B, JComboBox<String> comboBox, int choices) {
+	    	super();
+	    	R_Sl = R;
+	    	G_Sl = G;
+	    	B_Sl = B;
+	    	animals = comboBox;
+	    	choice = choices;
+	    }
+	    
+		@Override
+		public void stateChanged(ChangeEvent e) {
+			if (choice == 0) {
+				int newR = R_Sl.getValue();
+				Color col = Color.black;
+				switch (World.creature((String)(animals.getSelectedItem()), 0, 0).species) {
+				case "Lion":
+					col = new Color (newR, Lion.colour.getGreen(), Lion.colour.getBlue());
+					Lion.colour = col; break;
+				case "Horse":
+					col = new Color (newR, Horse.colour.getGreen(), Horse.colour.getBlue());
+					Horse.colour = col; break;
+				case "MountainGoat":
+					col = new Color (newR, MountainGoat.colour.getGreen(), MountainGoat.colour.getBlue());
+					MountainGoat.colour = col; break;
+				}
+			} else if (choice == 1) {
+				int newG = G_Sl.getValue();
+				Color col = Color.black;
+				switch (World.creature((String)(animals.getSelectedItem()), 0, 0).species) {
+				case "Lion":
+					col = new Color (Lion.colour.getRed(), newG, Lion.colour.getBlue());
+					Lion.colour = col; break;
+				case "Horse":
+					col = new Color (Horse.colour.getRed(), newG, Horse.colour.getBlue());
+					Horse.colour = col; break;
+				case "MountainGoat":
+					col = new Color (MountainGoat.colour.getRed(), newG, MountainGoat.colour.getBlue());
+					MountainGoat.colour = col; break;
+				}
+			} else if (choice == 2) {
+				int newB = B_Sl.getValue();
+				Color col = Color.black;
+				switch (World.creature((String)(animals.getSelectedItem()), 0, 0).species) {
+				case "Lion":
+					col = new Color (Lion.colour.getRed(), Lion.colour.getGreen(), newB);
+					Lion.colour = col; break;
+				case "Horse":
+					col = new Color (Horse.colour.getRed(), Horse.colour.getGreen(), newB);
+					Horse.colour = col; break;
+				case "MountainGoat":
+					col = new Color (MountainGoat.colour.getRed(), MountainGoat.colour.getGreen(), newB);
+					MountainGoat.colour = col; break;
+				}
+			}
+		}
 	}
 	
 	static class BreedEnableListener implements ItemListener {

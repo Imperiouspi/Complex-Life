@@ -6,6 +6,7 @@ import types.LifeForm;
 import types.Plant;
 
 public class VenusFlytrap extends Plant {
+	public static Color colour;
 	public VenusFlytrap(int x, int y) {
 		super(x, y);
 		species = "Venus Flytrap";
@@ -15,7 +16,7 @@ public class VenusFlytrap extends Plant {
 		hungerLeft = MaxHunger;
 		eats = new String[] { null, null };
 		predators = new String[] { "Lion" };
-		color = Color.green;
+		colour = Color.green;
 		LifeSpan = 20;
 		localx = x;
 		localy = y;

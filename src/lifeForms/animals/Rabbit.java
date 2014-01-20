@@ -5,6 +5,7 @@ import java.awt.Color;
 import types.LifeForm;
 
 public class Rabbit extends LifeForm{
+	public static Color colour;
 	public static int statBreedChance, statBreedCooldown;
 	public Rabbit(int x, int y) {
 		super(x, y);
@@ -15,7 +16,7 @@ public class Rabbit extends LifeForm{
 		hungerLeft = MaxHunger;
 		eats = new String[] {"Grass"};
 		predators = new String[] {"Lion"};
-		color = Color.GRAY;
+		colour = Color.GRAY;
 		LifeSpan = 12;
 		statBreedChance = 30;
 		statBreedCooldown = 3;

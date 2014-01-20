@@ -1,10 +1,14 @@
 package gui;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 
 import javax.swing.JPanel;
 
+import lifeForms.animals.Horse;
+import lifeForms.animals.Lion;
+import lifeForms.animals.MountainGoat;
 import types.World;
 
 public class WorldPanel extends JPanel{
@@ -26,7 +30,13 @@ public class WorldPanel extends JPanel{
 		}
 
 		for (int i = 0; i < world.Life.size(); i++) {
-			g.setColor(world.Life.get(i).color);
+			Color col = Color.black;
+			switch (world.Life.get(i).species) {
+			case "Lion": col = Lion.colour; break;
+			case "Horse": col = Horse.colour; break;
+			case "MountainGoat": col = MountainGoat.colour; break;
+			}
+			g.setColor(col);
 			if(world.Life.get(i).alive)
 				world.Life.get(i).draw(g);
 		}

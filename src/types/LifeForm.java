@@ -14,7 +14,6 @@ public abstract class LifeForm {
 	public int MaxHealth, MaxHunger, maxLife;
 	public int healthLeft, hungerLeft;
 	public String[] eats, predators;
-	public Color color;
 	public int LifeSpan;
 	public int localx, localy, viewDistance = 5;
 	public boolean alive = true, willBreed = false;
@@ -365,15 +364,9 @@ public abstract class LifeForm {
 		int breed = (int) (Math.random() * 100);
 		int breedChance = 1;
 		switch (this.species) {
-		case "Lion":
-			breedChance = Lion.statBreedChance;
-			break;
-		case "Horse":
-			breedChance = Horse.statBreedChance;
-			break;
-		case "MountainGoat":
-			breedChance = MountainGoat.statBreedChance;
-			break;
+		case "Lion": breedChance = Lion.statBreedChance; break;
+		case "Horse": breedChance = Horse.statBreedChance; break;
+		case "MountainGoat": breedChance = MountainGoat.statBreedChance; break;
 		}
 		if (breed < breedChance) {
 			world.Life.add(World.creature(this.species, localx, localy));
@@ -397,7 +390,13 @@ public abstract class LifeForm {
 	}
 
 	public void draw(Graphics g) {
-		g.setColor(color);
+		Color col = Color.black;
+		switch (this.species) {
+		case "Lion": col = Lion.colour; break;
+		case "Horse": col = Horse.colour; break;
+		case "MountainGoat": col = MountainGoat.colour; break;
+		}
+		g.setColor(col);
 		g.fillRect(this.localx * 5, this.localy * 5, 6, 6);
 	}
 

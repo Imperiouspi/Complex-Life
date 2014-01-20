@@ -6,6 +6,7 @@ import types.LifeForm;
 import types.Plant;
 
 public class Grass extends Plant { // :)
+	public static Color colour;
 
 	public Grass(int x, int y) {
 		super(x, y);
@@ -19,7 +20,7 @@ public class Grass extends Plant { // :)
 		hungerLeft = MaxHunger;
 		eats = new String[] { null, null };
 		predators = new String[] { "Horse", "Deer", "Rabbit", "MountainGoat" };
-		color = new Color(0, 200, 0); // Should this be (0, 200, 0) like the one
+		colour = new Color(0, 200, 0); // Should this be (0, 200, 0) like the one
 										// above, or (10, 200, 10) like it used
 										// to be?
 		LifeSpan = 500;

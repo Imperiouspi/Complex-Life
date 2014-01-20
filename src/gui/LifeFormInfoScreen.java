@@ -16,6 +16,9 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.filechooser.FileFilter;
 
+import lifeForms.animals.Horse;
+import lifeForms.animals.Lion;
+import lifeForms.animals.MountainGoat;
 import types.LifeForm;
 
 public class LifeFormInfoScreen extends JPanel {
@@ -51,7 +54,13 @@ public class LifeFormInfoScreen extends JPanel {
 	public void setAnimal(LifeForm life) {
 		Info.setText(life.species + ":\nHealth: " + life.healthLeft
 				+ "\nHunger: " + life.hungerLeft + "\nAge: " + (life.maxLife - life.LifeSpan));
-		Info.setBackground(life.color);
+		Color col = Color.black;
+		switch (life.species) {
+		case "Lion": col = Lion.colour; break;
+		case "Horse": col = Horse.colour; break;
+		case "MountainGoat": col = MountainGoat.colour; break;
+		}
+		Info.setBackground(col);
 		if (life.species.equals("Horse")) {
 			Info.setForeground(Color.white);
 		} else {

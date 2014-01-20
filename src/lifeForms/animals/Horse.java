@@ -5,6 +5,7 @@ import java.awt.Color;
 import types.LifeForm;
 
 public class Horse extends LifeForm {
+	public static Color colour;
 	public static boolean breedEnabled;
 	public static int statBreedChance, statBreedCooldown;
 	public Horse(int x, int y) {
@@ -16,7 +17,7 @@ public class Horse extends LifeForm {
 		hungerLeft = MaxHunger;
 		eats = new String[] { "Grass" };
 		predators = new String[] { "Lion" };
-		color = Color.black;
+		colour = Color.black;
 		LifeSpan = 30;
 		maxLife = LifeSpan;
 		localx = x;

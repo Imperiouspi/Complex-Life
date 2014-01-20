@@ -5,7 +5,7 @@ import java.awt.Color;
 import types.LifeForm;
 
 public class MountainGoat extends LifeForm{
-	public static Color staticColor;
+	public static Color colour;
 	public static boolean breedEnabled;
 	public static int statBreedChance, statBreedCooldown;
 	public MountainGoat(int x, int y) {
@@ -17,14 +17,13 @@ public class MountainGoat extends LifeForm{
 		hungerLeft = MaxHunger;
 		eats = new String[] {"Grass"};
 		predators = new String[] {"Lion"};
-		color = new Color(129, 89, 30);
+		colour = new Color(129, 89, 30);
 		LifeSpan = 10;
 		breedEnabled = true;
 		statBreedChance = 100;
 		statBreedCooldown = 3;
 		localx = x;
 		localy = y;
-		staticColor = color;
 		maxLife = LifeSpan;
 	}
 

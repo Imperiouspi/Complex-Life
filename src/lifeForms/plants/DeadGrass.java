@@ -3,6 +3,7 @@ package lifeForms.plants;
 import java.awt.Color;
 
 public class DeadGrass extends Grass {
+	public static Color colour;
 
 	public DeadGrass(int x, int y) {
 		super(x, y);
@@ -16,7 +17,7 @@ public class DeadGrass extends Grass {
 		hungerLeft = MaxHunger;
 		eats = new String[] {null, null};
 		predators = new String[] {"Horse", "Deer", "Rabbit", "MountainGoat"};
-		color = new Color(129, 71, 64); // Brown
+		colour = new Color(129, 71, 64); // Brown
 		LifeSpan = 0;
 	}
 

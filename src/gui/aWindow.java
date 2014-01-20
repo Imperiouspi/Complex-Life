@@ -22,6 +22,9 @@ import java.util.TimerTask;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
+import lifeForms.animals.Horse;
+import lifeForms.animals.Lion;
+import lifeForms.animals.MountainGoat;
 import types.Biome;
 import types.World;
 import biomes.Mountains;
@@ -299,8 +302,13 @@ public class aWindow extends JFrame {
 			add(news, BorderLayout.SOUTH);
 
 			isPause = true;
-			set.setBackground(World.creature(
-					(String) (set.animals.getSelectedItem()), 0, 0).color);
+			Color col = Color.black;
+			switch (World.creature((String)(set.animals.getSelectedItem()), 0, 0).species) {
+			case "Lion": col = Lion.colour; break;
+			case "Horse": col = Horse.colour; break;
+			case "MountainGoat": col = MountainGoat.colour; break;
+			}
+			set.setBackground(col);
 			pause();
 		}
 
@@ -478,8 +486,13 @@ public class aWindow extends JFrame {
 				pause();
 				isPause = true;
 				set.setEnabled(true);
-				set.setBackground(World.creature(
-						(String) (set.animals.getSelectedItem()), 0, 0).color);
+				Color col = Color.black;
+				switch (World.creature((String)(set.animals.getSelectedItem()), 0, 0).species) {
+				case "Lion": col = Lion.colour; break;
+				case "Horse": col = Horse.colour; break;
+				case "MountainGoat": col = MountainGoat.colour; break;
+				}
+				set.setBackground(col);
 				repaint();
 			}
 		}
