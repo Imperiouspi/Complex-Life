@@ -1,5 +1,7 @@
 package types;
 
+import gui.aWindow;
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
@@ -385,14 +387,13 @@ public abstract class LifeForm {
 	public void draw(Graphics g) {
 		Color col = Color.black;
 		switch (this.species) {
-		case "Lion": col = Lion.colour; break;
-		case "Horse": col = Horse.colour; break;
-		case "Mountain Goat": col = MountainGoat.colour; break;
+		case "Lion": col = new Color (aWindow.lionSet.R_Sl.getValue(), aWindow.lionSet.G_Sl.getValue(), aWindow.lionSet.B_Sl.getValue()); break;
+		case "Horse": col = new Color (aWindow.horseSet.R_Sl.getValue(), aWindow.horseSet.G_Sl.getValue(), aWindow.horseSet.B_Sl.getValue()); break;
+		case "Mountain Goat": col = new Color (aWindow.mGoatSet.R_Sl.getValue(), aWindow.mGoatSet.G_Sl.getValue(), aWindow.mGoatSet.B_Sl.getValue()); break;
 		}
 		g.setColor(col);
 		g.fillRect(this.localx * 5, this.localy * 5, 6, 6);
 	}
-
 	
 	@Override
 	public String toString() {

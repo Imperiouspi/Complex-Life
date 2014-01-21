@@ -56,9 +56,12 @@ public class LifeFormInfoScreen extends JPanel {
 				+ "\nHunger: " + life.hungerLeft + "\nAge: " + (life.maxLife - life.LifeSpan));
 		Color col = Color.black;
 		switch (life.species) {
-		case "Lion": col = Lion.colour; break;
-		case "Horse": col = Horse.colour; break;
-		case "Mountain Goat": col = MountainGoat.colour; break;
+		case "Lion":
+			col = new Color (aWindow.lionSet.R_Sl.getValue(), aWindow.lionSet.G_Sl.getValue(), aWindow.lionSet.B_Sl.getValue()); break;
+		case "Horse":
+			col = new Color (aWindow.horseSet.R_Sl.getValue(), aWindow.horseSet.G_Sl.getValue(), aWindow.horseSet.B_Sl.getValue()); break;
+		case "Mountain Goat":
+			col = new Color (aWindow.mGoatSet.R_Sl.getValue(), aWindow.mGoatSet.G_Sl.getValue(), aWindow.mGoatSet.B_Sl.getValue()); break;
 		}
 		Info.setBackground(col);
 		if (life.species.equals("Horse")) {

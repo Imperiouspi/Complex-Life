@@ -44,9 +44,6 @@ public class SetPanel extends JPanel{
 	public JSlider chanceBreed_Sl;
 	public JLabel cool_L;
 	public JSlider cool_Sl;
-	public static SpeciesSetComponents lionSet;
-	public static SpeciesSetComponents horseSet;
-	public static SpeciesSetComponents mGoatSet;
 	public ApocalypsePane apocalypse;
 	
 	public SetPanel(){
@@ -71,18 +68,28 @@ public class SetPanel extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				Color col = Color.black;
 				switch (World.creature((String)(animals.getSelectedItem()), 0, 0).species) {
-				case "Lion": col = Lion.colour;
-					R_Sl.setValue(lionSet.R_Sl.getValue()); G_Sl.setValue(lionSet.G_Sl.getValue()); B_Sl.setValue(lionSet.B_Sl.getValue());
-					trueBreed.setSelected(lionSet.trueBreed.isSelected()); falseBreed.setSelected(lionSet.falseBreed.isSelected());
-					chanceBreed_Sl.setValue(lionSet.chanceBreed_Sl.getValue()); cool_Sl.setValue(lionSet.cool_Sl.getValue()); break;
-				case "Horse": col = Horse.colour;
-					R_Sl.setValue(horseSet.R_Sl.getValue()); G_Sl.setValue(horseSet.G_Sl.getValue()); B_Sl.setValue(horseSet.B_Sl.getValue());
-					trueBreed.setSelected(horseSet.trueBreed.isSelected()); falseBreed.setSelected(horseSet.falseBreed.isSelected());
-					chanceBreed_Sl.setValue(horseSet.chanceBreed_Sl.getValue()); cool_Sl.setValue(horseSet.cool_Sl.getValue()); break;
-				case "Mountain Goat": col = MountainGoat.colour;
-					R_Sl.setValue(mGoatSet.R_Sl.getValue()); G_Sl.setValue(mGoatSet.G_Sl.getValue()); B_Sl.setValue(mGoatSet.B_Sl.getValue());
-					trueBreed.setSelected(mGoatSet.trueBreed.isSelected()); falseBreed.setSelected(mGoatSet.falseBreed.isSelected());
-					chanceBreed_Sl.setValue(mGoatSet.chanceBreed_Sl.getValue()); cool_Sl.setValue(mGoatSet.cool_Sl.getValue()); break;
+				case "Lion":
+					col = new Color (aWindow.lionSet.R_Sl.getValue(), aWindow.lionSet.G_Sl.getValue(), aWindow.lionSet.B_Sl.getValue());
+					R_Sl.setValue(aWindow.lionSet.R_Sl.getValue()); G_Sl.setValue(aWindow.lionSet.G_Sl.getValue());
+					B_Sl.setValue(aWindow.lionSet.B_Sl.getValue());
+					trueBreed.setSelected(aWindow.lionSet.trueBreed.isSelected()); falseBreed.setSelected(aWindow.lionSet.falseBreed.isSelected());
+					chanceBreed_Sl.setValue(aWindow.lionSet.chanceBreed_Sl.getValue()); cool_Sl.setValue(aWindow.lionSet.cool_Sl.getValue());
+					break;
+				case "Horse":
+					col = new Color (aWindow.horseSet.R_Sl.getValue(), aWindow.horseSet.G_Sl.getValue(), aWindow.horseSet.B_Sl.getValue());
+					R_Sl.setValue(aWindow.horseSet.R_Sl.getValue()); G_Sl.setValue(aWindow.horseSet.G_Sl.getValue());
+					B_Sl.setValue(aWindow.horseSet.B_Sl.getValue());
+					trueBreed.setSelected(aWindow.horseSet.trueBreed.isSelected());
+					falseBreed.setSelected(aWindow.horseSet.falseBreed.isSelected());
+					chanceBreed_Sl.setValue(aWindow.horseSet.chanceBreed_Sl.getValue()); cool_Sl.setValue(aWindow.horseSet.cool_Sl.getValue());
+					break;
+				case "Mountain Goat":
+					col = new Color (aWindow.mGoatSet.R_Sl.getValue(), aWindow.mGoatSet.G_Sl.getValue(), aWindow.mGoatSet.B_Sl.getValue());
+					R_Sl.setValue(aWindow.mGoatSet.R_Sl.getValue()); G_Sl.setValue(aWindow.mGoatSet.G_Sl.getValue());
+					B_Sl.setValue(aWindow.mGoatSet.B_Sl.getValue()); trueBreed.setSelected(aWindow.mGoatSet.trueBreed.isSelected());
+					falseBreed.setSelected(aWindow.mGoatSet.falseBreed.isSelected());
+					chanceBreed_Sl.setValue(aWindow.mGoatSet.chanceBreed_Sl.getValue()); cool_Sl.setValue(aWindow.mGoatSet.cool_Sl.getValue());
+					break;
 				}
 				setBackground(col);
 				if(((String)(animals.getSelectedItem())).equals("Horse")){
@@ -97,34 +104,27 @@ public class SetPanel extends JPanel{
 						com[i].setForeground(Color.black);
 					}
 				}
-				R_Sl.setValue(col.getRed());
-				G_Sl.setValue(col.getGreen());
-				B_Sl.setValue(col.getBlue());
 			}
 			
 		});
 		add(animals);
-		
-		lionSet = aWindow.lionSet;
-		horseSet = aWindow.horseSet;
-		mGoatSet = aWindow.mGoatSet;
 		
 		Color col = Color.black;
 		int breedChance = 1;
 		int breedCooldown = 3;
 		switch (World.creature((String)(animals.getSelectedItem()), 0, 0).species) {
 		case "Lion":
-			col = Lion.colour;
-			breedChance = Lion.statBreedChance;
-			breedCooldown = Lion.statBreedCooldown; break;
+			col = new Color (aWindow.lionSet.R_Sl.getValue(), aWindow.lionSet.G_Sl.getValue(), aWindow.lionSet.B_Sl.getValue());
+			breedChance = aWindow.lionSet.chanceBreed_Sl.getValue();
+			breedCooldown = aWindow.lionSet.cool_Sl.getValue(); break;
 		case "Horse":
-			col = Horse.colour;
-			breedChance = Horse.statBreedChance;
-			breedCooldown = Horse.statBreedCooldown; break;
+			col = new Color (aWindow.horseSet.R_Sl.getValue(), aWindow.horseSet.G_Sl.getValue(), aWindow.horseSet.B_Sl.getValue());
+			breedChance = aWindow.horseSet.chanceBreed_Sl.getValue();
+			breedCooldown = aWindow.horseSet.cool_Sl.getValue(); break;
 		case "Mountain Goat":
-			col = MountainGoat.colour;
-			breedChance = MountainGoat.statBreedChance;
-			breedCooldown = MountainGoat.statBreedCooldown; break;
+			col = new Color (aWindow.mGoatSet.R_Sl.getValue(), aWindow.mGoatSet.G_Sl.getValue(), aWindow.mGoatSet.B_Sl.getValue());
+			breedChance = aWindow.mGoatSet.chanceBreed_Sl.getValue();
+			breedCooldown = aWindow.mGoatSet.cool_Sl.getValue(); break;
 		}
 		
 		C_L = new JLabel("Color:");
@@ -221,42 +221,42 @@ public class SetPanel extends JPanel{
 				Color col = Color.black;
 				switch (World.creature((String)(animals.getSelectedItem()), 0, 0).species) {
 				case "Lion":
-					col = new Color (newR, Lion.colour.getGreen(), Lion.colour.getBlue()); Lion.colour = col;
-					lionSet.R_Sl.setValue(newR); break;
+					col = new Color (newR, aWindow.lionSet.G_Sl.getValue(), aWindow.lionSet.B_Sl.getValue());
+					aWindow.lionSet.R_Sl.setValue(newR); break;
 				case "Horse":
-					col = new Color (newR, Horse.colour.getGreen(), Horse.colour.getBlue()); Horse.colour = col;
-					horseSet.R_Sl.setValue(newR); break;
+					col = new Color (newR, aWindow.horseSet.G_Sl.getValue(), aWindow.horseSet.B_Sl.getValue());
+					aWindow.horseSet.R_Sl.setValue(newR); break;
 				case "Mountain Goat":
-					col = new Color (newR, MountainGoat.colour.getGreen(), MountainGoat.colour.getBlue()); MountainGoat.colour = col;
-					mGoatSet.R_Sl.setValue(newR); break;
+					col = new Color (newR, aWindow.mGoatSet.G_Sl.getValue(), aWindow.mGoatSet.B_Sl.getValue());
+					aWindow.mGoatSet.R_Sl.setValue(newR); break;
 				}
 			} else if (choice == 1) {
 				int newG = G_Sl.getValue();
 				Color col = Color.black;
 				switch (World.creature((String)(animals.getSelectedItem()), 0, 0).species) {
 				case "Lion":
-					col = new Color (Lion.colour.getRed(), newG, Lion.colour.getBlue()); Lion.colour = col;
-					lionSet.G_Sl.setValue(newG); break;
+					col = new Color (aWindow.lionSet.R_Sl.getValue(), newG, aWindow.lionSet.B_Sl.getValue());
+					aWindow.lionSet.G_Sl.setValue(newG); break;
 				case "Horse":
-					col = new Color (Horse.colour.getRed(), newG, Horse.colour.getBlue()); Horse.colour = col;
-					horseSet.G_Sl.setValue(newG); break;
+					col = new Color (aWindow.horseSet.R_Sl.getValue(), newG, aWindow.horseSet.B_Sl.getValue());
+					aWindow.horseSet.G_Sl.setValue(newG); break;
 				case "Mountain Goat":
-					col = new Color (MountainGoat.colour.getRed(), newG, MountainGoat.colour.getBlue()); MountainGoat.colour = col;
-					mGoatSet.G_Sl.setValue(newG); break;
+					col = new Color (aWindow.mGoatSet.R_Sl.getValue(), newG, aWindow.mGoatSet.B_Sl.getValue());
+					aWindow.mGoatSet.G_Sl.setValue(newG); break;
 				}
 			} else if (choice == 2) {
 				int newB = B_Sl.getValue();
 				Color col = Color.black;
 				switch (World.creature((String)(animals.getSelectedItem()), 0, 0).species) {
 				case "Lion":
-					col = new Color (Lion.colour.getRed(), Lion.colour.getGreen(), newB); Lion.colour = col;
-					lionSet.B_Sl.setValue(newB); break;
+					col = new Color (aWindow.lionSet.R_Sl.getValue(), aWindow.lionSet.G_Sl.getValue(), newB);
+					aWindow.lionSet.B_Sl.setValue(newB); break;
 				case "Horse":
-					col = new Color (Horse.colour.getRed(), Horse.colour.getGreen(), newB); Horse.colour = col;
-					horseSet.B_Sl.setValue(newB); break;
+					col = new Color (aWindow.horseSet.R_Sl.getValue(), aWindow.horseSet.G_Sl.getValue(), newB);
+					aWindow.horseSet.B_Sl.setValue(newB); break;
 				case "Mountain Goat":
-					col = new Color (MountainGoat.colour.getRed(), MountainGoat.colour.getGreen(), newB); MountainGoat.colour = col;
-					mGoatSet.B_Sl.setValue(newB); break;
+					col = new Color (aWindow.mGoatSet.R_Sl.getValue(), aWindow.mGoatSet.G_Sl.getValue(), newB);
+					aWindow.mGoatSet.B_Sl.setValue(newB); break;
 				}
 			}
 		}
@@ -275,12 +275,12 @@ public class SetPanel extends JPanel{
 		public void itemStateChanged(ItemEvent arg0) {
 			boolean breedingEnabled = trueBreed.isSelected();
 			switch (World.creature((String)(animals.getSelectedItem()), 0, 0).species) {
-			case "Lion": Lion.breedEnabled = breedingEnabled;
-				lionSet.trueBreed.setSelected(breedingEnabled); lionSet.falseBreed.setSelected(!breedingEnabled); break;
-			case "Horse": Horse.breedEnabled = breedingEnabled;
-				horseSet.trueBreed.setSelected(breedingEnabled); horseSet.falseBreed.setSelected(!breedingEnabled); break;
-			case "Mountain Goat": MountainGoat.breedEnabled = breedingEnabled;
-				mGoatSet.trueBreed.setSelected(breedingEnabled); mGoatSet.falseBreed.setSelected(!breedingEnabled); break;
+			case "Lion":
+				aWindow.lionSet.trueBreed.setSelected(breedingEnabled); aWindow.lionSet.falseBreed.setSelected(!breedingEnabled); break;
+			case "Horse":
+				aWindow.horseSet.trueBreed.setSelected(breedingEnabled); aWindow.horseSet.falseBreed.setSelected(!breedingEnabled); break;
+			case "Mountain Goat":
+				aWindow.mGoatSet.trueBreed.setSelected(breedingEnabled); aWindow.mGoatSet.falseBreed.setSelected(!breedingEnabled); break;
 			}
 		}
 	}
@@ -304,22 +304,22 @@ public class SetPanel extends JPanel{
 			if (choice == 1) {
 				int breedingChance = chanceBreed_Sl.getValue();
 				switch (World.creature((String)(animals.getSelectedItem()), 0, 0).species) {
-				case "Lion": Lion.statBreedChance = breedingChance;
-					lionSet.chanceBreed_Sl.setValue(breedingChance); break;
-				case "Horse": Horse.statBreedChance = breedingChance;
-					horseSet.chanceBreed_Sl.setValue(breedingChance); break;
-				case "Mountain Goat": MountainGoat.statBreedChance = breedingChance;
-					mGoatSet.chanceBreed_Sl.setValue(breedingChance); break;
+				case "Lion":
+					aWindow.lionSet.chanceBreed_Sl.setValue(breedingChance); break;
+				case "Horse":
+					aWindow.horseSet.chanceBreed_Sl.setValue(breedingChance); break;
+				case "Mountain Goat":
+					aWindow.mGoatSet.chanceBreed_Sl.setValue(breedingChance); break;
 				}
 			} else if (choice == 2) {
 				int breedingCooldown = cool_Sl.getValue();
 				switch (World.creature((String)(animals.getSelectedItem()), 0, 0).species) {
-				case "Lion": Lion.statBreedCooldown = breedingCooldown;
-					lionSet.cool_Sl.setValue(breedingCooldown); break;
-				case "Horse": Horse.statBreedCooldown = breedingCooldown;
-					horseSet.cool_Sl.setValue(breedingCooldown); break;
-				case "Mountain Goat": MountainGoat.statBreedCooldown = breedingCooldown;
-					mGoatSet.cool_Sl.setValue(breedingCooldown); break;
+				case "Lion":
+					aWindow.lionSet.cool_Sl.setValue(breedingCooldown); break;
+				case "Horse":
+					aWindow.horseSet.cool_Sl.setValue(breedingCooldown); break;
+				case "Mountain Goat":
+					aWindow.mGoatSet.cool_Sl.setValue(breedingCooldown); break;
 				}
 			}
 		}

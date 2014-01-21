@@ -1,6 +1,5 @@
 package types;
 
-import gui.SpeciesSetComponents;
 import gui.aWindow;
 
 import java.util.ArrayList;
@@ -132,39 +131,39 @@ public class World {
 		return living;
 	}
 
-	public void advance(SpeciesSetComponents lionSet, SpeciesSetComponents horseSet, SpeciesSetComponents mGoatSet) {
+	public void advance() {
 		for (int i = 0; i < Life.size(); i++) {
 			grid = Life.get(i).Move(grid);
 			boolean breedingEnabled = true;
 			int breedCooldown = 0;
 			switch (Life.get(i).species) {
 			case "Lion":
-				breedingEnabled = lionSet.trueBreed.isSelected();
-				lionSet.cool_Sl.setValue(lionSet.cool_Sl.getValue() - 1);
-				breedCooldown = lionSet.cool_Sl.getValue(); break;
+				breedingEnabled = aWindow.lionSet.trueBreed.isSelected();
+				aWindow.lionSet.cool_Sl.setValue(aWindow.lionSet.cool_Sl.getValue() - 1);
+				breedCooldown = aWindow.lionSet.cool_Sl.getValue(); break;
 			case "Horse":
-				breedingEnabled = horseSet.trueBreed.isSelected();
-				horseSet.cool_Sl.setValue(horseSet.cool_Sl.getValue() - 1);
-				breedCooldown = horseSet.cool_Sl.getValue(); break;
+				breedingEnabled = aWindow.horseSet.trueBreed.isSelected();
+				aWindow.horseSet.cool_Sl.setValue(aWindow.horseSet.cool_Sl.getValue() - 1);
+				breedCooldown = aWindow.horseSet.cool_Sl.getValue(); break;
 			case "Mountain Goat":
-				breedingEnabled = mGoatSet.trueBreed.isSelected();
-				mGoatSet.cool_Sl.setValue(mGoatSet.cool_Sl.getValue() - 1);
-				breedCooldown = mGoatSet.cool_Sl.getValue(); break;
+				breedingEnabled = aWindow.mGoatSet.trueBreed.isSelected();
+				aWindow.mGoatSet.cool_Sl.setValue(aWindow.mGoatSet.cool_Sl.getValue() - 1);
+				breedCooldown = aWindow.mGoatSet.cool_Sl.getValue(); break;
 			}
 			if (breedingEnabled && Life.get(i).willBreed && breedCooldown == 0) {
 				Life.get(i).Breed(this);
 				Life.get(i).willBreed = false;
 				switch (Life.get(i).species) {
-				case "Lion": lionSet.cool_Sl.setValue(10); break;
-				case "Horse": horseSet.cool_Sl.setValue(3); break;
-				case "Mountain Goat": mGoatSet.cool_Sl.setValue(3); break;
+				case "Lion": aWindow.lionSet.cool_Sl.setValue(10); break;
+				case "Horse": aWindow.horseSet.cool_Sl.setValue(3); break;
+				case "Mountain Goat": aWindow.mGoatSet.cool_Sl.setValue(3); break;
 				}
 			}
 			if (breedCooldown == 0) {
 				switch (Life.get(i).species) {
-				case "Lion": lionSet.cool_Sl.setValue(10); break;
-				case "Horse": horseSet.cool_Sl.setValue(3); break;
-				case "Mountain Goat": mGoatSet.cool_Sl.setValue(3); break;
+				case "Lion": aWindow.lionSet.cool_Sl.setValue(10); break;
+				case "Horse": aWindow.horseSet.cool_Sl.setValue(3); break;
+				case "Mountain Goat": aWindow.mGoatSet.cool_Sl.setValue(3); break;
 				}
 			}
 

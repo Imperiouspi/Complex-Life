@@ -11,10 +11,13 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -116,7 +119,7 @@ public class aWindow extends JFrame {
 
 			@Override
 			public void run() {
-				world.advance(lionSet, horseSet, mGoatSet);
+				world.advance();
 				count++;
 				System.gc();
 				repaint();
@@ -151,7 +154,7 @@ public class aWindow extends JFrame {
 	public static void save(File file) {
 		PrintWriter writer = null;
 		try {
-			writer = new PrintWriter(file);
+			writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file))));
 		} catch (FileNotFoundException e) {
 			System.out.println("File not created");
 			e.printStackTrace();
@@ -313,9 +316,12 @@ public class aWindow extends JFrame {
 			isPause = true;
 			Color col = Color.black;
 			switch (World.creature((String)(set.animals.getSelectedItem()), 0, 0).species) {
-			case "Lion": col = Lion.colour; break;
-			case "Horse": col = Horse.colour; break;
-			case "Mountain Goat": col = MountainGoat.colour; break;
+			case "Lion":
+				col = new Color (aWindow.lionSet.R_Sl.getValue(), aWindow.lionSet.G_Sl.getValue(), aWindow.lionSet.B_Sl.getValue()); break;
+			case "Horse":
+				col = new Color (aWindow.horseSet.R_Sl.getValue(), aWindow.horseSet.G_Sl.getValue(), aWindow.horseSet.B_Sl.getValue()); break;
+			case "Mountain Goat":
+				col = new Color (aWindow.mGoatSet.R_Sl.getValue(), aWindow.mGoatSet.G_Sl.getValue(), aWindow.mGoatSet.B_Sl.getValue()); break;
 			}
 			set.setBackground(col);
 			pause();
@@ -497,9 +503,12 @@ public class aWindow extends JFrame {
 				set.setEnabled(true);
 				Color col = Color.black;
 				switch (World.creature((String)(set.animals.getSelectedItem()), 0, 0).species) {
-				case "Lion": col = Lion.colour; break;
-				case "Horse": col = Horse.colour; break;
-				case "Mountain Goat": col = MountainGoat.colour; break;
+				case "Lion":
+					col = new Color (aWindow.lionSet.R_Sl.getValue(), aWindow.lionSet.G_Sl.getValue(), aWindow.lionSet.B_Sl.getValue()); break;
+				case "Horse":
+					col = new Color (aWindow.horseSet.R_Sl.getValue(), aWindow.horseSet.G_Sl.getValue(), aWindow.horseSet.B_Sl.getValue()); break;
+				case "Mountain Goat":
+					col = new Color (aWindow.mGoatSet.R_Sl.getValue(), aWindow.mGoatSet.G_Sl.getValue(), aWindow.mGoatSet.B_Sl.getValue()); break;
 				}
 				set.setBackground(col);
 				repaint();
