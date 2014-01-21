@@ -185,6 +185,7 @@ public class World {
 			Life.get(i).Die();
 			grid[Life.get(i).localx][Life.get(i).localy].Occupant = null;
 			Life.remove(i);
+			i--;
 		}
 	}
 }
