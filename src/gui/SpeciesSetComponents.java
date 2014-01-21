@@ -49,13 +49,13 @@ public class SpeciesSetComponents {
 		G_Sl.setMajorTickSpacing(50);
 		G_Sl.setPaintTicks(true);
 		G_Sl.setPaintLabels(true);
-		G_Sl.setValue(col.getBlue());
+		G_Sl.setValue(col.getGreen());
 		
 		B_Sl = new JSlider(0, 255);
 		B_Sl.setMajorTickSpacing(50);
 		B_Sl.setPaintTicks(true);
 		B_Sl.setPaintLabels(true);
-		B_Sl.setValue(col.getGreen());
+		B_Sl.setValue(col.getBlue());
 		
 		breedGroup = new ButtonGroup();
 		trueBreed = new JRadioButton("True", true);
