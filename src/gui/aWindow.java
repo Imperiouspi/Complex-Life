@@ -260,35 +260,25 @@ public class aWindow extends JFrame {
 			set = new SetPanel();
 			set.setEnabled(false);
 			set.apocalypse.addMouseListener(new MouseListener() {
-
+				
 				@Override
 				public void mouseClicked(MouseEvent e) {
+					//TODO cancel ongoing TimerTask (call to advance()) - is it possible?
 					world.Apocalypse();
 					repaint();
 				}
+				
+				@Override
+				public void mousePressed(MouseEvent e) {}
 
 				@Override
-				public void mousePressed(MouseEvent e) {
-					// TODO Auto-generated method stub
-
-				}
+				public void mouseReleased(MouseEvent e) {}
 
 				@Override
-				public void mouseReleased(MouseEvent e) {
-					// TODO Auto-generated method stub
-
-				}
+				public void mouseEntered(MouseEvent e) {}
 
 				@Override
-				public void mouseEntered(MouseEvent e) {
-					// TODO Auto-generated method stub
-
-				}
-
-				@Override
-				public void mouseExited(MouseEvent e) {
-
-				}
+				public void mouseExited(MouseEvent e) {}
 
 			});
 			score = 0;
@@ -346,16 +336,10 @@ public class aWindow extends JFrame {
 		}
 
 		@Override
-		public void mousePressed(MouseEvent arg0) {
-			// TODO Auto-generated method stub
-
-		}
+		public void mousePressed(MouseEvent arg0) {}
 
 		@Override
-		public void mouseReleased(MouseEvent arg0) {
-			// TODO Auto-generated method stub
-
-		}
+		public void mouseReleased(MouseEvent arg0) {}
 
 	}
 
@@ -389,16 +373,10 @@ public class aWindow extends JFrame {
 		}
 
 		@Override
-		public void mousePressed(MouseEvent arg0) {
-			// TODO Auto-generated method stub
-
-		}
+		public void mousePressed(MouseEvent arg0) {}
 
 		@Override
-		public void mouseReleased(MouseEvent arg0) {
-			// TODO Auto-generated method stub
-
-		}
+		public void mouseReleased(MouseEvent arg0) {}
 
 	}
 
@@ -416,7 +394,6 @@ public class aWindow extends JFrame {
 						"src/resources/QuitMoused.png")));
 				quit.repaint();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -427,22 +404,15 @@ public class aWindow extends JFrame {
 				quit.setImage(ImageIO.read(new File("src/resources/Quit.png")));
 				quit.repaint();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
 
 		@Override
-		public void mousePressed(MouseEvent arg0) {
-			// TODO Auto-generated method stub
-
-		}
+		public void mousePressed(MouseEvent arg0) {}
 
 		@Override
-		public void mouseReleased(MouseEvent arg0) {
-			// TODO Auto-generated method stub
-
-		}
+		public void mouseReleased(MouseEvent arg0) {}
 
 	}
 
@@ -463,26 +433,16 @@ public class aWindow extends JFrame {
 		}
 
 		@Override
-		public void mousePressed(MouseEvent e) {
-			// TODO Auto-generated method stub
-
-		}
+		public void mousePressed(MouseEvent e) {}
 
 		@Override
-		public void mouseReleased(MouseEvent e) {
-			// TODO Auto-generated method stub
-
-		}
+		public void mouseReleased(MouseEvent e) {}
 
 		@Override
-		public void mouseEntered(MouseEvent e) {
-		}
+		public void mouseEntered(MouseEvent e) {}
 
 		@Override
-		public void mouseExited(MouseEvent e) {
-			// TODO Auto-generated method stub
-
-		}
+		public void mouseExited(MouseEvent e) {}
 	}
 
 	class PauseAction implements MouseListener {
@@ -513,14 +473,10 @@ public class aWindow extends JFrame {
 		}
 
 		@Override
-		public void mousePressed(MouseEvent e) {
-
-		}
+		public void mousePressed(MouseEvent e) {}
 
 		@Override
-		public void mouseReleased(MouseEvent e) {
-
-		}
+		public void mouseReleased(MouseEvent e) {}
 
 		@Override
 		public void mouseEntered(MouseEvent e) {
@@ -627,7 +583,6 @@ public class aWindow extends JFrame {
 			try {
 				Thread.sleep(10000);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			this.setVisible(false);
@@ -639,7 +594,6 @@ public class aWindow extends JFrame {
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			this.setVisible(false);
