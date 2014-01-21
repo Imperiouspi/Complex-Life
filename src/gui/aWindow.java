@@ -25,9 +25,6 @@ import java.util.TimerTask;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
-import lifeForms.animals.Horse;
-import lifeForms.animals.Lion;
-import lifeForms.animals.MountainGoat;
 import types.Biome;
 import types.World;
 import biomes.Mountains;
@@ -98,10 +95,10 @@ public class aWindow extends JFrame {
 		back.add(quit, c);
 
 		add(back);
-		
-		lionSet = new SpeciesSetComponents ("Lion");
-		horseSet = new SpeciesSetComponents ("Horse");
-		mGoatSet = new SpeciesSetComponents ("Mountain Goat");
+
+		lionSet = new SpeciesSetComponents("Lion");
+		horseSet = new SpeciesSetComponents("Horse");
+		mGoatSet = new SpeciesSetComponents("Mountain Goat");
 	}
 
 	public void play() {
@@ -129,7 +126,7 @@ public class aWindow extends JFrame {
 				}
 				informations.setScore(score);
 				news.setNumbers();
-				checkWin();
+				checkEnd();
 				news.getNews();
 			}
 
@@ -194,7 +191,7 @@ public class aWindow extends JFrame {
 
 	@Deprecated
 	public static void loadFile(File file) throws NumberFormatException,
-	IOException {
+			IOException {
 		BufferedReader br = null;
 		try {
 			br = new BufferedReader(new FileReader(file));
@@ -460,7 +457,7 @@ public class aWindow extends JFrame {
 					&& e.getY() < 600
 					&& world.grid[e.getX() / 5][e.getY() / 5].Occupant != null) {
 				informations
-				.setAnimal(world.grid[e.getX() / 5][e.getY() / 5].Occupant);
+						.setAnimal(world.grid[e.getX() / 5][e.getY() / 5].Occupant);
 				repaint();
 			}
 		}
@@ -599,16 +596,54 @@ public class aWindow extends JFrame {
 		if (getGoats() == 0) {
 			news += "GOATS WENT EXTINCT!\t\n";
 		}
+		
+		if (getGoats() >= 17000) {
+			news += "Goats are reaching the limit!\t\n";
+		}
+		if (getLions() >= 17000) {
+			news += "Lions are reaching the limit!\t\n";
+		}
+		if (getHorses() >= 17000) {
+			news += "Horses are reaching the limit!\t\n";
+		}
+		
+		if (getGoats() >= 20000) {
+			news += "Goats are at the limit!\t\n";
+		}
+		if (getLions() >= 20000) {
+			news += "Lions are at the limit!\t\n";
+		}
+		if (getHorses() >= 20000) {
+			news += "Horses are at the limit!\t\n";
+		}
 		return news;
 	}
 
-	public boolean checkWin() {
+	public boolean checkEnd() {
 		boolean win = false;
 		if (getHorses() + getLions() + getGoats() == 0) {
 			win = true;
 			time.cancel();
+			try {
+				Thread.sleep(10000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			this.setVisible(false);
-			new WinScreen(score);
+			new EndScreen(score);
+		}
+		if (getHorses() >= 20000 || getLions() >= 20000 || getGoats() >= 20000) {
+			win = true;
+			time.cancel();
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			this.setVisible(false);
+			new EndScreen(score);
 		}
 
 		return win;
