@@ -137,7 +137,7 @@ public class SetPanel extends JPanel{
 		R_Sl.setPaintTicks(true);
 		R_Sl.setPaintLabels(true);
 		R_Sl.setValue(col.getRed());
-		R_Sl.addChangeListener(new ColourListener(R_Sl, G_Sl, B_Sl, animals, 0));
+		R_Sl.addChangeListener(new ColourListener(R_Sl, G_Sl, B_Sl, animals, this, 0));
 		add(R_Sl);
 		
 		G_L = new JLabel("G: ");
@@ -147,7 +147,7 @@ public class SetPanel extends JPanel{
 		G_Sl.setPaintTicks(true);
 		G_Sl.setPaintLabels(true);
 		G_Sl.setValue(col.getBlue());
-		G_Sl.addChangeListener(new ColourListener(R_Sl, G_Sl, B_Sl, animals, 1));
+		G_Sl.addChangeListener(new ColourListener(R_Sl, G_Sl, B_Sl, animals, this, 1));
 		add(G_Sl);
 		
 		B_L = new JLabel("B: ");
@@ -157,7 +157,7 @@ public class SetPanel extends JPanel{
 		B_Sl.setPaintTicks(true);
 		B_Sl.setPaintLabels(true);
 		B_Sl.setValue(col.getGreen());
-		B_Sl.addChangeListener(new ColourListener(R_Sl, G_Sl, B_Sl, animals, 2));
+		B_Sl.addChangeListener(new ColourListener(R_Sl, G_Sl, B_Sl, animals, this, 2));
 		add(B_Sl);
 		
 //		add(new JSeparator(SwingConstants.HORIZONTAL)); //Trying to save space
@@ -203,14 +203,16 @@ public class SetPanel extends JPanel{
 		private JSlider G_Sl;
 		private JSlider B_Sl;
 		private JComboBox<String> animals;
+		private SetPanel setP;
 		private int choice;
 		
-	    public ColourListener(JSlider R, JSlider G, JSlider B, JComboBox<String> comboBox, int choices) {
+	    public ColourListener(JSlider R, JSlider G, JSlider B, JComboBox<String> comboBox, SetPanel sP, int choices) {
 	    	super();
 	    	R_Sl = R;
 	    	G_Sl = G;
 	    	B_Sl = B;
 	    	animals = comboBox;
+	    	setP = sP;
 	    	choice = choices;
 	    }
 	    
@@ -230,6 +232,7 @@ public class SetPanel extends JPanel{
 					col = new Color (newR, aWindow.mGoatSet.G_Sl.getValue(), aWindow.mGoatSet.B_Sl.getValue());
 					aWindow.mGoatSet.R_Sl.setValue(newR); break;
 				}
+				setP.setBackground(col);
 			} else if (choice == 1) {
 				int newG = G_Sl.getValue();
 				Color col = Color.black;
@@ -244,6 +247,7 @@ public class SetPanel extends JPanel{
 					col = new Color (aWindow.mGoatSet.R_Sl.getValue(), newG, aWindow.mGoatSet.B_Sl.getValue());
 					aWindow.mGoatSet.G_Sl.setValue(newG); break;
 				}
+				setP.setBackground(col);
 			} else if (choice == 2) {
 				int newB = B_Sl.getValue();
 				Color col = Color.black;
@@ -258,6 +262,7 @@ public class SetPanel extends JPanel{
 					col = new Color (aWindow.mGoatSet.R_Sl.getValue(), aWindow.mGoatSet.G_Sl.getValue(), newB);
 					aWindow.mGoatSet.B_Sl.setValue(newB); break;
 				}
+				setP.setBackground(col);
 			}
 		}
 	}
