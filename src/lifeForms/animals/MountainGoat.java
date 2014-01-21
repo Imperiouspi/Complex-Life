@@ -1,4 +1,4 @@
-   package lifeForms.animals;
+package lifeForms.animals;
 
 import java.awt.Color;
 
@@ -20,7 +20,7 @@ public class MountainGoat extends LifeForm{
 		colour = new Color(129, 89, 30);
 		LifeSpan = 10;
 		breedEnabled = true;
-		statBreedChance = 100;
+		statBreedChance = 20;
 		statBreedCooldown = 3;
 		localx = x;
 		localy = y;

@@ -7,6 +7,8 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JComboBox;
@@ -52,7 +54,7 @@ public class SetPanel extends JPanel{
 		setPreferredSize(new Dimension(200, 1000));
 		setMaximumSize(new Dimension(200, 1000));
 		setMinimumSize(new Dimension(200, 1000));
-		this.setBorder(new EmptyBorder(new Insets(10, 10, 10, 10)));
+		this.setBorder(new EmptyBorder(new Insets(5, 10, 5, 10)));
 		
 		GridLayout grid = new GridLayout(0,1);
 		setLayout(grid);
@@ -70,17 +72,17 @@ public class SetPanel extends JPanel{
 				Color col = Color.black;
 				switch (World.creature((String)(animals.getSelectedItem()), 0, 0).species) {
 				case "Lion": col = Lion.colour;
-					R_Sl.setValue(lionSet.R_Sl.getValue()); G_Sl.setValue(lionSet.G_Sl.getValue()); B_Sl.setValue(lionSet.B_Sl.getValue()); 
-					trueBreed.setSelected(lionSet.trueBreed.isSelected()); falseBreed.setSelected(lionSet.falseBreed.isSelected()); 
+					R_Sl.setValue(lionSet.R_Sl.getValue()); G_Sl.setValue(lionSet.G_Sl.getValue()); B_Sl.setValue(lionSet.B_Sl.getValue());
+					trueBreed.setSelected(lionSet.trueBreed.isSelected()); falseBreed.setSelected(lionSet.falseBreed.isSelected());
 					chanceBreed_Sl.setValue(lionSet.chanceBreed_Sl.getValue()); cool_Sl.setValue(lionSet.cool_Sl.getValue()); break;
 				case "Horse": col = Horse.colour;
-					R_Sl.setValue(horseSet.R_Sl.getValue()); G_Sl.setValue(horseSet.G_Sl.getValue()); B_Sl.setValue(horseSet.B_Sl.getValue()); 
-					trueBreed.setSelected(horseSet.trueBreed.isSelected()); falseBreed.setSelected(horseSet.falseBreed.isSelected()); 
+					R_Sl.setValue(horseSet.R_Sl.getValue()); G_Sl.setValue(horseSet.G_Sl.getValue()); B_Sl.setValue(horseSet.B_Sl.getValue());
+					trueBreed.setSelected(horseSet.trueBreed.isSelected()); falseBreed.setSelected(horseSet.falseBreed.isSelected());
 					chanceBreed_Sl.setValue(horseSet.chanceBreed_Sl.getValue()); cool_Sl.setValue(horseSet.cool_Sl.getValue()); break;
 				case "Mountain Goat": col = MountainGoat.colour;
-				R_Sl.setValue(mGoatSet.R_Sl.getValue()); G_Sl.setValue(mGoatSet.G_Sl.getValue()); B_Sl.setValue(mGoatSet.B_Sl.getValue()); 
-				trueBreed.setSelected(mGoatSet.trueBreed.isSelected()); falseBreed.setSelected(mGoatSet.falseBreed.isSelected()); 
-				chanceBreed_Sl.setValue(mGoatSet.chanceBreed_Sl.getValue()); cool_Sl.setValue(mGoatSet.cool_Sl.getValue()); break;
+					R_Sl.setValue(mGoatSet.R_Sl.getValue()); G_Sl.setValue(mGoatSet.G_Sl.getValue()); B_Sl.setValue(mGoatSet.B_Sl.getValue());
+					trueBreed.setSelected(mGoatSet.trueBreed.isSelected()); falseBreed.setSelected(mGoatSet.falseBreed.isSelected());
+					chanceBreed_Sl.setValue(mGoatSet.chanceBreed_Sl.getValue()); cool_Sl.setValue(mGoatSet.cool_Sl.getValue()); break;
 				}
 				setBackground(col);
 				if(((String)(animals.getSelectedItem())).equals("Horse")){
@@ -103,9 +105,9 @@ public class SetPanel extends JPanel{
 		});
 		add(animals);
 		
-		lionSet = new SpeciesSetComponents ("Lion");
-		horseSet = new SpeciesSetComponents ("Horse");
-		mGoatSet = new SpeciesSetComponents ("Mountain Goat");
+		lionSet = aWindow.lionSet;
+		horseSet = aWindow.horseSet;
+		mGoatSet = aWindow.mGoatSet;
 		
 		Color col = Color.black;
 		int breedChance = 1;
@@ -158,15 +160,14 @@ public class SetPanel extends JPanel{
 		B_Sl.addChangeListener(new ColourListener(R_Sl, G_Sl, B_Sl, animals, 2));
 		add(B_Sl);
 		
-		add(new JSeparator(SwingConstants.HORIZONTAL));
+//		add(new JSeparator(SwingConstants.HORIZONTAL)); //Trying to save space
 		
 		add(new JLabel("Breeding: "));
 		breedGroup = new ButtonGroup();
 		trueBreed = new JRadioButton("True", true);
-		trueBreed.addChangeListener(new BreedEnableListener(trueBreed, animals));
+		trueBreed.addItemListener(new BreedEnableListener(trueBreed, animals));
 		breedGroup.add(trueBreed);
 		falseBreed = new JRadioButton("False");
-		falseBreed.addChangeListener(new BreedEnableListener(trueBreed, animals));
 		breedGroup.add(falseBreed);
 		add(trueBreed);
 		add(falseBreed);
@@ -261,7 +262,7 @@ public class SetPanel extends JPanel{
 		}
 	}
 	
-	static class BreedEnableListener implements ChangeListener {
+	static class BreedEnableListener implements ItemListener {
 		private JRadioButton trueBreed;
 		private JComboBox<String> animals;
 		
@@ -271,7 +272,7 @@ public class SetPanel extends JPanel{
 		}
 		
 		@Override
-		public void stateChanged(ChangeEvent arg0) {
+		public void itemStateChanged(ItemEvent arg0) {
 			boolean breedingEnabled = trueBreed.isSelected();
 			switch (World.creature((String)(animals.getSelectedItem()), 0, 0).species) {
 			case "Lion": Lion.breedEnabled = breedingEnabled;

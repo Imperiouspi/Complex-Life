@@ -47,6 +47,9 @@ public class aWindow extends JFrame {
 	static boolean newWorld = true;
 	public int score;
 	public static int count = 0;
+	public static SpeciesSetComponents lionSet;
+	public static SpeciesSetComponents horseSet;
+	public static SpeciesSetComponents mGoatSet;
 
 	public aWindow() {
 		super("Complex Life");
@@ -92,6 +95,10 @@ public class aWindow extends JFrame {
 		back.add(quit, c);
 
 		add(back);
+		
+		lionSet = new SpeciesSetComponents ("Lion");
+		horseSet = new SpeciesSetComponents ("Horse");
+		mGoatSet = new SpeciesSetComponents ("Mountain Goat");
 	}
 
 	public void play() {
@@ -109,7 +116,7 @@ public class aWindow extends JFrame {
 
 			@Override
 			public void run() {
-				world.advance();
+				world.advance(lionSet, horseSet, mGoatSet);
 				count++;
 				System.gc();
 				repaint();
