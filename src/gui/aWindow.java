@@ -309,7 +309,7 @@ public class aWindow extends JFrame {
 
 			news = new NewsPanel();
 			add(news, BorderLayout.SOUTH);
-
+			
 			isPause = true;
 			Color col = Color.black;
 			switch (World.creature((String)(set.animals.getSelectedItem()), 0, 0).species) {

@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import lifeForms.animals.Horse;
 import lifeForms.animals.Lion;
 import lifeForms.animals.MountainGoat;
+import lifeForms.plants.Grass;
 
 public abstract class LifeForm {
 	public String species;
@@ -390,6 +391,7 @@ public abstract class LifeForm {
 		case "Lion": col = new Color (aWindow.lionSet.R_Sl.getValue(), aWindow.lionSet.G_Sl.getValue(), aWindow.lionSet.B_Sl.getValue()); break;
 		case "Horse": col = new Color (aWindow.horseSet.R_Sl.getValue(), aWindow.horseSet.G_Sl.getValue(), aWindow.horseSet.B_Sl.getValue()); break;
 		case "Mountain Goat": col = new Color (aWindow.mGoatSet.R_Sl.getValue(), aWindow.mGoatSet.G_Sl.getValue(), aWindow.mGoatSet.B_Sl.getValue()); break;
+		case "Grass": col = Grass.colour; break;
 		}
 		g.setColor(col);
 		g.fillRect(this.localx * 5, this.localy * 5, 6, 6);
