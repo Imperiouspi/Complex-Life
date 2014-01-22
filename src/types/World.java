@@ -130,7 +130,7 @@ public class World {
 
 		return living;
 	}
-	
+
 	public void advance() {
 		for (int i = 0; i < Life.size(); i++) {
 			if (!Life.get(i).isDead()) {
@@ -138,8 +138,10 @@ public class World {
 					grid = Life.get(i).Move(grid);
 				boolean breedingEnabled = true;
 				int breedCooldown = 0;
-				if (i < Life.size()) { // In case the size of Life was changed while
-										// Move(grid) was doing what it was supposed
+				if (i < Life.size()) { // In case the size of Life was changed
+										// while
+										// Move(grid) was doing what it was
+										// supposed
 										// to do
 					switch (Life.get(i).species) {
 					case "Lion":
@@ -159,7 +161,8 @@ public class World {
 						break;
 					}
 					if (i < Life.size()) {
-						if (breedingEnabled && Life.get(i).willBreed && breedCooldown == 0) {
+						if (breedingEnabled && Life.get(i).willBreed
+								&& breedCooldown == 0) {
 							if (i < Life.size())
 								Life.get(i).Breed(this);
 							if (i < Life.size())
@@ -181,8 +184,8 @@ public class World {
 								}
 							}
 						}
-						
-						if(aWindow.count == 10){
+
+						if (aWindow.count == 10) {
 							aWindow.count = 0;
 							if (i < Life.size())
 								Life.get(i).Age();
@@ -198,8 +201,9 @@ public class World {
 			}
 		}
 	}
-	
+
 	public int kill(int i) {
+		if(!(Life.get(i) instanceof Grass)){
 		if (i < Life.size())
 			Life.get(i).Die();
 		if (i < Life.size())
@@ -207,7 +211,9 @@ public class World {
 		if (i < Life.size())
 			Life.remove(i);
 		i--; // Otherwise the next LifeForm in Life is skipped
+		}
 		return i;
+		
 	}
 
 	public void Apocalypse() {

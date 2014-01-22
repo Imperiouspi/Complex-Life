@@ -439,7 +439,7 @@ public abstract class LifeForm {
 						aWindow.mGoatSet.G_Sl.getValue(),
 						aWindow.mGoatSet.B_Sl.getValue());
 				break;
-			case "Grass":
+			default:
 				col = Grass.colour;
 				break;
 			}
