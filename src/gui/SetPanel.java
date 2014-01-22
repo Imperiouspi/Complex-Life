@@ -113,7 +113,7 @@ public class SetPanel extends JPanel{
 			}
 			
 		});
-		c.gridy += 2;
+		c.gridy++;
 		add(animals, c);
 		
 		c.gridy++;
@@ -142,7 +142,7 @@ public class SetPanel extends JPanel{
 		}
 		
 		C_L = new JLabel("Color:");
-		c.gridy += 2;
+		c.gridy++;
 		add(C_L, c);
 		
 		R_L = new JLabel("R: ");
@@ -188,7 +188,7 @@ public class SetPanel extends JPanel{
 		separate.setMaximumSize(new Dimension(separate.getMinimumSize().width, 20));
 		add(separate, c);
 		
-		c.gridy += 2;
+		c.gridy++;
 		add(new JLabel("Breeding: "), c);
 		breedGroup = new ButtonGroup();
 		trueBreed = new JRadioButton("Enabled", true);
@@ -233,7 +233,7 @@ public class SetPanel extends JPanel{
 		add(separate, c);
 		
 		apocalypse = new ApocalypsePane("src/resources/ApocalypseButton.png");
-		c.gridy += 2;
+		c.gridy++;
 		add(apocalypse, c);
 	}
 	
@@ -303,6 +303,7 @@ public class SetPanel extends JPanel{
 				}
 				setP.setBackground(col);
 			}
+			//WorldlyPanel.repaint(); <-- but in a way that actually works
 		}
 	}
 	

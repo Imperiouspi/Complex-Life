@@ -82,6 +82,7 @@ public abstract class LifeForm {
 				&& grid[this.localx][this.localy].Occupant.alive) {
 			willBreed = true;
 		} else {
+			willBreed = false;
 			hungerLeft--;
 		}
 
@@ -386,7 +387,7 @@ public abstract class LifeForm {
 	public abstract void onEaten(LifeForm eating);
 
 	public boolean isDead() {
-		if (healthLeft == 0 || hungerLeft == 0 || LifeSpan == 0 || alive) {
+		if (healthLeft == 0 || hungerLeft == 0 || LifeSpan == 0 || !alive) {
 			return true;
 		}
 		return false;

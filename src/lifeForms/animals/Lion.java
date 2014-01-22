@@ -19,9 +19,9 @@ public class Lion extends LifeForm {
 		predators = new String[] {};
 		colour = Color.yellow;
 		LifeSpan = 10;
+		maxLife = LifeSpan;
 		localx = x;
 		localy = y;
-		maxLife = 10;
 		breedEnabled = true;
 		statBreedChance = 1;
 		statBreedCooldown = 10;
