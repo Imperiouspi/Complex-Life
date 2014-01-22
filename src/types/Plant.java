@@ -22,7 +22,7 @@ public abstract class Plant extends LifeForm{
 	
 	@Override
 	public void Die(){
-
+		this.alive = false;
 	}
 	public abstract void onEaten(LifeForm eating);
 }

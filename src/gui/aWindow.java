@@ -50,10 +50,12 @@ public class aWindow extends JFrame {
 	public static SpeciesSetComponents lionSet;
 	public static SpeciesSetComponents horseSet;
 	public static SpeciesSetComponents mGoatSet;
+	public Long speed;
 
 	public aWindow() {
 		super("Complex Life");
 		world = new World(6, 10);
+		speed = 100L;
 		back = new BackgroundPanel(new Dimension(world.Lands.length * 100,
 				world.Lands.length * 100));
 
@@ -127,9 +129,10 @@ public class aWindow extends JFrame {
 				news.setNumbers();
 				checkEnd();
 				news.getNews();
+				repaint();
 			}
 
-		}, 100L, 100L);
+		}, speed, speed);
 	}
 
 	public void pause() {
@@ -142,8 +145,12 @@ public class aWindow extends JFrame {
 		for (int i = 0; i < infoComPanelOpenSave.length; i++) {
 			infoComPanelOpenSave[i].setEnabled(true);
 		}
-		if (time != null)
+		if (time != null){
 			time.cancel();
+			time.purge();
+			repaint();
+			WorldlyPanel.repaint();
+		}
 	}
 
 	@Deprecated
@@ -446,7 +453,8 @@ public class aWindow extends JFrame {
 		public void mouseClicked(MouseEvent e) {
 			if (e.getX() > 0 && e.getX() < 600 && e.getY() > 0
 					&& e.getY() < 600
-					&& world.grid[e.getX() / 5][e.getY() / 5].Occupant != null && world.grid[e.getX()/5][e.getY()/5].Occupant.alive) {
+					&& world.grid[e.getX() / 5][e.getY() / 5].Occupant != null
+					&& world.grid[e.getX() / 5][e.getY() / 5].Occupant.alive) {
 				informations
 						.setAnimal(world.grid[e.getX() / 5][e.getY() / 5].Occupant);
 				repaint();
