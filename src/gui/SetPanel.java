@@ -61,7 +61,11 @@ public class SetPanel extends JPanel{
 		add(playPause, c);
 		
 		c.gridy++;
-		add(new JSeparator(SwingConstants.HORIZONTAL), c);
+		JSeparator separate = new JSeparator(SwingConstants.HORIZONTAL);
+		separate.setPreferredSize(new Dimension(separate.getMinimumSize().width, 20));
+		separate.setMinimumSize(new Dimension(separate.getMinimumSize().width, 20));
+		separate.setMaximumSize(new Dimension(separate.getMinimumSize().width, 20));
+		add(separate, c);
 		
 		animals = new JComboBox<String>(new String[]{"Lion", "Mountain Goat", "Horse"});
 		animals.addActionListener(new ActionListener(){
@@ -113,8 +117,10 @@ public class SetPanel extends JPanel{
 		add(animals, c);
 		
 		c.gridy++;
-		JSeparator separate = new JSeparator(SwingConstants.HORIZONTAL);
-		separate.setPreferredSize(new Dimension(150, 100));
+		separate = new JSeparator(SwingConstants.HORIZONTAL);
+		separate.setPreferredSize(new Dimension(separate.getMinimumSize().width, 20));
+		separate.setMinimumSize(new Dimension(separate.getMinimumSize().width, 20));
+		separate.setMaximumSize(new Dimension(separate.getMinimumSize().width, 20));
 		add(separate, c);
 		
 		Color col = Color.black;
@@ -176,15 +182,19 @@ public class SetPanel extends JPanel{
 		add(B_Sl, c);
 
 		c.gridy++;
-		add(new JSeparator(SwingConstants.HORIZONTAL), c);
+		separate = new JSeparator(SwingConstants.HORIZONTAL);
+		separate.setPreferredSize(new Dimension(separate.getMinimumSize().width, 20));
+		separate.setMinimumSize(new Dimension(separate.getMinimumSize().width, 20));
+		separate.setMaximumSize(new Dimension(separate.getMinimumSize().width, 20));
+		add(separate, c);
 		
 		c.gridy += 2;
 		add(new JLabel("Breeding: "), c);
 		breedGroup = new ButtonGroup();
-		trueBreed = new JRadioButton("True", true);
+		trueBreed = new JRadioButton("Enabled", true);
 		trueBreed.addItemListener(new BreedEnableListener(trueBreed, animals));
 		breedGroup.add(trueBreed);
-		falseBreed = new JRadioButton("False");
+		falseBreed = new JRadioButton("Disabled");
 		breedGroup.add(falseBreed);
 		c.gridy++;
 		add(trueBreed, c);
@@ -216,7 +226,11 @@ public class SetPanel extends JPanel{
 		add(cool_Sl, c);
 
 		c.gridy++;
-		add(new JSeparator(SwingConstants.HORIZONTAL), c);
+		separate = new JSeparator(SwingConstants.HORIZONTAL);
+		separate.setPreferredSize(new Dimension(separate.getMinimumSize().width, 20));
+		separate.setMinimumSize(new Dimension(separate.getMinimumSize().width, 20));
+		separate.setMaximumSize(new Dimension(separate.getMinimumSize().width, 20));
+		add(separate, c);
 		
 		apocalypse = new ApocalypsePane("src/resources/ApocalypseButton.png");
 		c.gridy += 2;
