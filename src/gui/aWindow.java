@@ -253,10 +253,12 @@ public class aWindow extends JFrame {
 		@Override
 		public void mouseClicked(MouseEvent arg0) {
 			setSize(1000, 1000);
-			setLayout(new BorderLayout());
+			setLayout(new GridBagLayout());
+			GridBagConstraints c = new GridBagConstraints();
+			c.fill = GridBagConstraints.HORIZONTAL; // takes up the whole width it's allocated
 			back.setVisible(false);
 			repaint();
-
+			
 			set = new SetPanel();
 			set.setEnabled(false);
 			set.apocalypse.addMouseListener(new MouseListener() {
@@ -283,22 +285,36 @@ public class aWindow extends JFrame {
 			});
 			score = 0;
 			set.playPause.addMouseListener(new PauseAction());
-			add(set, BorderLayout.WEST);
-
-			informations = new LifeFormInfoScreen();
-			informations.setBackground(set.getBackground());
-			add(informations, BorderLayout.EAST);
-
-			setCom = set.getComponents();
-			infoCom = informations.getComponents();
-			infoComPanelOpenSave = informations.openSave.getComponents();
+			c.gridx = 0;
+			c.gridy = 0;
+			c.gridheight = 3;
+			c.anchor = GridBagConstraints.NORTH;
+			add(set, c);
 
 			WorldlyPanel = new WorldPanel(world);
 			WorldlyPanel.addMouseListener(new worldClickAction());
-			add(WorldlyPanel, BorderLayout.CENTER);
-
+			c.gridx++;
+			c.gridwidth = 2;
+			c.gridheight = 2;
+			add(WorldlyPanel, c);
+			
+			informations = new LifeFormInfoScreen();
+			informations.setBackground(set.getBackground());
+			c.gridx += 2;
+			c.gridwidth = 1;
+			c.gridheight = 3;
+			add(informations, c);
+			
+			setCom = set.getComponents();
+			infoCom = informations.getComponents();
+			infoComPanelOpenSave = informations.openSave.getComponents();
+			
 			news = new NewsPanel();
-			add(news, BorderLayout.SOUTH);
+			c.gridx = 1;
+			c.gridy = 2;
+			c.gridwidth = 2;
+			c.gridheight = 1;
+			add(news, c); //BorderLayout.SOUTH
 			
 			isPause = true;
 			Color col = Color.black;

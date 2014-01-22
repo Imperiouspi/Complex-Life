@@ -136,7 +136,7 @@ public class World {
 			grid = Life.get(i).Move(grid);
 			boolean breedingEnabled = true;
 			int breedCooldown = 0;
-			if (i < Life.size()) { //In case the size of Life was changed while Move(grid) doing what it was supposed to do
+			if (i < Life.size()) { //In case the size of Life was changed while Move(grid) was doing what it was supposed to do
 				switch (Life.get(i).species) {
 				case "Lion":
 					breedingEnabled = aWindow.lionSet.trueBreed.isSelected();
@@ -181,7 +181,7 @@ public class World {
 			}
 		}
 	}
-
+	
 	public void Apocalypse() {
 		int index = (int) (Math.random() * Life.size());
 		LifeForm survivor = Life.get(index);
