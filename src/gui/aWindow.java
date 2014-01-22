@@ -59,7 +59,6 @@ public class aWindow extends JFrame {
 
 		setSize(1000, 625);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setResizable(false);
 		back.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 
