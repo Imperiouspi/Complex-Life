@@ -270,8 +270,6 @@ public class aWindow extends JFrame {
 
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					// TODO cancel ongoing TimerTask (call to advance()) - is it
-					// possible?
 					world.Apocalypse();
 					repaint();
 				}

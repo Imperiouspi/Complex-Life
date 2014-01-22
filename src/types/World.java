@@ -159,56 +159,61 @@ public class World {
 					breedCooldown = aWindow.mGoatSet.cool_Sl.getValue();
 					break;
 				}
-				if (breedingEnabled && Life.get(i).willBreed
-						&& breedCooldown == 0) {
-					Life.get(i).Breed(this);
-					Life.get(i).willBreed = false;
-					switch (Life.get(i).species) {
-					case "Lion":
-						aWindow.lionSet.cool_Sl.setValue(10);
-						break;
-					case "Horse":
-						aWindow.horseSet.cool_Sl.setValue(3);
-						break;
-					case "Mountain Goat":
-						aWindow.mGoatSet.cool_Sl.setValue(3);
-						break;
+				if (i < Life.size()) {
+					if (breedingEnabled && Life.get(i).willBreed && breedCooldown == 0) {
+						if (i < Life.size())
+							Life.get(i).Breed(this);
+						if (i < Life.size())
+							Life.get(i).willBreed = false;
+						if (i < Life.size()) {
+							switch (Life.get(i).species) {
+							case "Lion": aWindow.lionSet.cool_Sl.setValue(10); break;
+							case "Horse": aWindow.horseSet.cool_Sl.setValue(3); break;
+							case "Mountain Goat": aWindow.mGoatSet.cool_Sl.setValue(3); break;
+							}
+						}
 					}
-				}
-				if (breedCooldown == 0) {
-					switch (Life.get(i).species) {
-					case "Lion":
-						aWindow.lionSet.cool_Sl.setValue(10);
-						break;
-					case "Horse":
-						aWindow.horseSet.cool_Sl.setValue(3);
-						break;
-					case "Mountain Goat":
-						aWindow.mGoatSet.cool_Sl.setValue(3);
-						break;
+					if (breedCooldown == 0) {
+						if (i < Life.size()) {
+							switch (Life.get(i).species) {
+							case "Lion": aWindow.lionSet.cool_Sl.setValue(10); break;
+							case "Horse": aWindow.horseSet.cool_Sl.setValue(3); break;
+							case "Mountain Goat": aWindow.mGoatSet.cool_Sl.setValue(3); break;
+							}
+						}
 					}
-				}
-
-				if (aWindow.count == 10) {
-					aWindow.count = 0;
-					Life.get(i).Age();
-				}
-				if (Life.get(i).isDead()) {
-					kill(i);
+					
+					if(aWindow.count == 10){
+						aWindow.count = 0;
+						if (i < Life.size())
+							Life.get(i).Age();
+					}
+					if (i < Life.size()) {
+						if (Life.get(i).isDead()) {
+							if (i < Life.size())
+								i = kill(i);
+						}
+					}
 				}
 			}
 		}
 	}
-
-	public void kill(int i) {
-		Life.get(i).Die();
-		grid[Life.get(i).localx][Life.get(i).localy].Occupant = null;
-		Life.remove(i);
+	
+	public int kill(int i) {
+		if (i < Life.size())
+			Life.get(i).Die();
+		if (i < Life.size())
+			grid[Life.get(i).localx][Life.get(i).localy].Occupant = null;
+		if (i < Life.size())
+			Life.remove(i);
 		i--; // Otherwise the next LifeForm in Life is skipped
+		return i;
 	}
 
 	public void Apocalypse() {
 		int index = (int) (Math.random() * Life.size());
+		while (Life.get(index).species == "Grass")
+			index = (int) (Math.random() * Life.size());
 		LifeForm survivor = Life.get(index);
 		for (int i = 0; i < Life.size(); i++) {
 			Life.get(i).Die();
@@ -216,6 +221,8 @@ public class World {
 			Life.remove(i);
 			i--;
 		}
+		survivor.alive = true;
+		grid[survivor.localx][survivor.localy].Occupant = survivor;
 		Life.add(survivor);
 	}
 }
