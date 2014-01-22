@@ -18,7 +18,7 @@ public class Lion extends LifeForm {
 		eats = new String[] { "Horse", "Mountain Goat" };
 		predators = new String[] {};
 		colour = Color.yellow;
-		LifeSpan = 10;
+		LifeSpan = 50;
 		maxLife = LifeSpan;
 		localx = x;
 		localy = y;

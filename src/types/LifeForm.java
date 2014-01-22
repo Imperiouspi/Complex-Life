@@ -406,7 +406,7 @@ public abstract class LifeForm {
 	public abstract void onEaten(LifeForm eating);
 
 	public boolean isDead() {
-		if (healthLeft == 0 || hungerLeft == 0 || LifeSpan == 0 || !alive) {
+		if (healthLeft <= 0 || hungerLeft <= 0 || LifeSpan <= 0 || !alive) {
 			return true;
 		}
 		return false;
@@ -417,7 +417,7 @@ public abstract class LifeForm {
 	}
 
 	public void Age() {
-		LifeSpan--;
+		this.LifeSpan--;
 	}
 
 	public void draw(Graphics g) {

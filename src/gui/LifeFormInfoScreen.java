@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.filechooser.FileFilter;
 
+import lifeForms.plants.Grass;
 import types.LifeForm;
 
 public class LifeFormInfoScreen extends JPanel {
@@ -58,6 +59,8 @@ public class LifeFormInfoScreen extends JPanel {
 			col = new Color (aWindow.horseSet.R_Sl.getValue(), aWindow.horseSet.G_Sl.getValue(), aWindow.horseSet.B_Sl.getValue()); break;
 		case "Mountain Goat":
 			col = new Color (aWindow.mGoatSet.R_Sl.getValue(), aWindow.mGoatSet.G_Sl.getValue(), aWindow.mGoatSet.B_Sl.getValue()); break;
+		case "Grass":
+			col = Grass.colour; break;
 		}
 		Info.setBackground(col);
 		if (life.species.equals("Horse")) {

@@ -627,7 +627,10 @@ public class aWindow extends JFrame {
 				e.printStackTrace();
 			}*/
 			this.setVisible(false);
-			new EndScreen(score);
+			if (score < 5000)
+				new EndScreen(score);
+			else
+				new WinScreen(score);
 		}
 		if (getHorses() >= 20000 || getLions() >= 20000 || getGoats() >= 20000) {
 			win = true;
@@ -638,7 +641,10 @@ public class aWindow extends JFrame {
 				e.printStackTrace();
 			}*/
 			this.setVisible(false);
-			new EndScreen(score);
+			if (score < 5000)
+				new EndScreen(score);
+			else
+				new WinScreen(score);
 		}
 
 		return win;

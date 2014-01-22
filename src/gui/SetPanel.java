@@ -213,7 +213,7 @@ public class SetPanel extends JPanel{
 		c.gridy++;
 		add(chanceBreed_Sl, c);
 		
-		cool_L = new JLabel("Cooldown: ");
+		cool_L = new JLabel("Countdown: ");
 		c.gridy++;
 		add(cool_L, c);
 		cool_Sl = new JSlider(0, 1000);

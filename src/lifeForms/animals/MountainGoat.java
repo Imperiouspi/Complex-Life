@@ -18,7 +18,7 @@ public class MountainGoat extends LifeForm{
 		eats = new String[] {"Grass"};
 		predators = new String[] {"Lion"};
 		colour = new Color(129, 89, 30);
-		LifeSpan = 10;
+		LifeSpan = 30;
 		breedEnabled = true;
 		statBreedChance = 20;
 		statBreedCooldown = 3;
