@@ -184,13 +184,15 @@ public class World {
 	
 	public void Apocalypse() {
 		int index = (int) (Math.random() * Life.size());
-		LifeForm survivor = Life.get(index);
+		while (Life.get(index).species == "Grass")
+			index = (int) (Math.random() * Life.size());
 		for (int i = 0; i < Life.size(); i++) {
-			Life.get(i).Die();
-			grid[Life.get(i).localx][Life.get(i).localy].Occupant = null;
-			Life.remove(i);
-			i--;
+			if (i != index) {
+				Life.get(i).Die();
+				grid[Life.get(i).localx][Life.get(i).localy].Occupant = null;
+				Life.remove(i);
+				i--;
+			}
 		}
-		Life.add(survivor);
 	}
 }
