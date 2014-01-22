@@ -32,7 +32,6 @@ public abstract class LifeForm {
 		eaten.onEaten(this);
 		eaten.Die();
 		this.hungerLeft = MaxHunger;
-		this.alive = true;
 		return eaten;
 	}
 
@@ -127,9 +126,7 @@ public abstract class LifeForm {
 			hungerLeft--;
 		}
 
-		// if (grid[this.localx][this.localy].Occupant != null) {
 		grid[localx][localy].Occupant = this;
-		// }
 		return grid;
 	}
 

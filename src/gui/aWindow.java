@@ -147,9 +147,7 @@ public class aWindow extends JFrame {
 		}
 		if (time != null){
 			time.cancel();
-			time.purge();
 			repaint();
-			WorldlyPanel.repaint();
 		}
 	}
 
@@ -623,22 +621,22 @@ public class aWindow extends JFrame {
 		if (getHorses() + getLions() + getGoats() == 0) {
 			win = true;
 			time.cancel();
-			try {
-				Thread.sleep(10000);
+			/*try {
+				Thread.sleep(5000);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
-			}
+			}*/
 			this.setVisible(false);
 			new EndScreen(score);
 		}
 		if (getHorses() >= 20000 || getLions() >= 20000 || getGoats() >= 20000) {
 			win = true;
 			time.cancel();
-			try {
-				Thread.sleep(1000);
+			/*try {
+				Thread.sleep(5000);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
-			}
+			}*/
 			this.setVisible(false);
 			new EndScreen(score);
 		}
