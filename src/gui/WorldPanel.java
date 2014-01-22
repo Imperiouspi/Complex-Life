@@ -6,6 +6,7 @@ import java.awt.Graphics;
 
 import javax.swing.JPanel;
 
+import lifeForms.plants.Grass;
 import types.World;
 
 public class WorldPanel extends JPanel{
@@ -38,8 +39,7 @@ public class WorldPanel extends JPanel{
 				col = new Color (aWindow.mGoatSet.R_Sl.getValue(), aWindow.mGoatSet.G_Sl.getValue(), aWindow.mGoatSet.B_Sl.getValue()); break;
 			}
 			g.setColor(col);
-			if(world.Life.get(i).alive)
-				world.Life.get(i).draw(g);
+			world.Life.get(i).draw(g);
 		}
 	}
 }

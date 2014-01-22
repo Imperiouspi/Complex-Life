@@ -136,20 +136,28 @@ public class World {
 			grid = Life.get(i).Move(grid);
 			boolean breedingEnabled = true;
 			int breedCooldown = 0;
-			if (i < Life.size()) { //In case the size of Life was changed while Move(grid) was doing what it was supposed to do
+			if (i < Life.size()) { // In case the size of Life was changed while
+									// Move(grid) was doing what it was supposed
+									// to do
 				switch (Life.get(i).species) {
 				case "Lion":
 					breedingEnabled = aWindow.lionSet.trueBreed.isSelected();
-					aWindow.lionSet.cool_Sl.setValue(aWindow.lionSet.cool_Sl.getValue() - 1);
-					breedCooldown = aWindow.lionSet.cool_Sl.getValue(); break;
+					aWindow.lionSet.cool_Sl.setValue(aWindow.lionSet.cool_Sl
+							.getValue() - 1);
+					breedCooldown = aWindow.lionSet.cool_Sl.getValue();
+					break;
 				case "Horse":
 					breedingEnabled = aWindow.horseSet.trueBreed.isSelected();
-					aWindow.horseSet.cool_Sl.setValue(aWindow.horseSet.cool_Sl.getValue() - 1);
-					breedCooldown = aWindow.horseSet.cool_Sl.getValue(); break;
+					aWindow.horseSet.cool_Sl.setValue(aWindow.horseSet.cool_Sl
+							.getValue() - 1);
+					breedCooldown = aWindow.horseSet.cool_Sl.getValue();
+					break;
 				case "Mountain Goat":
 					breedingEnabled = aWindow.mGoatSet.trueBreed.isSelected();
-					aWindow.mGoatSet.cool_Sl.setValue(aWindow.mGoatSet.cool_Sl.getValue() - 1);
-					breedCooldown = aWindow.mGoatSet.cool_Sl.getValue(); break;
+					aWindow.mGoatSet.cool_Sl.setValue(aWindow.mGoatSet.cool_Sl
+							.getValue() - 1);
+					breedCooldown = aWindow.mGoatSet.cool_Sl.getValue();
+					break;
 				}
 				if (i < Life.size()) {
 					if (breedingEnabled && Life.get(i).willBreed && breedCooldown == 0) {
@@ -183,12 +191,7 @@ public class World {
 					if (i < Life.size()) {
 						if (Life.get(i).isDead()) {
 							if (i < Life.size())
-								Life.get(i).Die();
-							if (i < Life.size())
-								grid[Life.get(i).localx][Life.get(i).localy].Occupant = null;
-							if (i < Life.size())
-								Life.remove(i);
-							i--; //Otherwise the next LifeForm in Life is skipped
+								i = kill(i);
 						}
 					}
 				}
@@ -196,6 +199,17 @@ public class World {
 		}
 	}
 	
+	public int kill(int i) {
+		if (i < Life.size())
+			Life.get(i).Die();
+		if (i < Life.size())
+			grid[Life.get(i).localx][Life.get(i).localy].Occupant = null;
+		if (i < Life.size())
+			Life.remove(i);
+		i--; // Otherwise the next LifeForm in Life is skipped
+		return i;
+	}
+
 	public void Apocalypse() {
 		int index = (int) (Math.random() * Life.size());
 		while (Life.get(index).species == "Grass")

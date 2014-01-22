@@ -23,6 +23,7 @@ public class Grass extends Plant { // :)
 		colour = new Color(0, 200, 0); // Should this be (0, 200, 0) like the one
 										// above, or (10, 200, 10) like it used
 										// to be?
+		maxLife = 500;
 		LifeSpan = 500;
 	}
 
