@@ -74,11 +74,12 @@ public abstract class LifeForm {
 			}
 		}
 		if (grid[this.localx][this.localy].Occupant != null
-				&& isFood(grid[this.localx][this.localy].Occupant)) {
+				&& isFood(grid[this.localx][this.localy].Occupant)
+				&& grid[this.localx][this.localy].Occupant.alive) {
 			Eat(grid[this.localx][this.localy].Occupant);
 		} else if (grid[this.localx][this.localy].Occupant != null
-				&& grid[this.localx][this.localy].Occupant.species
-						.equals(this.species)) {
+				&& grid[this.localx][this.localy].Occupant.species.equals(this.species)
+				&& grid[this.localx][this.localy].Occupant.alive) {
 			willBreed = true;
 		} else {
 			hungerLeft--;
