@@ -32,7 +32,7 @@ public abstract class LifeForm {
 		eaten.onEaten(this);
 		eaten.Die();
 		this.hungerLeft = MaxHunger;
-		alive = false;
+		this.alive = true;
 		return eaten;
 	}
 
