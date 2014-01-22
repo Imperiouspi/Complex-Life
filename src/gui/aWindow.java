@@ -85,7 +85,7 @@ public class aWindow extends JFrame {
 		options.addMouseListener(new optionsAction());
 		back.add(options, c);
 
-		quit = new QuitButton("src/resources/Quit.png");
+		quit = new QuitButton("src/resources/Quit2.png");
 		c.weightx = 0.5;
 		c.anchor = GridBagConstraints.LINE_END;
 		c.weighty = 0.5;
@@ -425,7 +425,7 @@ public class aWindow extends JFrame {
 		@Override
 		public void mouseExited(MouseEvent arg0) {
 			try {
-				quit.setImage(ImageIO.read(new File("src/resources/Quit.png")));
+				quit.setImage(ImageIO.read(new File("src/resources/Quit2.png")));
 				quit.repaint();
 			} catch (IOException e) {
 				e.printStackTrace();
