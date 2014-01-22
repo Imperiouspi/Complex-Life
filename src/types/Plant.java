@@ -10,8 +10,6 @@ public abstract class Plant extends LifeForm{
 	
 	@Override
 	public Tile[][] Move(Tile[][]grid){
-		isDead();
-		LifeSpan--;
 		return grid;
 	}
 	

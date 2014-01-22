@@ -130,7 +130,7 @@ public class World {
 
 		return living;
 	}
-	
+
 	public void advance() {
 		for (int i = 0; i < Life.size(); i++) {
 			if (!Life.get(i).isDead()) {
@@ -138,54 +138,72 @@ public class World {
 					grid = Life.get(i).Move(grid);
 				boolean breedingEnabled = true;
 				int breedCooldown = 0;
-				if (i < Life.size()) { // In case the size of Life was changed while
-										// Move(grid) was doing what it was supposed
+				if (i < Life.size()) { // In case the size of Life was changed
+										// while
+										// Move(grid) was doing what it was
+										// supposed
 										// to do
 					switch (Life.get(i).species) {
 					case "Lion":
-						breedingEnabled = aWindow.lionSet.trueBreed.isSelected();
-						aWindow.lionSet.cool_Sl.setValue(aWindow.lionSet.cool_Sl
-								.getValue() - 1);
+						breedingEnabled = aWindow.lionSet.trueBreed
+								.isSelected();
+						aWindow.lionSet.cool_Sl
+								.setValue(aWindow.lionSet.cool_Sl.getValue() - 1);
 						breedCooldown = aWindow.lionSet.cool_Sl.getValue();
 						break;
 					case "Horse":
-						breedingEnabled = aWindow.horseSet.trueBreed.isSelected();
-						aWindow.horseSet.cool_Sl.setValue(aWindow.horseSet.cool_Sl
-								.getValue() - 1);
+						breedingEnabled = aWindow.horseSet.trueBreed
+								.isSelected();
+						aWindow.horseSet.cool_Sl
+								.setValue(aWindow.horseSet.cool_Sl.getValue() - 1);
 						breedCooldown = aWindow.horseSet.cool_Sl.getValue();
 						break;
 					case "Mountain Goat":
-						breedingEnabled = aWindow.mGoatSet.trueBreed.isSelected();
-						aWindow.mGoatSet.cool_Sl.setValue(aWindow.mGoatSet.cool_Sl
-								.getValue() - 1);
+						breedingEnabled = aWindow.mGoatSet.trueBreed
+								.isSelected();
+						aWindow.mGoatSet.cool_Sl
+								.setValue(aWindow.mGoatSet.cool_Sl.getValue() - 1);
 						breedCooldown = aWindow.mGoatSet.cool_Sl.getValue();
 						break;
 					}
 					if (i < Life.size()) {
-						if (breedingEnabled && Life.get(i).willBreed && breedCooldown == 0) {
+						if (breedingEnabled && Life.get(i).willBreed
+								&& breedCooldown == 0) {
 							if (i < Life.size())
 								Life.get(i).Breed(this);
 							if (i < Life.size())
 								Life.get(i).willBreed = false;
 							if (i < Life.size()) {
 								switch (Life.get(i).species) {
-								case "Lion": aWindow.lionSet.cool_Sl.setValue(10); break;
-								case "Horse": aWindow.horseSet.cool_Sl.setValue(3); break;
-								case "Mountain Goat": aWindow.mGoatSet.cool_Sl.setValue(3); break;
+								case "Lion":
+									aWindow.lionSet.cool_Sl.setValue(10);
+									break;
+								case "Horse":
+									aWindow.horseSet.cool_Sl.setValue(3);
+									break;
+								case "Mountain Goat":
+									aWindow.mGoatSet.cool_Sl.setValue(3);
+									break;
 								}
 							}
 						}
 						if (breedCooldown == 0) {
 							if (i < Life.size()) {
 								switch (Life.get(i).species) {
-								case "Lion": aWindow.lionSet.cool_Sl.setValue(10); break;
-								case "Horse": aWindow.horseSet.cool_Sl.setValue(3); break;
-								case "Mountain Goat": aWindow.mGoatSet.cool_Sl.setValue(3); break;
+								case "Lion":
+									aWindow.lionSet.cool_Sl.setValue(10);
+									break;
+								case "Horse":
+									aWindow.horseSet.cool_Sl.setValue(3);
+									break;
+								case "Mountain Goat":
+									aWindow.mGoatSet.cool_Sl.setValue(3);
+									break;
 								}
 							}
 						}
-						
-						if(aWindow.count == 10){
+
+						if (aWindow.count == 10) {
 							aWindow.count = 0;
 							if (i < Life.size())
 								Life.get(i).Age();
@@ -201,8 +219,9 @@ public class World {
 			}
 		}
 	}
-	
+
 	public int kill(int i) {
+		if(!(Life.get(i) instanceof Grass)){
 		if (i < Life.size())
 			Life.get(i).Die();
 		if (i < Life.size())
@@ -210,7 +229,9 @@ public class World {
 		if (i < Life.size())
 			Life.remove(i);
 		i--; // Otherwise the next LifeForm in Life is skipped
+		}
 		return i;
+		
 	}
 
 	public void Apocalypse() {
