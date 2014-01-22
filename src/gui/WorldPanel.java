@@ -37,6 +37,8 @@ public class WorldPanel extends JPanel{
 				col = new Color (aWindow.horseSet.R_Sl.getValue(), aWindow.horseSet.G_Sl.getValue(), aWindow.horseSet.B_Sl.getValue()); break;
 			case "Mountain Goat":
 				col = new Color (aWindow.mGoatSet.R_Sl.getValue(), aWindow.mGoatSet.G_Sl.getValue(), aWindow.mGoatSet.B_Sl.getValue()); break;
+			case "Grass":
+				col = Grass.colour; break;
 			}
 			g.setColor(col);
 			world.Life.get(i).draw(g);

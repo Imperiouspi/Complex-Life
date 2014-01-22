@@ -31,6 +31,7 @@ public abstract class LifeForm {
 	public LifeForm Eat(LifeForm eaten) {
 		eaten.onEaten(this);
 		eaten.Die();
+		aWindow.world.kill(aWindow.world.Life.indexOf(eaten));
 		this.hungerLeft = MaxHunger;
 		this.alive = true;
 		return eaten;
@@ -423,29 +424,31 @@ public abstract class LifeForm {
 	}
 
 	public void draw(Graphics g) {
-		Color col = Color.black;
-		switch (this.species) {
-		case "Lion":
-			col = new Color(aWindow.lionSet.R_Sl.getValue(),
-					aWindow.lionSet.G_Sl.getValue(),
-					aWindow.lionSet.B_Sl.getValue());
-			break;
-		case "Horse":
-			col = new Color(aWindow.horseSet.R_Sl.getValue(),
-					aWindow.horseSet.G_Sl.getValue(),
-					aWindow.horseSet.B_Sl.getValue());
-			break;
-		case "Mountain Goat":
-			col = new Color(aWindow.mGoatSet.R_Sl.getValue(),
-					aWindow.mGoatSet.G_Sl.getValue(),
-					aWindow.mGoatSet.B_Sl.getValue());
-			break;
-		case "Grass":
-			col = Grass.colour;
-			break;
+		if (!this.isDead()) {
+			Color col = Color.black;
+			switch (this.species) {
+			case "Lion":
+				col = new Color(aWindow.lionSet.R_Sl.getValue(),
+						aWindow.lionSet.G_Sl.getValue(),
+						aWindow.lionSet.B_Sl.getValue());
+				break;
+			case "Horse":
+				col = new Color(aWindow.horseSet.R_Sl.getValue(),
+						aWindow.horseSet.G_Sl.getValue(),
+						aWindow.horseSet.B_Sl.getValue());
+				break;
+			case "Mountain Goat":
+				col = new Color(aWindow.mGoatSet.R_Sl.getValue(),
+						aWindow.mGoatSet.G_Sl.getValue(),
+						aWindow.mGoatSet.B_Sl.getValue());
+				break;
+			case "Grass":
+				col = Grass.colour;
+				break;
+			}
+			g.setColor(col);
+			g.fillRect(this.localx * 5, this.localy * 5, 6, 6);
 		}
-		g.setColor(col);
-		g.fillRect(this.localx * 5, this.localy * 5, 6, 6);
 	}
 
 	@Override
