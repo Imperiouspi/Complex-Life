@@ -21,6 +21,7 @@ public class Lion extends LifeForm {
 		LifeSpan = 10;
 		localx = x;
 		localy = y;
+		maxLife = 10;
 		breedEnabled = true;
 		statBreedChance = 1;
 		statBreedCooldown = 10;

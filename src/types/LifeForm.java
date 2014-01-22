@@ -54,7 +54,14 @@ public abstract class LifeForm {
 		moveTo = getPoint((getAveragePredatorAngle(seen) + getAverageFoodAngle(seen)) / 2);
 		if (moveTo.x == 0 && moveTo.y == 0) { // if it hasn't moved
 			moveTo = moveRandom(grid);
-		} else {
+		} else if ((grid[this.localx + moveTo.x][this.localy + moveTo.y].Occupant) != null && !isFood(grid[this.localx + moveTo.x][this.localy + moveTo.y].Occupant)
+				&& !isPredator(grid[this.localx + moveTo.x][this.localy
+						+ moveTo.y].Occupant)
+				&& !grid[this.localx + moveTo.x][this.localy + moveTo.y].Occupant.species
+						.equals(this.species)) {
+			moveTo = moveRandom(grid);
+		}
+		else{
 			if (this.localx + moveTo.x > 0
 					&& this.localx + moveTo.x < grid.length) {
 				this.localx += moveTo.x;
@@ -68,15 +75,16 @@ public abstract class LifeForm {
 				&& isFood(grid[this.localx][this.localy].Occupant)) {
 			Eat(grid[this.localx][this.localy].Occupant);
 		} else if (grid[this.localx][this.localy].Occupant != null
-				&& grid[this.localx][this.localy].Occupant.species.equals(this.species)) {
+				&& grid[this.localx][this.localy].Occupant.species
+						.equals(this.species)) {
 			willBreed = true;
 		} else {
 			hungerLeft--;
 		}
 
-		//if (grid[this.localx][this.localy].Occupant != null) {
-			grid[localx][localy].Occupant = this;
-		//}
+		// if (grid[this.localx][this.localy].Occupant != null) {
+		grid[localx][localy].Occupant = this;
+		// }
 		return grid;
 	}
 
@@ -319,7 +327,6 @@ public abstract class LifeForm {
 		return false;
 	}
 
-	
 	public boolean isPredator(LifeForm life) {
 		if (life != null) {
 			for (int i = 0; i < this.predators.length; i++) {
@@ -360,9 +367,15 @@ public abstract class LifeForm {
 		int breed = (int) (Math.random() * 100);
 		int breedChance = 1;
 		switch (this.species) {
-		case "Lion": breedChance = Lion.statBreedChance; break;
-		case "Horse": breedChance = Horse.statBreedChance; break;
-		case "Mountain Goat": breedChance = MountainGoat.statBreedChance; break;
+		case "Lion":
+			breedChance = Lion.statBreedChance;
+			break;
+		case "Horse":
+			breedChance = Horse.statBreedChance;
+			break;
+		case "Mountain Goat":
+			breedChance = MountainGoat.statBreedChance;
+			break;
 		}
 		if (breed < breedChance) {
 			world.Life.add(World.creature(this.species, localx, localy));
@@ -380,7 +393,6 @@ public abstract class LifeForm {
 		return false;
 	}
 
-	
 	public void Age() {
 		LifeSpan--;
 	}
@@ -388,15 +400,29 @@ public abstract class LifeForm {
 	public void draw(Graphics g) {
 		Color col = Color.black;
 		switch (this.species) {
-		case "Lion": col = new Color (aWindow.lionSet.R_Sl.getValue(), aWindow.lionSet.G_Sl.getValue(), aWindow.lionSet.B_Sl.getValue()); break;
-		case "Horse": col = new Color (aWindow.horseSet.R_Sl.getValue(), aWindow.horseSet.G_Sl.getValue(), aWindow.horseSet.B_Sl.getValue()); break;
-		case "Mountain Goat": col = new Color (aWindow.mGoatSet.R_Sl.getValue(), aWindow.mGoatSet.G_Sl.getValue(), aWindow.mGoatSet.B_Sl.getValue()); break;
-		case "Grass": col = Grass.colour; break;
+		case "Lion":
+			col = new Color(aWindow.lionSet.R_Sl.getValue(),
+					aWindow.lionSet.G_Sl.getValue(),
+					aWindow.lionSet.B_Sl.getValue());
+			break;
+		case "Horse":
+			col = new Color(aWindow.horseSet.R_Sl.getValue(),
+					aWindow.horseSet.G_Sl.getValue(),
+					aWindow.horseSet.B_Sl.getValue());
+			break;
+		case "Mountain Goat":
+			col = new Color(aWindow.mGoatSet.R_Sl.getValue(),
+					aWindow.mGoatSet.G_Sl.getValue(),
+					aWindow.mGoatSet.B_Sl.getValue());
+			break;
+		case "Grass":
+			col = Grass.colour;
+			break;
 		}
 		g.setColor(col);
 		g.fillRect(this.localx * 5, this.localy * 5, 6, 6);
 	}
-	
+
 	@Override
 	public String toString() {
 		return species;
