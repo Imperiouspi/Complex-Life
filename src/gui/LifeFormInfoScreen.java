@@ -31,6 +31,7 @@ public class LifeFormInfoScreen extends JPanel {
 	public JLabel speed_L;
 	public JSlider speed_Sl;
 	public AnimalSlide animalPic;
+	JPanel speedPanel;
 
 	public LifeFormInfoScreen() {
 		super();
@@ -39,8 +40,13 @@ public class LifeFormInfoScreen extends JPanel {
 		setMinimumSize(new Dimension(180, 600));
 		setLayout(new GridLayout(0, 1));
 		
+		score = new JTextArea(0, 10);
+		score.setEditable(false);
+		add(score);
+		
+		JPanel speedPanel = new JPanel();
 		speed_L = new JLabel("Speed:");
-		add(speed_L);
+		speedPanel.add(speed_L);
 		
 		speed_Sl = new JSlider(0, 1000, 100);
 		speed_Sl.setPaintLabels(true);
@@ -62,11 +68,9 @@ public class LifeFormInfoScreen extends JPanel {
 			
 		});
 		
-		add(speed_Sl);
+		speedPanel.add(speed_Sl);
 
-		score = new JTextArea(0, 10);
-		score.setEditable(false);
-		add(score);
+		add(speedPanel);
 		
 		animalPic = new AnimalSlide();
 		add(animalPic);
@@ -89,7 +93,7 @@ public class LifeFormInfoScreen extends JPanel {
 	public void setAnimal(LifeForm life) {
 		animalPic.setAnimal(life);
 		Info.setText(life.species + ":\nHealth: " + life.healthLeft
-				+ "\nHunger: " + life.hungerLeft + "\nAge: " + (life.maxLife - life.LifeSpan));
+				+ "\nHunger: " + life.hungerLeft + "\nAge: " + (life.maxLife - life.LifeSpan) + "\nx: " + life.localx + "\ny: " + life.localy);
 		Color col = Color.black;
 		switch (life.species) {
 		case "Lion":

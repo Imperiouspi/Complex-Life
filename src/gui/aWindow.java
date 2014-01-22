@@ -623,28 +623,33 @@ public class aWindow extends JFrame {
 		if (getHorses() + getLions() + getGoats() == 0) {
 			win = true;
 			time.cancel();
-			/*
-			 * try { Thread.sleep(5000); } catch (InterruptedException e) {
-			 * e.printStackTrace(); }
-			 */
 			this.setVisible(false);
-			if (score < 1500)
-				new EndScreen(score);
-			else
-				new EndScreen(score);
+			JFrame WINdow = new JFrame("End");
+			WINdow.setDefaultCloseOperation(EXIT_ON_CLOSE);
+			WINdow.setSize(200, 100);
+			WINdow.getContentPane().add(new EndScreen(score));
+			WINdow.setSize(945, 531);
+			WINdow.setLocationRelativeTo(null);
+			WINdow.setVisible(true);
+		}
+		if (score > 1500) {
+			JFrame WINdow = new JFrame("End");
+			WINdow.setDefaultCloseOperation(EXIT_ON_CLOSE);
+			WINdow.getContentPane().add(new EndScreen(score));
+			WINdow.setSize(945, 531);
+			WINdow.setLocationRelativeTo(null);
+			WINdow.setVisible(true);
 		}
 		if (getHorses() >= 20000 || getLions() >= 20000 || getGoats() >= 20000) {
 			win = true;
 			time.cancel();
-			/*
-			 * try { Thread.sleep(5000); } catch (InterruptedException e) {
-			 * e.printStackTrace(); }
-			 */
 			this.setVisible(false);
-			if (score < 1500)
-				new EndScreen(score);
-			else
-				new EndScreen(score);
+			JFrame WINdow = new JFrame("End");
+			WINdow.setDefaultCloseOperation(EXIT_ON_CLOSE);
+			WINdow.getContentPane().add(new EndScreen(score));
+			WINdow.setSize(945, 531);
+			WINdow.setLocationRelativeTo(null);
+			WINdow.setVisible(true);
 		}
 
 		return win;
