@@ -303,7 +303,7 @@ public class SetPanel extends JPanel{
 				}
 				setP.setBackground(col);
 			}
-			//WorldlyPanel.repaint(); <-- but in a way that actually works
+			aWindow.WorldlyPanel.repaint();
 		}
 	}
 	
