@@ -35,7 +35,7 @@ public class aWindow extends JFrame {
 	LabelButton play, options;
 	QuitButton quit;
 	static World world;
-	WorldPanel WorldlyPanel;
+	public static WorldPanel WorldlyPanel;
 	public Timer time;
 	public LifeFormInfoScreen informations;
 	public SetPanel set;
