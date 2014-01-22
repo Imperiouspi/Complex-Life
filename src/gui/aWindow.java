@@ -50,7 +50,7 @@ public class aWindow extends JFrame {
 	public static SpeciesSetComponents lionSet;
 	public static SpeciesSetComponents horseSet;
 	public static SpeciesSetComponents mGoatSet;
-	public Long speed;
+	public static Long speed;
 
 	public aWindow() {
 		super("Complex Life");
@@ -109,9 +109,10 @@ public class aWindow extends JFrame {
 		for (int i = 0; i < infoCom.length; i++) {
 			infoCom[i].setEnabled(false);
 		}
-		for (int i = 0; i < infoComPanelOpenSave.length; i++) {
-			infoComPanelOpenSave[i].setEnabled(false);
-		}
+		/*
+		 * for (int i = 0; i < infoComPanelOpenSave.length; i++) {
+		 * infoComPanelOpenSave[i].setEnabled(false); }
+		 */
 		time = new Timer();
 		time.scheduleAtFixedRate(new TimerTask() {
 
@@ -142,10 +143,11 @@ public class aWindow extends JFrame {
 		for (int i = 0; i < infoCom.length; i++) {
 			infoCom[i].setEnabled(true);
 		}
-		for (int i = 0; i < infoComPanelOpenSave.length; i++) {
-			infoComPanelOpenSave[i].setEnabled(true);
-		}
-		if (time != null){
+		/*
+		 * for (int i = 0; i < infoComPanelOpenSave.length; i++) {
+		 * infoComPanelOpenSave[i].setEnabled(true); }
+		 */
+		if (time != null) {
 			time.cancel();
 			repaint();
 		}
@@ -257,7 +259,7 @@ public class aWindow extends JFrame {
 
 		@Override
 		public void mouseClicked(MouseEvent arg0) {
-			setSize(1000, 680);
+			setSize(1000, 700);
 			setLayout(new BorderLayout());
 			back.setVisible(false);
 			repaint();
@@ -299,7 +301,7 @@ public class aWindow extends JFrame {
 
 			setCom = set.getComponents();
 			infoCom = informations.getComponents();
-			infoComPanelOpenSave = informations.openSave.getComponents();
+			// infoComPanelOpenSave = informations.openSave.getComponents();
 
 			WorldlyPanel = new WorldPanel(world);
 			WorldlyPanel.addMouseListener(new worldClickAction());
@@ -621,30 +623,28 @@ public class aWindow extends JFrame {
 		if (getHorses() + getLions() + getGoats() == 0) {
 			win = true;
 			time.cancel();
-			/*try {
-				Thread.sleep(5000);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}*/
+			/*
+			 * try { Thread.sleep(5000); } catch (InterruptedException e) {
+			 * e.printStackTrace(); }
+			 */
 			this.setVisible(false);
 			if (score < 1500)
 				new EndScreen(score);
 			else
-				new WinScreen(score);
+				new EndScreen(score);
 		}
 		if (getHorses() >= 20000 || getLions() >= 20000 || getGoats() >= 20000) {
 			win = true;
 			time.cancel();
-			/*try {
-				Thread.sleep(5000);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}*/
+			/*
+			 * try { Thread.sleep(5000); } catch (InterruptedException e) {
+			 * e.printStackTrace(); }
+			 */
 			this.setVisible(false);
 			if (score < 1500)
 				new EndScreen(score);
 			else
-				new WinScreen(score);
+				new EndScreen(score);
 		}
 
 		return win;

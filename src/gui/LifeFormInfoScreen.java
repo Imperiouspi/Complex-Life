@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
 import java.io.File;
 import java.io.IOException;
 
@@ -11,7 +13,9 @@ import javax.swing.AbstractAction;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JSlider;
 import javax.swing.JTextArea;
 import javax.swing.filechooser.FileFilter;
 
@@ -24,6 +28,9 @@ public class LifeFormInfoScreen extends JPanel {
 	public JButton save;
 	public JTextArea score;
 	public JPanel openSave;
+	public JLabel speed_L;
+	public JSlider speed_Sl;
+	public AnimalSlide animalPic;
 
 	public LifeFormInfoScreen() {
 		super();
@@ -31,24 +38,56 @@ public class LifeFormInfoScreen extends JPanel {
 		setMaximumSize(new Dimension(180, 600));
 		setMinimumSize(new Dimension(180, 600));
 		setLayout(new GridLayout(0, 1));
-
-		openSave = new JPanel();
 		
-		open = new JButton(new openAction());
-		openSave.add(open);
-		save = new JButton(new saveAction());
-		openSave.add(save);
+		speed_L = new JLabel("Speed:");
+		add(speed_L);
+		
+		speed_Sl = new JSlider(0, 1000, 100);
+		speed_Sl.setPaintLabels(true);
+		speed_Sl.setPaintTicks(true);
+		speed_Sl.setMajorTickSpacing(200);
+		
+		speed_Sl.addMouseMotionListener(new MouseMotionListener(){
+
+			@Override
+			public void mouseDragged(MouseEvent e) {
+				aWindow.speed = (long)(speed_Sl.getValue() + 1);
+			}
+
+			@Override
+			public void mouseMoved(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
+		
+		add(speed_Sl);
+
 		score = new JTextArea(0, 10);
 		score.setEditable(false);
-		add(openSave);
 		add(score);
+		
+		animalPic = new AnimalSlide();
+		add(animalPic);
+
 		
 		Info = new JTextArea();
 		Info.setEditable(false);
 		add(Info);
+		
+		//openSave = new JPanel();
+		
+		/*open = new JButton(new openAction());
+		openSave.add(open);
+		save = new JButton(new saveAction());
+		openSave.add(save);*/
+
+		//add(openSave);
 	}
 
 	public void setAnimal(LifeForm life) {
+		animalPic.setAnimal(life);
 		Info.setText(life.species + ":\nHealth: " + life.healthLeft
 				+ "\nHunger: " + life.hungerLeft + "\nAge: " + (life.maxLife - life.LifeSpan));
 		Color col = Color.black;
