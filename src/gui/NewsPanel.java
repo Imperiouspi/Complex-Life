@@ -14,10 +14,12 @@ public class NewsPanel extends JPanel {
 		setLayout(new BorderLayout());
 		setBackground(Color.WHITE);
 		animals = new JTextArea();
+		animals.setEditable(false);
 		setNumbers();
 		add(animals, BorderLayout.WEST);
 		
 		news = new JTextArea();
+		news.setEditable(false);
 		getNews();
 		add(news, BorderLayout.EAST);
 	}
