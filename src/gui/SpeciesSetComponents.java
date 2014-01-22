@@ -19,6 +19,7 @@ public class SpeciesSetComponents {
 	public JRadioButton falseBreed;
 	public JSlider chanceBreed_Sl;
 	public JSlider cool_Sl;
+	public int currentCooldown;
 	
 	public SpeciesSetComponents (String species) {
 		Color col = Color.black;
@@ -74,5 +75,6 @@ public class SpeciesSetComponents {
 		cool_Sl.setPaintTicks(true);
 		cool_Sl.setPaintLabels(true);
 		cool_Sl.setValue(breedCooldown);
+		currentCooldown = breedCooldown;
 	}
 }

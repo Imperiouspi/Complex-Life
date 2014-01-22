@@ -144,21 +144,18 @@ public class World {
 					switch (Life.get(i).species) {
 					case "Lion":
 						breedingEnabled = aWindow.lionSet.trueBreed.isSelected();
-						aWindow.lionSet.cool_Sl.setValue(aWindow.lionSet.cool_Sl
-								.getValue() - 1);
-						breedCooldown = aWindow.lionSet.cool_Sl.getValue();
+						aWindow.lionSet.currentCooldown--;
+						breedCooldown = aWindow.lionSet.currentCooldown;
 						break;
 					case "Horse":
 						breedingEnabled = aWindow.horseSet.trueBreed.isSelected();
-						aWindow.horseSet.cool_Sl.setValue(aWindow.horseSet.cool_Sl
-								.getValue() - 1);
-						breedCooldown = aWindow.horseSet.cool_Sl.getValue();
+						aWindow.horseSet.currentCooldown--;
+						breedCooldown = aWindow.horseSet.currentCooldown;
 						break;
 					case "Mountain Goat":
 						breedingEnabled = aWindow.mGoatSet.trueBreed.isSelected();
-						aWindow.mGoatSet.cool_Sl.setValue(aWindow.mGoatSet.cool_Sl
-								.getValue() - 1);
-						breedCooldown = aWindow.mGoatSet.cool_Sl.getValue();
+						aWindow.mGoatSet.currentCooldown--;
+						breedCooldown = aWindow.mGoatSet.currentCooldown;
 						break;
 					}
 					if (i < Life.size()) {
@@ -169,18 +166,18 @@ public class World {
 								Life.get(i).willBreed = false;
 							if (i < Life.size()) {
 								switch (Life.get(i).species) {
-								case "Lion": aWindow.lionSet.cool_Sl.setValue(10); break;
-								case "Horse": aWindow.horseSet.cool_Sl.setValue(3); break;
-								case "Mountain Goat": aWindow.mGoatSet.cool_Sl.setValue(3); break;
+								case "Lion": aWindow.lionSet.currentCooldown = aWindow.lionSet.cool_Sl.getValue(); break;
+								case "Horse": aWindow.horseSet.currentCooldown = aWindow.horseSet.cool_Sl.getValue(); break;
+								case "Mountain Goat": aWindow.mGoatSet.currentCooldown = aWindow.mGoatSet.cool_Sl.getValue(); break;
 								}
 							}
 						}
 						if (breedCooldown == 0) {
 							if (i < Life.size()) {
 								switch (Life.get(i).species) {
-								case "Lion": aWindow.lionSet.cool_Sl.setValue(10); break;
-								case "Horse": aWindow.horseSet.cool_Sl.setValue(3); break;
-								case "Mountain Goat": aWindow.mGoatSet.cool_Sl.setValue(3); break;
+								case "Lion": aWindow.lionSet.currentCooldown = aWindow.lionSet.cool_Sl.getValue(); break;
+								case "Horse": aWindow.horseSet.currentCooldown = aWindow.horseSet.cool_Sl.getValue(); break;
+								case "Mountain Goat": aWindow.mGoatSet.currentCooldown = aWindow.mGoatSet.cool_Sl.getValue(); break;
 								}
 							}
 						}
