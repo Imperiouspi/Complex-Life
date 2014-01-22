@@ -41,7 +41,8 @@ public class WorldPanel extends JPanel{
 				col = Grass.colour; break;
 			}
 			g.setColor(col);
-			world.Life.get(i).draw(g);
+			if (i < world.Life.size())
+				world.Life.get(i).draw(g);
 		}
 	}
 }

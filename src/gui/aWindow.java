@@ -627,7 +627,7 @@ public class aWindow extends JFrame {
 				e.printStackTrace();
 			}*/
 			this.setVisible(false);
-			if (score < 5000)
+			if (score < 1500)
 				new EndScreen(score);
 			else
 				new WinScreen(score);
@@ -641,7 +641,7 @@ public class aWindow extends JFrame {
 				e.printStackTrace();
 			}*/
 			this.setVisible(false);
-			if (score < 5000)
+			if (score < 1500)
 				new EndScreen(score);
 			else
 				new WinScreen(score);

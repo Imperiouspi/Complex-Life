@@ -21,7 +21,7 @@ public class WinPanel extends JPanel{
 	public void paintComponent(Graphics g) {
 		BufferedImage background = null;
 		try {
-			background = ImageIO.read(new File("src/resources/WinScreen.png")); //TODO make sure path to win screen is correct
+			background = ImageIO.read(new File("src/resources/Win.png"));
 		} catch (IOException e) {
 			System.out.println("Unable to find Win Screen.");
 			e.printStackTrace();
