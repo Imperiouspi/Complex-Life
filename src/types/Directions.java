@@ -3,6 +3,7 @@ package types;
 import java.awt.Point;
 import java.util.HashMap;
 
+@Deprecated
 public class Directions extends HashMap<String, Point> {
 	{
 		this.put("NORTH", new Point(0, 1));

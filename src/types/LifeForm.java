@@ -19,18 +19,20 @@ public abstract class LifeForm {
 	public String[] eats, predators;
 	public int LifeSpan;
 	public int localx, localy, viewDistance = 5;
-	public boolean alive = true, willBreed = false;
+	public boolean alive, willBreed = false;
 
 	public LifeForm(int x, int y) {
 		localx = x;
 		localy = y;
 		hungerLeft = MaxHunger;
+		alive = true;
 	}
 
 	public LifeForm Eat(LifeForm eaten) {
 		eaten.onEaten(this);
 		eaten.Die();
 		this.hungerLeft = MaxHunger;
+		alive = true;
 		return eaten;
 	}
 
@@ -360,10 +362,6 @@ public abstract class LifeForm {
 		return false;
 	}
 
-	public void Die() {
-		this.alive = false;
-	}
-
 	public boolean Breed(World world) {
 		int breed = (int) (Math.random() * 100);
 		int breedChance = 1;
@@ -392,6 +390,10 @@ public abstract class LifeForm {
 			return true;
 		}
 		return false;
+	}
+	
+	public void Die() {
+		this.alive = false;
 	}
 
 	public void Age() {

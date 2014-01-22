@@ -6,9 +6,6 @@ import java.awt.Graphics;
 
 import javax.swing.JPanel;
 
-import lifeForms.animals.Horse;
-import lifeForms.animals.Lion;
-import lifeForms.animals.MountainGoat;
 import types.World;
 
 public class WorldPanel extends JPanel{
