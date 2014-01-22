@@ -360,11 +360,17 @@ public class SetPanel extends JPanel{
 				int breedingCooldown = cool_Sl.getValue();
 				switch (World.creature((String)(animals.getSelectedItem()), 0, 0).species) {
 				case "Lion":
-					aWindow.lionSet.cool_Sl.setValue(breedingCooldown); break;
+					aWindow.lionSet.cool_Sl.setValue(breedingCooldown);
+					aWindow.lionSet.currentCooldown = Math.min(aWindow.lionSet.currentCooldown, aWindow.lionSet.cool_Sl.getValue());
+					break;
 				case "Horse":
-					aWindow.horseSet.cool_Sl.setValue(breedingCooldown); break;
+					aWindow.horseSet.cool_Sl.setValue(breedingCooldown);
+					aWindow.horseSet.currentCooldown = Math.min(aWindow.horseSet.currentCooldown, aWindow.horseSet.cool_Sl.getValue());
+					break;
 				case "Mountain Goat":
-					aWindow.mGoatSet.cool_Sl.setValue(breedingCooldown); break;
+					aWindow.mGoatSet.cool_Sl.setValue(breedingCooldown);
+					aWindow.mGoatSet.currentCooldown = Math.min(aWindow.mGoatSet.currentCooldown, aWindow.mGoatSet.cool_Sl.getValue());
+					break;
 				}
 			}
 		}

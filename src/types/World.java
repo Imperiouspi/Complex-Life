@@ -161,7 +161,7 @@ public class World {
 					}
 					if (i < Life.size()) {
 						if (breedingEnabled && Life.get(i).willBreed
-								&& breedCooldown == 0) {
+								&& (breedCooldown == 0 || breedCooldown == -1)) {
 							if (i < Life.size())
 								Life.get(i).Breed(this);
 							if (i < Life.size())
@@ -183,7 +183,7 @@ public class World {
 								}
 							}
 						}
-						if (breedCooldown == 0) {
+						if (breedCooldown == 0 || breedCooldown == -1) {
 							if (i < Life.size()) {
 								switch (Life.get(i).species) {
 								case "Lion":
