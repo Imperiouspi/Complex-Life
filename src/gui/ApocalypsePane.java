@@ -13,10 +13,10 @@ public class ApocalypsePane extends JPanel{
 	BufferedImage image;
 	public ApocalypsePane(String imagePath){
 		super();
-		setPreferredSize(new Dimension(127, 50));
-		setMinimumSize(new Dimension(127, 50));
-		setMaximumSize(new Dimension(127, 50));
-		setBounds(0,0,127, 50);
+		setPreferredSize(new Dimension(200, 50));
+		setMinimumSize(new Dimension(200, 50));
+		setMaximumSize(new Dimension(200, 50));
+		setBounds(0,0,200, 50);
 		image = null;
 		try {
 			image = ImageIO.read(new File(imagePath));

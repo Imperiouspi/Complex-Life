@@ -3,7 +3,8 @@ package gui;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.GridLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -22,9 +23,6 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import lifeForms.animals.Horse;
-import lifeForms.animals.Lion;
-import lifeForms.animals.MountainGoat;
 import types.World;
 
 public class SetPanel extends JPanel{
@@ -48,18 +46,22 @@ public class SetPanel extends JPanel{
 	
 	public SetPanel(){
 		super();
-		setPreferredSize(new Dimension(200, 1000));
-		setMaximumSize(new Dimension(200, 1000));
-		setMinimumSize(new Dimension(200, 1000));
-		this.setBorder(new EmptyBorder(new Insets(5, 10, 5, 10)));
+		setPreferredSize(new Dimension(220, 600));
+		setMaximumSize(new Dimension(220, 600));
+		setMinimumSize(new Dimension(220, 600));
+		this.setBorder(new EmptyBorder(new Insets(10, 10, 10, 10)));
 		
-		GridLayout grid = new GridLayout(0,1);
-		setLayout(grid);
+		setLayout(new GridBagLayout());
+		GridBagConstraints c = new GridBagConstraints();
+		c.fill = GridBagConstraints.HORIZONTAL;
 		
 		playPause = new PauseButton("src/resources/PlayPause.png");
-		add(playPause);
+		c.gridx = 0;
+		c.gridy = 0;
+		add(playPause, c);
 		
-		//add(new JSeparator(SwingConstants.HORIZONTAL));
+		c.gridy++;
+		add(new JSeparator(SwingConstants.HORIZONTAL), c);
 		
 		animals = new JComboBox<String>(new String[]{"Lion", "Mountain Goat", "Horse"});
 		animals.addActionListener(new ActionListener(){
@@ -107,7 +109,13 @@ public class SetPanel extends JPanel{
 			}
 			
 		});
-		add(animals);
+		c.gridy += 2;
+		add(animals, c);
+		
+		c.gridy++;
+		JSeparator separate = new JSeparator(SwingConstants.HORIZONTAL);
+		separate.setPreferredSize(new Dimension(150, 100));
+		add(separate, c);
 		
 		Color col = Color.black;
 		int breedChance = 1;
@@ -128,74 +136,91 @@ public class SetPanel extends JPanel{
 		}
 		
 		C_L = new JLabel("Color:");
-		add(C_L);
+		c.gridy += 2;
+		add(C_L, c);
 		
 		R_L = new JLabel("R: ");
-		add(R_L);
+		c.gridy++;
+		add(R_L, c);
 		R_Sl = new JSlider(0, 255);
 		R_Sl.setMajorTickSpacing(50);
 		R_Sl.setPaintTicks(true);
 		R_Sl.setPaintLabels(true);
 		R_Sl.setValue(col.getRed());
 		R_Sl.addChangeListener(new ColourListener(R_Sl, G_Sl, B_Sl, animals, this, 0));
-		add(R_Sl);
+		c.gridy++;
+		add(R_Sl, c);
 		
 		G_L = new JLabel("G: ");
-		add(G_L);
+		c.gridy++;
+		add(G_L, c);
 		G_Sl = new JSlider(0, 255);
 		G_Sl.setMajorTickSpacing(50);
 		G_Sl.setPaintTicks(true);
 		G_Sl.setPaintLabels(true);
 		G_Sl.setValue(col.getBlue());
 		G_Sl.addChangeListener(new ColourListener(R_Sl, G_Sl, B_Sl, animals, this, 1));
-		add(G_Sl);
+		c.gridy++;
+		add(G_Sl, c);
 		
 		B_L = new JLabel("B: ");
-		add(B_L);
+		c.gridy++;
+		add(B_L, c);
 		B_Sl = new JSlider(0, 255);
 		B_Sl.setMajorTickSpacing(50);
 		B_Sl.setPaintTicks(true);
 		B_Sl.setPaintLabels(true);
 		B_Sl.setValue(col.getGreen());
 		B_Sl.addChangeListener(new ColourListener(R_Sl, G_Sl, B_Sl, animals, this, 2));
-		add(B_Sl);
+		c.gridy++;
+		add(B_Sl, c);
+
+		c.gridy++;
+		add(new JSeparator(SwingConstants.HORIZONTAL), c);
 		
-//		add(new JSeparator(SwingConstants.HORIZONTAL)); //Trying to save space
-		
-		add(new JLabel("Breeding: "));
+		c.gridy += 2;
+		add(new JLabel("Breeding: "), c);
 		breedGroup = new ButtonGroup();
 		trueBreed = new JRadioButton("True", true);
 		trueBreed.addItemListener(new BreedEnableListener(trueBreed, animals));
 		breedGroup.add(trueBreed);
 		falseBreed = new JRadioButton("False");
 		breedGroup.add(falseBreed);
-		add(trueBreed);
-		add(falseBreed);
+		c.gridy++;
+		add(trueBreed, c);
+		c.gridy++;
+		add(falseBreed, c);
 		
 		chanceBreed_L = new JLabel("Chance of Breeding: ");
-		add(chanceBreed_L);
+		c.gridy++;
+		add(chanceBreed_L, c);
 		chanceBreed_Sl = new JSlider(0, 100);
 		chanceBreed_Sl.setMajorTickSpacing(20);
 		chanceBreed_Sl.setPaintLabels(true);
 		chanceBreed_Sl.setPaintTicks(true);
 		chanceBreed_Sl.setValue(breedChance);
 		chanceBreed_Sl.addChangeListener(new SliderListener(chanceBreed_Sl, cool_Sl, animals, 1));
-		add(chanceBreed_Sl);
+		c.gridy++;
+		add(chanceBreed_Sl, c);
 		
 		cool_L = new JLabel("Cooldown: ");
-		add(cool_L);
+		c.gridy++;
+		add(cool_L, c);
 		cool_Sl = new JSlider(0, 1000);
 		cool_Sl.setMajorTickSpacing(500);
 		cool_Sl.setPaintTicks(true);
 		cool_Sl.setPaintLabels(true);
 		cool_Sl.setValue(breedCooldown);
 		cool_Sl.addChangeListener(new SliderListener(chanceBreed_Sl, cool_Sl, animals, 2));
-		add(cool_Sl);
-		
-		add(new JSeparator(SwingConstants.HORIZONTAL));
+		c.gridy++;
+		add(cool_Sl, c);
+
+		c.gridy++;
+		add(new JSeparator(SwingConstants.HORIZONTAL), c);
 		
 		apocalypse = new ApocalypsePane("src/resources/ApocalypseButton.png");
-		add(apocalypse);
+		c.gridy += 2;
+		add(apocalypse, c);
 	}
 	
 	static class ColourListener implements ChangeListener {

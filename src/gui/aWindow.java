@@ -252,7 +252,7 @@ public class aWindow extends JFrame {
 
 		@Override
 		public void mouseClicked(MouseEvent arg0) {
-			setSize(1000, 1000);
+			setSize(1000, 680);
 			setLayout(new GridBagLayout());
 			GridBagConstraints c = new GridBagConstraints();
 			c.fill = GridBagConstraints.HORIZONTAL; // takes up the whole width it's allocated
@@ -287,32 +287,31 @@ public class aWindow extends JFrame {
 			set.playPause.addMouseListener(new PauseAction());
 			c.gridx = 0;
 			c.gridy = 0;
-			c.gridheight = 3;
+			c.gridheight = 2;
 			c.anchor = GridBagConstraints.NORTH;
 			add(set, c);
-
-			WorldlyPanel = new WorldPanel(world);
-			WorldlyPanel.addMouseListener(new worldClickAction());
-			c.gridx++;
-			c.gridwidth = 2;
-			c.gridheight = 2;
-			add(WorldlyPanel, c);
 			
 			informations = new LifeFormInfoScreen();
 			informations.setBackground(set.getBackground());
-			c.gridx += 2;
-			c.gridwidth = 1;
-			c.gridheight = 3;
+			c.gridx = 3;
+			c.gridheight = 2;
 			add(informations, c);
 			
 			setCom = set.getComponents();
 			infoCom = informations.getComponents();
 			infoComPanelOpenSave = informations.openSave.getComponents();
 			
-			news = new NewsPanel();
+			WorldlyPanel = new WorldPanel(world);
+			WorldlyPanel.addMouseListener(new worldClickAction());
 			c.gridx = 1;
-			c.gridy = 2;
 			c.gridwidth = 2;
+			c.gridheight = 2;
+			add(WorldlyPanel, c);
+			
+			news = new NewsPanel();
+			c.gridx = 0;
+			c.gridy = 2;
+			c.gridwidth = 4;
 			c.gridheight = 1;
 			add(news, c); //BorderLayout.SOUTH
 			

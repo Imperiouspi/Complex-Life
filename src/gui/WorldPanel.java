@@ -16,6 +16,7 @@ public class WorldPanel extends JPanel{
 
 	public WorldPanel(World place) {
 		this.world = place;
+		setPreferredSize(new Dimension(600, 600));
 		setMaximumSize(new Dimension(600, 600));
 		setMinimumSize(new Dimension(600, 600));
 	}

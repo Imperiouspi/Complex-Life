@@ -11,14 +11,10 @@ import javax.swing.AbstractAction;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.filechooser.FileFilter;
 
-import lifeForms.animals.Horse;
-import lifeForms.animals.Lion;
-import lifeForms.animals.MountainGoat;
 import types.LifeForm;
 
 public class LifeFormInfoScreen extends JPanel {
@@ -30,9 +26,9 @@ public class LifeFormInfoScreen extends JPanel {
 
 	public LifeFormInfoScreen() {
 		super();
-		setPreferredSize(new Dimension(200, 1000));
-		setMaximumSize(new Dimension(200, 1000));
-		setMinimumSize(new Dimension(200, 1000));
+		setPreferredSize(new Dimension(180, 600));
+		setMaximumSize(new Dimension(180, 600));
+		setMinimumSize(new Dimension(180, 600));
 		setLayout(new GridLayout(0, 1));
 
 		openSave = new JPanel();
