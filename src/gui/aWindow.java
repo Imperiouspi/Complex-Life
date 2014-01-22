@@ -150,7 +150,8 @@ public class aWindow extends JFrame {
 	public static void save(File file) {
 		PrintWriter writer = null;
 		try {
-			writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file))));
+			writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(
+					new FileOutputStream(file))));
 		} catch (FileNotFoundException e) {
 			System.out.println("File not created");
 			e.printStackTrace();
@@ -255,59 +256,74 @@ public class aWindow extends JFrame {
 			setLayout(new BorderLayout());
 			back.setVisible(false);
 			repaint();
-			
+
 			set = new SetPanel();
 			set.setEnabled(false);
 			set.apocalypse.addMouseListener(new MouseListener() {
-				
+
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					//TODO cancel ongoing TimerTask (call to advance()) - is it possible?
+					// TODO cancel ongoing TimerTask (call to advance()) - is it
+					// possible?
 					world.Apocalypse();
 					repaint();
 				}
-				
-				@Override
-				public void mousePressed(MouseEvent e) {}
 
 				@Override
-				public void mouseReleased(MouseEvent e) {}
+				public void mousePressed(MouseEvent e) {
+				}
 
 				@Override
-				public void mouseEntered(MouseEvent e) {}
+				public void mouseReleased(MouseEvent e) {
+				}
 
 				@Override
-				public void mouseExited(MouseEvent e) {}
+				public void mouseEntered(MouseEvent e) {
+				}
+
+				@Override
+				public void mouseExited(MouseEvent e) {
+				}
 
 			});
 			score = 0;
 			set.playPause.addMouseListener(new PauseAction());
 			add(set, BorderLayout.WEST);
-			
+
 			informations = new LifeFormInfoScreen();
 			informations.setBackground(set.getBackground());
 			add(informations, BorderLayout.EAST);
-			
+
 			setCom = set.getComponents();
 			infoCom = informations.getComponents();
 			infoComPanelOpenSave = informations.openSave.getComponents();
-			
+
 			WorldlyPanel = new WorldPanel(world);
 			WorldlyPanel.addMouseListener(new worldClickAction());
 			add(WorldlyPanel, BorderLayout.CENTER);
-			
+
 			news = new NewsPanel();
 			add(news, BorderLayout.SOUTH);
-			
+
 			isPause = true;
 			Color col = Color.black;
-			switch (World.creature((String)(set.animals.getSelectedItem()), 0, 0).species) {
+			switch (World.creature((String) (set.animals.getSelectedItem()), 0,
+					0).species) {
 			case "Lion":
-				col = new Color (aWindow.lionSet.R_Sl.getValue(), aWindow.lionSet.G_Sl.getValue(), aWindow.lionSet.B_Sl.getValue()); break;
+				col = new Color(aWindow.lionSet.R_Sl.getValue(),
+						aWindow.lionSet.G_Sl.getValue(),
+						aWindow.lionSet.B_Sl.getValue());
+				break;
 			case "Horse":
-				col = new Color (aWindow.horseSet.R_Sl.getValue(), aWindow.horseSet.G_Sl.getValue(), aWindow.horseSet.B_Sl.getValue()); break;
+				col = new Color(aWindow.horseSet.R_Sl.getValue(),
+						aWindow.horseSet.G_Sl.getValue(),
+						aWindow.horseSet.B_Sl.getValue());
+				break;
 			case "Mountain Goat":
-				col = new Color (aWindow.mGoatSet.R_Sl.getValue(), aWindow.mGoatSet.G_Sl.getValue(), aWindow.mGoatSet.B_Sl.getValue()); break;
+				col = new Color(aWindow.mGoatSet.R_Sl.getValue(),
+						aWindow.mGoatSet.G_Sl.getValue(),
+						aWindow.mGoatSet.B_Sl.getValue());
+				break;
 			}
 			set.setBackground(col);
 			pause();
@@ -335,10 +351,12 @@ public class aWindow extends JFrame {
 		}
 
 		@Override
-		public void mousePressed(MouseEvent arg0) {}
+		public void mousePressed(MouseEvent arg0) {
+		}
 
 		@Override
-		public void mouseReleased(MouseEvent arg0) {}
+		public void mouseReleased(MouseEvent arg0) {
+		}
 
 	}
 
@@ -372,10 +390,12 @@ public class aWindow extends JFrame {
 		}
 
 		@Override
-		public void mousePressed(MouseEvent arg0) {}
+		public void mousePressed(MouseEvent arg0) {
+		}
 
 		@Override
-		public void mouseReleased(MouseEvent arg0) {}
+		public void mouseReleased(MouseEvent arg0) {
+		}
 
 	}
 
@@ -408,10 +428,12 @@ public class aWindow extends JFrame {
 		}
 
 		@Override
-		public void mousePressed(MouseEvent arg0) {}
+		public void mousePressed(MouseEvent arg0) {
+		}
 
 		@Override
-		public void mouseReleased(MouseEvent arg0) {}
+		public void mouseReleased(MouseEvent arg0) {
+		}
 
 	}
 
@@ -424,7 +446,7 @@ public class aWindow extends JFrame {
 		public void mouseClicked(MouseEvent e) {
 			if (e.getX() > 0 && e.getX() < 600 && e.getY() > 0
 					&& e.getY() < 600
-					&& world.grid[e.getX() / 5][e.getY() / 5].Occupant != null) {
+					&& world.grid[e.getX() / 5][e.getY() / 5].Occupant != null && world.grid[e.getX()/5][e.getY()/5].Occupant.alive) {
 				informations
 						.setAnimal(world.grid[e.getX() / 5][e.getY() / 5].Occupant);
 				repaint();
@@ -432,16 +454,20 @@ public class aWindow extends JFrame {
 		}
 
 		@Override
-		public void mousePressed(MouseEvent e) {}
+		public void mousePressed(MouseEvent e) {
+		}
 
 		@Override
-		public void mouseReleased(MouseEvent e) {}
+		public void mouseReleased(MouseEvent e) {
+		}
 
 		@Override
-		public void mouseEntered(MouseEvent e) {}
+		public void mouseEntered(MouseEvent e) {
+		}
 
 		@Override
-		public void mouseExited(MouseEvent e) {}
+		public void mouseExited(MouseEvent e) {
+		}
 	}
 
 	class PauseAction implements MouseListener {
@@ -458,13 +484,23 @@ public class aWindow extends JFrame {
 				isPause = true;
 				set.setEnabled(true);
 				Color col = Color.black;
-				switch (World.creature((String)(set.animals.getSelectedItem()), 0, 0).species) {
+				switch (World.creature(
+						(String) (set.animals.getSelectedItem()), 0, 0).species) {
 				case "Lion":
-					col = new Color (aWindow.lionSet.R_Sl.getValue(), aWindow.lionSet.G_Sl.getValue(), aWindow.lionSet.B_Sl.getValue()); break;
+					col = new Color(aWindow.lionSet.R_Sl.getValue(),
+							aWindow.lionSet.G_Sl.getValue(),
+							aWindow.lionSet.B_Sl.getValue());
+					break;
 				case "Horse":
-					col = new Color (aWindow.horseSet.R_Sl.getValue(), aWindow.horseSet.G_Sl.getValue(), aWindow.horseSet.B_Sl.getValue()); break;
+					col = new Color(aWindow.horseSet.R_Sl.getValue(),
+							aWindow.horseSet.G_Sl.getValue(),
+							aWindow.horseSet.B_Sl.getValue());
+					break;
 				case "Mountain Goat":
-					col = new Color (aWindow.mGoatSet.R_Sl.getValue(), aWindow.mGoatSet.G_Sl.getValue(), aWindow.mGoatSet.B_Sl.getValue()); break;
+					col = new Color(aWindow.mGoatSet.R_Sl.getValue(),
+							aWindow.mGoatSet.G_Sl.getValue(),
+							aWindow.mGoatSet.B_Sl.getValue());
+					break;
 				}
 				set.setBackground(col);
 				repaint();
@@ -472,10 +508,12 @@ public class aWindow extends JFrame {
 		}
 
 		@Override
-		public void mousePressed(MouseEvent e) {}
+		public void mousePressed(MouseEvent e) {
+		}
 
 		@Override
-		public void mouseReleased(MouseEvent e) {}
+		public void mouseReleased(MouseEvent e) {
+		}
 
 		@Override
 		public void mouseEntered(MouseEvent e) {
@@ -551,7 +589,7 @@ public class aWindow extends JFrame {
 		if (getGoats() == 0) {
 			news += "GOATS WENT EXTINCT!\t\n";
 		}
-		
+
 		if (getGoats() >= 17000) {
 			news += "Goats are reaching the limit!\t\n";
 		}
@@ -561,7 +599,7 @@ public class aWindow extends JFrame {
 		if (getHorses() >= 17000) {
 			news += "Horses are reaching the limit!\t\n";
 		}
-		
+
 		if (getGoats() >= 20000) {
 			news += "Goats are at the limit!\t\n";
 		}

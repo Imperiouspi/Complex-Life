@@ -32,7 +32,7 @@ public abstract class LifeForm {
 		eaten.onEaten(this);
 		eaten.Die();
 		this.hungerLeft = MaxHunger;
-		alive = true;
+		alive = false;
 		return eaten;
 	}
 
@@ -386,7 +386,7 @@ public abstract class LifeForm {
 	public abstract void onEaten(LifeForm eating);
 
 	public boolean isDead() {
-		if (healthLeft == 0 || hungerLeft == 0 || LifeSpan == 0) {
+		if (healthLeft == 0 || hungerLeft == 0 || LifeSpan == 0 || alive) {
 			return true;
 		}
 		return false;
