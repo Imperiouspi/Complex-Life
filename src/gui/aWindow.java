@@ -253,9 +253,7 @@ public class aWindow extends JFrame {
 		@Override
 		public void mouseClicked(MouseEvent arg0) {
 			setSize(1000, 680);
-			setLayout(new GridBagLayout());
-			GridBagConstraints c = new GridBagConstraints();
-			c.fill = GridBagConstraints.HORIZONTAL; // takes up the whole width it's allocated
+			setLayout(new BorderLayout());
 			back.setVisible(false);
 			repaint();
 			
@@ -285,17 +283,11 @@ public class aWindow extends JFrame {
 			});
 			score = 0;
 			set.playPause.addMouseListener(new PauseAction());
-			c.gridx = 0;
-			c.gridy = 0;
-			c.gridheight = 2;
-			c.anchor = GridBagConstraints.NORTH;
-			add(set, c);
+			add(set, BorderLayout.WEST);
 			
 			informations = new LifeFormInfoScreen();
 			informations.setBackground(set.getBackground());
-			c.gridx = 3;
-			c.gridheight = 2;
-			add(informations, c);
+			add(informations, BorderLayout.EAST);
 			
 			setCom = set.getComponents();
 			infoCom = informations.getComponents();
@@ -303,17 +295,10 @@ public class aWindow extends JFrame {
 			
 			WorldlyPanel = new WorldPanel(world);
 			WorldlyPanel.addMouseListener(new worldClickAction());
-			c.gridx = 1;
-			c.gridwidth = 2;
-			c.gridheight = 2;
-			add(WorldlyPanel, c);
+			add(WorldlyPanel, BorderLayout.CENTER);
 			
 			news = new NewsPanel();
-			c.gridx = 0;
-			c.gridy = 2;
-			c.gridwidth = 4;
-			c.gridheight = 1;
-			add(news, c); //BorderLayout.SOUTH
+			add(news, BorderLayout.SOUTH);
 			
 			isPause = true;
 			Color col = Color.black;
