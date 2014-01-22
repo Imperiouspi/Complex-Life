@@ -35,7 +35,7 @@ public class Grass extends Plant { // :)
 	
 	@Override
 	public void onEaten(LifeForm eating) {
-		// If you put healthLeft++, healthLeft will increase by one. I don't
+/*		// If you put healthLeft++, healthLeft will increase by one. I don't
 		// think that's what you want.
 		eating.healthLeft = Math.min(healthLeft + 1, MaxHealth);
 		eating.hungerLeft = Math.max(hungerLeft - 1, 0);
@@ -44,6 +44,6 @@ public class Grass extends Plant { // :)
 		// decrease, not increase.
 		// These changes to healthLeft and hungerLeft should be to the life form
 		// eating the grass, right? Not the grass itself?
-	}
+*/	}
 
 }

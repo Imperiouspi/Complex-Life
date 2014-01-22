@@ -56,14 +56,54 @@ public abstract class LifeForm {
 		moveTo = getPoint((getAveragePredatorAngle(seen) + getAverageFoodAngle(seen)) / 2);
 		if (moveTo.x == 0 && moveTo.y == 0) { // if it hasn't moved
 			moveTo = moveRandom(grid);
-		} else if ((grid[this.localx + moveTo.x][this.localy + moveTo.y].Occupant) != null && !isFood(grid[this.localx + moveTo.x][this.localy + moveTo.y].Occupant)
+			int chance = (int) (Math.random() * 2);
+			if (chance == 1 && this.localx + moveTo.x < grid.length) {
+				this.localx += moveTo.x;
+			} else {
+				if (this.localx - moveTo.x > 0) {
+					this.localx -= moveTo.x;
+				} else {
+					this.localx += moveTo.x;
+				}
+			}
+			chance = (int) (Math.random() * 2);
+			if (chance == 1 && this.localy + moveTo.y < grid.length) {
+				this.localy += moveTo.y;
+			} else {
+				if (this.localy - moveTo.y > 0) {
+					this.localy -= moveTo.y;
+				} else {
+					this.localy += moveTo.y;
+				}
+			}
+		} else if ((grid[this.localx + moveTo.x][this.localy + moveTo.y].Occupant) != null
+				&& !isFood(grid[this.localx + moveTo.x][this.localy + moveTo.y].Occupant)
 				&& !isPredator(grid[this.localx + moveTo.x][this.localy
 						+ moveTo.y].Occupant)
 				&& !grid[this.localx + moveTo.x][this.localy + moveTo.y].Occupant.species
 						.equals(this.species)) {
 			moveTo = moveRandom(grid);
-		}
-		else{
+			int chance = (int) (Math.random() * 2);
+			if (chance == 1 && this.localx + moveTo.x < grid.length) {
+				this.localx += moveTo.x;
+			} else {
+				if (this.localx - moveTo.x > 0) {
+					this.localx -= moveTo.x;
+				} else {
+					this.localx += moveTo.x;
+				}
+			}
+			chance = (int) (Math.random() * 2);
+			if (chance == 1 && this.localy + moveTo.y < grid.length) {
+				this.localy += moveTo.y;
+			} else {
+				if (this.localy - moveTo.y > 0) {
+					this.localy -= moveTo.y;
+				} else {
+					this.localy += moveTo.y;
+				}
+			}
+		} else {
 			if (this.localx + moveTo.x > 0
 					&& this.localx + moveTo.x < grid.length) {
 				this.localx += moveTo.x;
@@ -78,7 +118,8 @@ public abstract class LifeForm {
 				&& grid[this.localx][this.localy].Occupant.alive) {
 			Eat(grid[this.localx][this.localy].Occupant);
 		} else if (grid[this.localx][this.localy].Occupant != null
-				&& grid[this.localx][this.localy].Occupant.species.equals(this.species)
+				&& grid[this.localx][this.localy].Occupant.species
+						.equals(this.species)
 				&& grid[this.localx][this.localy].Occupant.alive) {
 			willBreed = true;
 		} else {
@@ -96,26 +137,6 @@ public abstract class LifeForm {
 		Point moveTo = new Point(0, 0);
 		moveTo = new Point((int) (Math.random() * 2) + 1,
 				(int) (Math.random() * 2) + 1);
-		int chance = (int) (Math.random() * 2);
-		if (chance == 1 && this.localx + moveTo.x < grid.length) {
-			this.localx += moveTo.x;
-		} else {
-			if (this.localx - moveTo.x > 0) {
-				this.localx -= moveTo.x;
-			} else {
-				this.localx += moveTo.x;
-			}
-		}
-		chance = (int) (Math.random() * 2);
-		if (chance == 1 && this.localy + moveTo.y < grid.length) {
-			this.localy += moveTo.y;
-		} else {
-			if (this.localy - moveTo.y > 0) {
-				this.localy -= moveTo.y;
-			} else {
-				this.localy += moveTo.y;
-			}
-		}
 		return moveTo;
 	}
 
@@ -392,7 +413,7 @@ public abstract class LifeForm {
 		}
 		return false;
 	}
-	
+
 	public void Die() {
 		this.alive = false;
 	}
