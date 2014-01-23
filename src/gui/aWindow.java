@@ -30,6 +30,11 @@ import types.World;
 import biomes.Mountains;
 import biomes.Plains;
 
+/**
+ * The main Window class.
+ * @author Noah
+ *
+ */
 public class aWindow extends JFrame {
 	BackgroundPanel back;
 	LabelButton play, options;
@@ -54,11 +59,13 @@ public class aWindow extends JFrame {
 
 	public aWindow() {
 		super("Complex Life");
+		//init world
 		world = new World(6, 10);
 		speed = 100L;
 		back = new BackgroundPanel(new Dimension(world.Lands.length * 100,
-				world.Lands.length * 100));
+				world.Lands.length * 100)); //background picture.
 
+		//set up the menu.
 		setSize(1000, 625);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		back.setLayout(new GridBagLayout());
@@ -97,12 +104,14 @@ public class aWindow extends JFrame {
 
 		add(back);
 
+		//set up the default values.
 		lionSet = new SpeciesSetComponents("Lion");
 		horseSet = new SpeciesSetComponents("Horse");
 		mGoatSet = new SpeciesSetComponents("Mountain Goat");
 	}
 
-	public void play() {
+	public void play() { //called when played.
+		//disable all components
 		for (int i = 0; i < setCom.length; i++) {
 			setCom[i].setEnabled(false);
 		}
@@ -112,24 +121,28 @@ public class aWindow extends JFrame {
 		/*
 		 * for (int i = 0; i < infoComPanelOpenSave.length; i++) {
 		 * infoComPanelOpenSave[i].setEnabled(false); }
+		 * 
+		 * From when open/saving was in the process of being implemented
 		 */
+		
+		//start timer.
 		time = new Timer();
 		time.scheduleAtFixedRate(new TimerTask() {
 
 			@Override
-			public void run() {
+			public void run() { //advance the world and values.
 				world.advance();
 				count++;
 				System.gc();
 				repaint();
 				WorldlyPanel.repaint();
 				if (world.Life.size() > 0) {
-					score++;
+					score++; //add to the score.
 				}
 				informations.setScore(score);
 				news.setNumbers();
-				checkEnd();
-				news.getNews();
+				checkEnd(); //make sure the game didn't end.
+				news.getNews(); //update the news.
 				repaint();
 			}
 
@@ -146,13 +159,14 @@ public class aWindow extends JFrame {
 		/*
 		 * for (int i = 0; i < infoComPanelOpenSave.length; i++) {
 		 * infoComPanelOpenSave[i].setEnabled(true); }
-		 */
+		 */// from open/saving
 		if (time != null) {
-			time.cancel();
+			time.cancel(); //stop from running.
 			repaint();
 		}
 	}
 
+	//no longer used
 	@Deprecated
 	public static void save(File file) {
 		PrintWriter writer = null;
@@ -196,6 +210,7 @@ public class aWindow extends JFrame {
 		writer.close();
 	}
 
+	//no longer used
 	@Deprecated
 	public static void loadFile(File file) throws NumberFormatException,
 			IOException {
@@ -245,6 +260,7 @@ public class aWindow extends JFrame {
 		}
 	}
 
+	//get Biome based on string.
 	public static Biome getBiome(String name, int x, int y) {
 		switch (name) {
 		case "Plains":
@@ -255,6 +271,7 @@ public class aWindow extends JFrame {
 		return null;
 	}
 
+	//the action called when play is clicked in the main menu.
 	class playAction implements MouseListener {
 
 		@Override
@@ -264,8 +281,8 @@ public class aWindow extends JFrame {
 			back.setVisible(false);
 			repaint();
 
-			set = new SetPanel();
-			set.setEnabled(false);
+			set = new SetPanel(); //add the setpanel
+			set.setEnabled(false); //add apocalypse mouselistener
 			set.apocalypse.addMouseListener(new MouseListener() {
 
 				@Override
@@ -291,7 +308,7 @@ public class aWindow extends JFrame {
 				}
 
 			});
-			score = 0;
+			score = 0; //init score
 			set.playPause.addMouseListener(new PauseAction());
 			add(set, BorderLayout.WEST);
 
@@ -299,19 +316,21 @@ public class aWindow extends JFrame {
 			informations.setBackground(set.getBackground());
 			add(informations, BorderLayout.EAST);
 
-			setCom = set.getComponents();
+			setCom = set.getComponents(); //init arrays of components for easy enable/disabling
 			infoCom = informations.getComponents();
 			// infoComPanelOpenSave = informations.openSave.getComponents();
 
-			WorldlyPanel = new WorldPanel(world);
+			WorldlyPanel = new WorldPanel(world); //init panel with the world.
 			WorldlyPanel.addMouseListener(new worldClickAction());
 			add(WorldlyPanel, BorderLayout.CENTER);
 
+			//init/add news.
 			news = new NewsPanel();
 			add(news, BorderLayout.SOUTH);
 
 			isPause = true;
 			Color col = Color.black;
+			//set colour based on the animal selected from the combo box.
 			switch (World.creature((String) (set.animals.getSelectedItem()), 0,
 					0).species) {
 			case "Lion":
@@ -336,7 +355,7 @@ public class aWindow extends JFrame {
 
 		@Override
 		public void mouseEntered(MouseEvent arg0) {
-			try {
+			try { 
 				play.setImage(ImageIO.read(new File(
 						"src/resources/PlayMoused.png")));
 				play.repaint();
@@ -365,6 +384,7 @@ public class aWindow extends JFrame {
 
 	}
 
+	//called by the options button. Currently does nothing.
 	class optionsAction implements MouseListener {
 
 		@Override
@@ -404,6 +424,7 @@ public class aWindow extends JFrame {
 
 	}
 
+	//exits the game
 	class quitAction implements MouseListener {
 
 		@Override
@@ -442,6 +463,7 @@ public class aWindow extends JFrame {
 
 	}
 
+	//shows the information of the animal clicked.
 	class worldClickAction implements MouseListener {
 		public worldClickAction() {
 			super();
@@ -449,12 +471,12 @@ public class aWindow extends JFrame {
 
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			if (e.getX() > 0 && e.getX() < 600 && e.getY() > 0
+			if (e.getX() > 0 && e.getX() < 600 && e.getY() > 0 //if it is a valid animal and the space is within the world.
 					&& e.getY() < 600
 					&& world.grid[e.getX() / 5][e.getY() / 5].Occupant != null
 					&& world.grid[e.getX() / 5][e.getY() / 5].Occupant.alive) {
 				informations
-						.setAnimal(world.grid[e.getX() / 5][e.getY() / 5].Occupant);
+						.setAnimal(world.grid[e.getX() / 5][e.getY() / 5].Occupant); //set the animal to show.
 				repaint();
 			}
 		}
@@ -476,6 +498,7 @@ public class aWindow extends JFrame {
 		}
 	}
 
+	//called when the play/pause button is clicked.
 	class PauseAction implements MouseListener {
 
 		@Override
@@ -550,6 +573,7 @@ public class aWindow extends JFrame {
 
 	}
 
+	//counts the number of horses
 	public static int getHorses() {
 		int horses = 0;
 		for (int i = 0; i < world.Life.size(); i++) {
@@ -560,6 +584,7 @@ public class aWindow extends JFrame {
 		return horses;
 	}
 
+	//counts the number of lions
 	public static int getLions() {
 		int lions = 0;
 		for (int i = 0; i < world.Life.size(); i++) {
@@ -570,6 +595,7 @@ public class aWindow extends JFrame {
 		return lions;
 	}
 
+	//counts the number of goats
 	public static int getGoats() {
 		int goats = 0;
 		for (int i = 0; i < world.Life.size(); i++) {
@@ -579,48 +605,50 @@ public class aWindow extends JFrame {
 		}
 		return goats;
 	}
-
+	
+	//makes the news based on what has happened in the world.
 	public static String getNews() {
 		String news = "";
-		if (newWorld) {
+		if (newWorld) { //if the world was just created.
 			newWorld = false;
 			news += "WORLD CREATED!\t\n";
 		}
-		if (getHorses() == 0) {
+		if (getHorses() == 0) { //if there are no more horses
 			news += "HORSES WENT EXTINCT!\t\n";
 		}
-		if (getLions() == 0) {
+		if (getLions() == 0) {//if there are no more lions
 			news += "LIONS WENT EXTINCT!\t\n";
 		}
-		if (getGoats() == 0) {
+		if (getGoats() == 0) {//if there are no more goats
 			news += "GOATS WENT EXTINCT!\t\n";
 		}
 
-		if (getGoats() >= 17000) {
+		if (getGoats() >= 17000) {//if there are more than 17000 goats.
 			news += "Goats are reaching the limit!\t\n";
 		}
-		if (getLions() >= 17000) {
+		if (getLions() >= 17000) {//if there are more than 17000 lions.
 			news += "Lions are reaching the limit!\t\n";
 		}
-		if (getHorses() >= 17000) {
+		if (getHorses() >= 17000) {//if there are more than 17000 horses.
 			news += "Horses are reaching the limit!\t\n";
 		}
 
-		if (getGoats() >= 20000) {
+		if (getGoats() >= 20000) {//if there are more than 20000 goats.
 			news += "Goats are at the limit!\t\n";
 		}
-		if (getLions() >= 20000) {
+		if (getLions() >= 20000) {//if there are more than 20000 lions.
 			news += "Lions are at the limit!\t\n";
 		}
-		if (getHorses() >= 20000) {
+		if (getHorses() >= 20000) {//if there are more than 20000 horses.
 			news += "Horses are at the limit!\t\n";
 		}
 		return news;
 	}
 
+	//see if the game should end.
 	public boolean checkEnd() {
 		boolean win = false;
-		if (getHorses() + getLions() + getGoats() == 0) {
+		if (getHorses() + getLions() + getGoats() == 0) {//if there are no more animals
 			win = true;
 			time.cancel();
 			this.setVisible(false);
@@ -632,15 +660,7 @@ public class aWindow extends JFrame {
 			WINdow.setLocationRelativeTo(null);
 			WINdow.setVisible(true);
 		}
-		if (score > 1500) {
-			JFrame WINdow = new JFrame("End");
-			WINdow.setDefaultCloseOperation(EXIT_ON_CLOSE);
-			WINdow.getContentPane().add(new EndScreen(score));
-			WINdow.setSize(945, 531);
-			WINdow.setLocationRelativeTo(null);
-			WINdow.setVisible(true);
-		}
-		if (getHorses() >= 20000 || getLions() >= 20000 || getGoats() >= 20000) {
+		if (getHorses() >= 20000 || getLions() >= 20000 || getGoats() >= 20000) { //if there are more than 20000 of any animal.
 			win = true;
 			time.cancel();
 			this.setVisible(false);

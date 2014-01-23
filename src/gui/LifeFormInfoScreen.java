@@ -22,6 +22,11 @@ import javax.swing.filechooser.FileFilter;
 import lifeForms.plants.Grass;
 import types.LifeForm;
 
+/**
+ * Shows the information of animals, and holds the speed slider.
+ * @author Noah
+ *
+ */
 public class LifeFormInfoScreen extends JPanel {
 	JTextArea Info;
 	public JButton open;
@@ -45,7 +50,7 @@ public class LifeFormInfoScreen extends JPanel {
 		add(score);
 		
 		JPanel speedPanel = new JPanel();
-		speed_L = new JLabel("Speed:");
+		speed_L = new JLabel("Delay between moves:");
 		speedPanel.add(speed_L);
 		
 		speed_Sl = new JSlider(0, 1000, 100);

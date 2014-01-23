@@ -16,10 +16,15 @@ import lifeForms.plants.VenusFlytrap;
 import biomes.Mountains;
 import biomes.Plains;
 
+/**
+ * The world.
+ * @author Noah
+ *
+ */
 public class World {
-	public ArrayList<LifeForm> Life;
-	public Biome[][] Lands;
-	public Tile[][] grid;
+	public ArrayList<LifeForm> Life; //All lifeforms on the grid
+	public Biome[][] Lands; //the grid of biomes
+	public Tile[][] grid; //the grid of tiles.
 
 	public World(int landnumber, int density) {
 		// create biomes
@@ -27,6 +32,7 @@ public class World {
 		Lands = new Biome[landnumber][landnumber];
 		Life = new ArrayList<LifeForm>();
 		LifeForm occupy;
+		//randomly generate biomes
 		for (int i = 0; i < landnumber; i++) {
 			for (int j = 0; j < landnumber; j++) {
 				Lands[i][j] = worldBiomeGen(i, j);
@@ -38,7 +44,7 @@ public class World {
 				}
 			}
 		}
-		// populate
+		// populate with animals
 		for (int i = 0; i < grid.length; i++) {
 			for (int j = 0; j < grid[i].length; j++) {
 				int spawnChance = (int) ((Math.random() * 100) + 1);
@@ -62,6 +68,8 @@ public class World {
 		}
 	}
 
+	//jungle and oceans disabled.
+	//randomly get a biome. 2 in 3 chance for plains. 1 in three for mountains.
 	private Biome worldBiomeGen(int i, int j) {
 		Biome biome = null;
 		int random = (int) (Math.random() * 3) + 1;
@@ -81,6 +89,7 @@ public class World {
 		return biome;
 	}
 
+	//finds an animal with which to populate the grid.
 	public static LifeForm populate(Tile tile, String spawnType, int x, int y) {
 		LifeForm Occupant = null;
 		int spawnChance;
@@ -95,7 +104,8 @@ public class World {
 		return Occupant;
 	}
 
-	public static LifeForm creature(String species, int x, int y) {
+	//determines what type of LifeForm a creature is when given the string representation of the name.
+	public static LifeForm creature(String species, int x, int y) { //most deprecated.
 		LifeForm living = null;
 
 		switch (species) {
@@ -134,12 +144,13 @@ public class World {
 	public void advance() {
 		for (int i = 0; i < Life.size(); i++) {
 			if (!Life.get(i).isDead()) {
-				if (i < Life.size())
+				if (i < Life.size()) //move everything
 					grid = Life.get(i).Move(grid);
 				boolean breedingEnabled = true;
 				int breedCooldown = 0;
+				//determine what will breed.
 				if (i < Life.size()) {
-					switch (Life.get(i).species) {
+					switch (Life.get(i).species) { //find values that will determine whether the animals will breed based on the species.
 					case "Lion":
 						breedingEnabled = aWindow.lionSet.trueBreed
 								.isSelected();
@@ -160,7 +171,7 @@ public class World {
 						break;
 					}
 					if (i < Life.size()) {
-						if (breedingEnabled && Life.get(i).willBreed
+						if (breedingEnabled && Life.get(i).willBreed //if the animal is on the same square as its own kind, and if the species as a whole can breed.
 								&& (breedCooldown == 0 || breedCooldown == -1)) {
 							if (i < Life.size())
 								Life.get(i).Breed(this);
@@ -183,7 +194,7 @@ public class World {
 								}
 							}
 						}
-						if (breedCooldown == 0 || breedCooldown == -1) {
+						if (breedCooldown == 0 || breedCooldown == -1) {//if the cooldown on breeding is done, reset it.
 							if (i < Life.size()) {
 								switch (Life.get(i).species) {
 								case "Lion":
@@ -202,7 +213,7 @@ public class World {
 							}
 						}
 
-						if (aWindow.count == 10) {
+						if (aWindow.count == 10) {//age the animals
 							if (i == Life.size() - 1)
 								aWindow.count = 0;
 							if (i < Life.size()) {
@@ -210,7 +221,7 @@ public class World {
 									Life.get(i).Age();
 							}
 						}
-						if (i < Life.size()) {
+						if (i < Life.size()) { //check if any are dead.
 							if (Life.get(i).isDead()) {
 								if (i < Life.size())
 									i = kill(i);
@@ -222,23 +233,25 @@ public class World {
 		}
 	}
 
+	//kills the specified animal in the Life array
 	public int kill(int i) {
-		if (!(Life.get(i) instanceof Grass)) {
+		if (!(Life.get(i) instanceof Grass)) { //if it's not grass
 			if (i < Life.size())
-				Life.get(i).Die();
+				Life.get(i).Die();//kill it
 			if (i < Life.size())
-				grid[Life.get(i).localx][Life.get(i).localy].Occupant = null;
+				grid[Life.get(i).localx][Life.get(i).localy].Occupant = null;//the space it occupied is free
 			if (i < Life.size())
-				Life.remove(i);
-			i--; // Otherwise the next LifeForm in Life is skipped
+				Life.remove(i);//remove from the arraylist
+			i--; // Otherwise the next LifeForm in Life is skipped, because this one was removed.
 		}
 		return i;
 
 	}
 
+	//kill all animals exept one, but make sure that survivor is not grass, because that goes on forever.
 	public void Apocalypse() {
 		int index = (int) (Math.random() * Life.size());
-		while (Life.get(index).species == "Grass")
+		while (Life.get(index).species == "Grass") //while the survivor is grass, get a new one.
 			index = (int) (Math.random() * Life.size());
 		LifeForm survivor = Life.get(index);
 		for (int i = 0; i < Life.size(); i++) {

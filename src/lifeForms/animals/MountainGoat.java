@@ -4,6 +4,11 @@ import java.awt.Color;
 
 import types.LifeForm;
 
+/**
+ * A Mountain Goat. Lives for 30 years. can move 200 squares without eating.
+ * @author Noah
+ *
+ */
 public class MountainGoat extends LifeForm{
 	public static Color colour;
 	public static boolean breedEnabled;

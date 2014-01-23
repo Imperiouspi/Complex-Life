@@ -9,10 +9,16 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
+/**
+ * The panel to click to summon an apocalypse. Leaves one animal alive.
+ * @author Noah
+ *
+ */
 public class ApocalypsePane extends JPanel{
 	BufferedImage image;
 	public ApocalypsePane(String imagePath){
 		super();
+		//set size.
 		setPreferredSize(new Dimension(200, 50));
 		setMinimumSize(new Dimension(200, 50));
 		setMaximumSize(new Dimension(200, 50));
@@ -27,7 +33,7 @@ public class ApocalypsePane extends JPanel{
 	}
 	
 	@Override
-	public void paintComponent(Graphics g){
+	public void paintComponent(Graphics g){ //draw picture
 		g.drawImage(image, 0, 0, null);
 	}
 }

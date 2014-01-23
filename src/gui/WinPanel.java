@@ -1,6 +1,10 @@
 package gui;
 
 import java.awt.Dimension;
+
+/**
+ * An alternate version of the endScreen. shows the win picture.
+ */
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;

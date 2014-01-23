@@ -10,6 +10,7 @@ import lifeForms.animals.Horse;
 import lifeForms.animals.Lion;
 import lifeForms.animals.MountainGoat;
 
+//the components to set the values of the species
 public class SpeciesSetComponents {
 	public JSlider R_Sl;
 	public JSlider B_Sl;

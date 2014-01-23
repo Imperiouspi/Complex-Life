@@ -11,6 +11,11 @@ import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+/**
+ * shows the pause image.
+ * @author Noah
+ *
+ */
 public class PauseButton extends JPanel {
 	BufferedImage image;
 	public static boolean enabled;

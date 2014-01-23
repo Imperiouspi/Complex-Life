@@ -12,13 +12,18 @@ import lifeForms.animals.Lion;
 import lifeForms.animals.MountainGoat;
 import lifeForms.plants.Grass;
 
+/**
+ * Represents an abstract LifeForm on the board.
+ * @author Noah
+ *
+ */
 public abstract class LifeForm {
 	public String species;
 	public int MaxHealth, MaxHunger, maxLife;
 	public int healthLeft, hungerLeft;
 	public String[] eats, predators;
 	public int LifeSpan;
-	public int localx, localy, viewDistance = 5;
+	public int localx, localy, /*the coordinates*/ viewDistance = 5;
 	public boolean alive, willBreed = false;
 
 	public LifeForm(int x, int y) {
@@ -36,11 +41,12 @@ public abstract class LifeForm {
 		return eaten;
 	}
 
+	//decides where the lifeform will move
 	public Tile[][] Move(Tile[][] grid) {
-		// if no prey or predators around, move randomly.
 		Point moveTo = new Point(0, 0);
 		Tile[][] seen = new Tile[5][5];
 
+		//make an array of tiles observed.
 		int a = 0, b = 0;
 		for (int i = -2; i <= 2; i++, a++) {
 			for (int j = -2; j <= 2; j++, b++) {
@@ -53,8 +59,9 @@ public abstract class LifeForm {
 				}
 			}
 		}
-		moveTo = getPoint((getAveragePredatorAngle(seen) + getAverageFoodAngle(seen)) / 2);
-		if (moveTo.x == 0 && moveTo.y == 0) { // if it hasn't moved
+		moveTo = getPoint((getAveragePredatorAngle(seen) + getAverageFoodAngle(seen)) / 2); //find a point based on predators and food.
+		
+		if (moveTo.x == 0 && moveTo.y == 0) { // if it hasn't moved, choose a random location.
 			moveTo = moveRandom(grid);
 			int chance = (int) (Math.random() * 2);
 			if (chance == 1 && this.localx + moveTo.x < grid.length) {
@@ -81,7 +88,7 @@ public abstract class LifeForm {
 				&& !isPredator(grid[this.localx + moveTo.x][this.localy
 						+ moveTo.y].Occupant)
 				&& !grid[this.localx + moveTo.x][this.localy + moveTo.y].Occupant.species
-						.equals(this.species)) {
+						.equals(this.species)) {//if the space is taken up by an animal that is not interacted with, move
 			moveTo = moveRandom(grid);
 			int chance = (int) (Math.random() * 2);
 			if (chance == 1 && this.localx + moveTo.x < grid.length) {
@@ -116,12 +123,12 @@ public abstract class LifeForm {
 		if (grid[this.localx][this.localy].Occupant != null
 				&& isFood(grid[this.localx][this.localy].Occupant)
 				&& grid[this.localx][this.localy].Occupant.alive) {
-			grid[this.localx][this.localy].Occupant = Eat(grid[this.localx][this.localy].Occupant);
+			grid[this.localx][this.localy].Occupant = Eat(grid[this.localx][this.localy].Occupant); //eat it if it's food
 		} else if (grid[this.localx][this.localy].Occupant != null
 				&& grid[this.localx][this.localy].Occupant.species
 						.equals(this.species)
 				&& grid[this.localx][this.localy].Occupant.alive) {
-			willBreed = true;
+			willBreed = true; //if the animal is the same species as the one it will land on
 		} else {
 			willBreed = false;
 			hungerLeft--;
@@ -131,18 +138,17 @@ public abstract class LifeForm {
 		return grid;
 	}
 
-	public Point moveRandom(Tile[][] grid) {
+	public Point moveRandom(Tile[][] grid) { //random tile to move to.
 		Point moveTo = new Point(0, 0);
 		moveTo = new Point((int) (Math.random() * 2) + 1,
 				(int) (Math.random() * 2) + 1);
 		return moveTo;
 	}
 
-	public int getAveragePredatorAngle(Tile[][] seen) {// Lions don't have
-		// predators. :(
+	public int getAveragePredatorAngle(Tile[][] seen) {
 		int angle = 0;
 		int predatorCount = 0;
-
+		//find the average angle of the predators around the animal.
 		for (int i = 0; i < 5; i++) {
 			for (int j = 0; j < 5; j++) {
 				if (seen[i][j] != null && seen[i][j].Occupant != null) {
@@ -163,6 +169,7 @@ public abstract class LifeForm {
 				if (angle / predatorCount < 0) {
 					angle = 360 - angle;
 				}
+				//return the opposite direction of the predators.
 				return angle / predatorCount - 180;
 			}
 		} else {
@@ -170,6 +177,7 @@ public abstract class LifeForm {
 		}
 	}
 
+	//get the average angle of the food around the animal.
 	public int getAverageFoodAngle(Tile[][] seen) {
 		int angle = 0;
 		int foodCount = 0;
@@ -201,6 +209,7 @@ public abstract class LifeForm {
 		}
 	}
 
+	//get an angle from a 5x5 array of tiles.
 	public int getAngle(Tile[][] seen, int x, int y) {
 		switch (y) {
 		case 0:
@@ -272,6 +281,7 @@ public abstract class LifeForm {
 		return 0;
 	}
 
+	//get a point from an angle
 	public Point getPoint(int angle) {
 		if (angle < 0) {
 			angle = 360 - angle;
@@ -314,6 +324,7 @@ public abstract class LifeForm {
 		return moveTo;
 	}
 
+	//find if the specified animal is a predator
 	public boolean isPredator(ArrayList<LifeForm> life) {
 		for (int j = 0; j < life.size(); j++) {
 			if (life.get(j) != null) {
@@ -332,6 +343,7 @@ public abstract class LifeForm {
 		return false;
 	}
 
+	//find if the specified animal is food.
 	public boolean isFood(ArrayList<LifeForm> life) {
 		for (int j = 0; j < life.size(); j++) {
 			if (life.get(j) != null) {
@@ -349,7 +361,8 @@ public abstract class LifeForm {
 		}
 		return false;
 	}
-
+	
+	//find if the specified animal is a predator
 	public boolean isPredator(LifeForm life) {
 		if (life != null) {
 			for (int i = 0; i < this.predators.length; i++) {
@@ -366,6 +379,7 @@ public abstract class LifeForm {
 		return false;
 	}
 
+	//find if the specified animal is food.
 	public boolean isFood(LifeForm life) {
 		if (life != null) {
 			for (int i = 0; i < this.eats.length; i++) {
@@ -383,6 +397,7 @@ public abstract class LifeForm {
 	}
 
 	public boolean Breed(World world) {
+		//randomly make animals breed based on the chance.
 		int breed = (int) (Math.random() * 100);
 		int breedChance = 1;
 		switch (this.species) {
@@ -396,6 +411,7 @@ public abstract class LifeForm {
 			breedChance = MountainGoat.statBreedChance;
 			break;
 		}
+		//if there will be an animal, add it.
 		if (breed < breedChance) {
 			world.Life.add(World.creature(this.species, localx, localy));
 			return true;
@@ -403,8 +419,10 @@ public abstract class LifeForm {
 		return false;
 	}
 
+	//handles what happens when an animal is eaten.
 	public abstract void onEaten(LifeForm eating);
 
+	//an animal is dead if it's health, hunger, or life left is 0, or if it isn't alive.
 	public boolean isDead() {
 		if (healthLeft <= 0 || hungerLeft <= 0 || LifeSpan <= 0 || !alive) {
 			return true;
@@ -412,14 +430,17 @@ public abstract class LifeForm {
 		return false;
 	}
 
+	//set alive to false.s
 	public void Die() {
 		this.alive = false;
 	}
 
+	//subtract one from LifeSpan.
 	public void Age() {
 		this.LifeSpan--;
 	}
 
+	//draw the animal on the grid.
 	public void draw(Graphics g) {
 		if (!this.isDead()) {
 			Color col = Color.black;

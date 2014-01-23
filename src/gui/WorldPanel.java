@@ -9,6 +9,11 @@ import javax.swing.JPanel;
 import lifeForms.plants.Grass;
 import types.World;
 
+/**
+ * Displays the entire world.
+ * @author Noah
+ *
+ */
 public class WorldPanel extends JPanel{
 	World world;
 
@@ -21,6 +26,7 @@ public class WorldPanel extends JPanel{
 
 	@Override
 	public void paintComponent(Graphics g) {
+		//draw the world
 		for (int i = 0; i < world.grid.length; i++) {
 			for (int j = 0; j < world.grid[i].length; j++) {
 				g.setColor(world.grid[i][j].color);
@@ -28,6 +34,7 @@ public class WorldPanel extends JPanel{
 			}
 		}
 
+		//set colour based on species
 		for (int i = 0; i < world.Life.size(); i++) {
 			Color col = Color.black;
 			switch (world.Life.get(i).species) {
@@ -41,6 +48,7 @@ public class WorldPanel extends JPanel{
 				col = Grass.colour; break;
 			}
 			g.setColor(col);
+			//draw the animals
 			if (i < world.Life.size())
 				world.Life.get(i).draw(g);
 		}

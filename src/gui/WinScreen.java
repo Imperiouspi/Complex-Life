@@ -8,6 +8,13 @@ import java.awt.Graphics;
 import javax.swing.JFrame;
 import javax.swing.JTextArea;
 
+/**
+ * early stages of the endScreen
+ * @author Noah
+ *
+ */
+
+@Deprecated
 public class WinScreen extends JFrame {
 	public WinScreen(int score) {
 		super("YOU WIN");

@@ -3,7 +3,11 @@ package lifeForms.animals;
 import java.awt.Color;
 
 import types.LifeForm;
-
+/**
+ * A Lion. Lives for 50 years. can move 50 squares without eating.
+ * @author Noah
+ *
+ */
 public class Lion extends LifeForm {
 	public static Color colour;
 	public static boolean breedEnabled;

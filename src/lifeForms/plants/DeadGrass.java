@@ -2,6 +2,12 @@ package lifeForms.plants;
 
 import java.awt.Color;
 
+/**
+ * A standard Plant, no longer used. A joke plant, as it would disappear as soon as it was put on the board.
+ * @author Noah
+ *
+ */
+@Deprecated
 public class DeadGrass extends Grass {
 	public static Color colour;
 

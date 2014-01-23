@@ -11,6 +11,11 @@ import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
+/**
+ * The screen seen at the end of the game. shows score and picture
+ * @author Noah
+ *
+ */
 public class EndScreen extends JPanel {
 	BufferedImage img;
 	public EndScreen(int score) {

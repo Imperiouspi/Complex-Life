@@ -4,6 +4,12 @@ import java.awt.Color;
 
 import types.LifeForm;
 
+/**
+ * A standard LifeForm, no longer used.
+ * @author Noah
+ *
+ */
+@Deprecated
 public class Wolf extends LifeForm {
 	public static Color colour;
 	public static int statBreedChance, statBreedCooldown;

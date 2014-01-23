@@ -5,6 +5,12 @@ import java.awt.Point;
 
 import types.Biome;
 
+/**
+ * A normal biome, but was discarded in the favor of simplicity. Supports Venus Flytraps and Lions.
+ * @author Noah
+ *
+ */
+@Deprecated
 public class Jungle extends Biome {
 
 	public Jungle(int x, int y) {

@@ -1,6 +1,11 @@
 package types;
 
-
+/**
+ * extends LifeForm
+ * overrides moving and breeding, making them do nothing for plants.
+ * @author Noah
+ *
+ */
 public abstract class Plant extends LifeForm{
 	public Plant(int x, int y){
 		super(x, y);

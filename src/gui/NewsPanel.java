@@ -6,6 +6,11 @@ import java.awt.Color;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
+/**
+ * shows the news from the world.
+ * @author Noah
+ *
+ */
 public class NewsPanel extends JPanel {
 	public JTextArea animals, news;
 	public int horseNum, lionNum, goatNum;

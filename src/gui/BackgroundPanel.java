@@ -9,6 +9,11 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
+/**
+ * Shows the background picture in the menu.
+ * @author Noah
+ *
+ */
 public class BackgroundPanel extends JPanel{
 	public BackgroundPanel(Dimension d){
 		super();

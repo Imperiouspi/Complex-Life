@@ -4,10 +4,15 @@ import java.awt.Color;
 
 import types.LifeForm;
 
+/**
+ * A Horse. Lives for 30 years. can move 500 squares without eating.
+ * @author Noah
+ *
+ */
 public class Horse extends LifeForm {
 	public static Color colour;
 	public static boolean breedEnabled;
-	public static int statBreedChance, statBreedCooldown;
+	public static int statBreedChance, statBreedCooldown; //static variables of the cooldown and breedchance.
 	public Horse(int x, int y) {
 		super(x, y);
 		species = "Horse";

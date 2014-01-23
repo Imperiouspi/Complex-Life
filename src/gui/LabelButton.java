@@ -9,7 +9,11 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
-
+/**
+ * framework for the buttons in the game. A general purpose JPanel button.
+ * @author Noah
+ *
+ */
 public class LabelButton extends JPanel{
 	public BufferedImage image;
 	

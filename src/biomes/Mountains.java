@@ -5,6 +5,13 @@ import java.awt.Point;
 
 import types.Biome;
 
+/**
+ * A Normal Biome.
+ * Supports grass and Mountain Goats.
+ * It has a color of (200, 200, 200).
+ * @author Noah
+ *
+ */
 public class Mountains extends Biome {
 
 	public Mountains(int x, int y) {

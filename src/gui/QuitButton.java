@@ -9,7 +9,11 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
-
+/**
+ * the quit button seen in the menu
+ * @author Noah
+ *
+ */
 public class QuitButton extends JPanel{
 	public BufferedImage image;
 	

@@ -5,6 +5,12 @@ import java.awt.Color;
 import types.LifeForm;
 import types.Plant;
 
+/**
+ * No longer used, but was ate animals when they tried to eat it.
+ * @author Noah
+ *
+ */
+@Deprecated
 public class VenusFlytrap extends Plant {
 	public static Color colour;
 	public VenusFlytrap(int x, int y) {

@@ -5,7 +5,13 @@ import java.awt.Color;
 import types.LifeForm;
 import types.Plant;
 
-public class Grass extends Plant { // :)
+/**
+ * Grass overrides the death method, and so cannot die. otherwise, a standard plant.
+ * 
+ * @author Noah
+ * 
+ */
+public class Grass extends Plant {
 	public static Color colour;
 
 	public Grass(int x, int y) {
@@ -20,30 +26,17 @@ public class Grass extends Plant { // :)
 		hungerLeft = MaxHunger;
 		eats = new String[] { null, null };
 		predators = new String[] { "Horse", "Deer", "Rabbit", "MountainGoat" };
-		colour = new Color(0, 200, 0); // Should this be (0, 200, 0) like the one
-										// above, or (10, 200, 10) like it used
-										// to be?
+		colour = new Color(0, 200, 0);
 		maxLife = 30;
 		LifeSpan = 30;
 	}
 
 	@Override
 	public void Die() {
-		// TODO Auto-generated method stub
-
 	}
-	
+
 	@Override
 	public void onEaten(LifeForm eating) {
-/*		// If you put healthLeft++, healthLeft will increase by one. I don't
-		// think that's what you want.
-		eating.healthLeft = Math.min(healthLeft + 1, MaxHealth);
-		eating.hungerLeft = Math.max(hungerLeft - 1, 0);
-		this.LifeSpan -= 10;
-		// I changed the hungerLeft assignment. I feel like hunger should
-		// decrease, not increase.
-		// These changes to healthLeft and hungerLeft should be to the life form
-		// eating the grass, right? Not the grass itself?
-*/	}
+	}
 
 }
